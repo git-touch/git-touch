@@ -191,15 +191,15 @@
   "@switchAccounts": {
     "description": "Switch accounts"
   },
-  "giteaStatus": "Gitea 系统状态",
+  "giteaStatus": "Gitea 状态",
   "@giteaStatus": {
     "description": "Gitea status"
   },
-  "gitlabStatus": "GitLab 系统状态",
+  "gitlabStatus": "GitLab 状态",
   "@gitlabStatus": {
     "description": "GitLab status"
   },
-  "githubStatus": "GitHub 系统状态",
+  "githubStatus": "GitHub 状态",
   "@githubStatus": {
     "description": "github status"
   },
