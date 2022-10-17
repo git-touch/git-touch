@@ -1,0 +1,103 @@
+fragment UserParts on User {
+  login
+  name
+  avatarUrl
+  location
+  createdAt
+}
+
+fragment OrgParts on Organization {
+  login
+  name
+  avatarUrl
+  location
+  createdAt
+}
+
+query Followers($login: String!, $after: String) {
+  user(login: $login) {
+    followers(first: 30, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...UserParts
+      }
+    }
+  }
+}
+
+query Following($login: String!, $after: String) {
+  user(login: $login) {
+    following(first: 30, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...UserParts
+      }
+    }
+  }
+}
+
+query Orgs($login: String!, $after: String) {
+  user(login: $login) {
+    organizations(first: 30, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...OrgParts
+      }
+    }
+  }
+}
+
+query Members($login: String!, $after: String) {
+  organization(login: $login) {
+    membersWithRole(first: 30, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...UserParts
+      }
+    }
+  }
+}
+
+query Watchers($owner: String!, $name: String!, $after: String) {
+  repository(owner: $owner, name: $name) {
+    watchers(first: 30, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...UserParts
+      }
+    }
+  }
+}
+
+query Stargazers($owner: String!, $name: String!, $after: String) {
+  repository(owner: $owner, name: $name) {
+    stargazers(
+      first: 30
+      after: $after
+      orderBy: { field: STARRED_AT, direction: DESC }
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...UserParts
+      }
+    }
+  }
+}

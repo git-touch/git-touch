@@ -1,6 +1,8 @@
 import 'package:fimber/fimber.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
 
@@ -13,17 +15,16 @@ class AvatarSize {
 }
 
 class Avatar extends StatelessWidget {
-  final String? url;
-  final double size;
-  final String? linkUrl;
-  final BorderRadius? borderRadius;
-
-  Avatar({
+  const Avatar({
     required this.url,
     this.size = AvatarSize.medium,
     this.linkUrl,
-    this.borderRadius,
+    this.square = false,
   });
+  final String? url;
+  final double size;
+  final String? linkUrl;
+  final bool square;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class Avatar extends StatelessWidget {
     final fallbackWidget = Image.asset(fallback, width: size, height: size);
 
     final widget = ClipRRect(
-      borderRadius: borderRadius ?? BorderRadius.circular(size / 2),
+      borderRadius: BorderRadius.circular(square ? 4 : size),
       child: url == null
           ? fallbackWidget
           : FadeInImage.assetNetwork(
@@ -43,10 +44,10 @@ class Avatar extends StatelessWidget {
               image: url!,
               width: size,
               height: size,
-              fadeInDuration: Duration(milliseconds: 200),
-              fadeOutDuration: Duration(milliseconds: 100),
+              fadeInDuration: const Duration(milliseconds: 200),
+              fadeOutDuration: const Duration(milliseconds: 100),
               imageErrorBuilder: (_, __, ___) {
-                Fimber.e('image error: ' + url!);
+                Fimber.e('image error: ${url!}');
                 return fallbackWidget;
               },
             ),
@@ -55,7 +56,7 @@ class Avatar extends StatelessWidget {
     return LinkWidget(
       child: widget,
       onTap: () {
-        context.read<ThemeModel>().push(context, linkUrl!);
+        context.pushUrl(linkUrl!);
       },
     );
   }

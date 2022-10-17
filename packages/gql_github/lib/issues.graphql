@@ -1,0 +1,68 @@
+query Issues($owner: String!, $name: String!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    issues(
+      states: OPEN
+      orderBy: { field: CREATED_AT, direction: DESC }
+      first: 30
+      after: $cursor
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        number
+        title
+        updatedAt
+        author {
+          login
+          avatarUrl
+        }
+        labels(first: 10) {
+          nodes {
+            name
+            color
+          }
+        }
+        comments {
+          totalCount
+        }
+      }
+    }
+  }
+}
+
+## pulls
+query Pulls($owner: String!, $name: String!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequests(
+      states: OPEN
+      orderBy: { field: CREATED_AT, direction: DESC }
+      first: 30
+      after: $cursor
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        number
+        title
+        updatedAt
+        author {
+          login
+          avatarUrl
+        }
+        labels(first: 10) {
+          nodes {
+            name
+            color
+          }
+        }
+        comments {
+          totalCount
+        }
+      }
+    }
+  }
+}

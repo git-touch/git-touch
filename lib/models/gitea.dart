@@ -4,18 +4,21 @@ part 'gitea.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaUser {
+  GiteaUser();
+  factory GiteaUser.fromJson(Map<String, dynamic> json) =>
+      _$GiteaUserFromJson(json);
   int? id;
   String? login;
   String? fullName;
   String? avatarUrl;
   DateTime? created;
-  GiteaUser();
-  factory GiteaUser.fromJson(Map<String, dynamic> json) =>
-      _$GiteaUserFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaOrg {
+  GiteaOrg();
+  factory GiteaOrg.fromJson(Map<String, dynamic> json) =>
+      _$GiteaOrgFromJson(json);
   int? id;
   String? username;
   String? fullName;
@@ -23,13 +26,13 @@ class GiteaOrg {
   String? description;
   String? website;
   String? location;
-  GiteaOrg();
-  factory GiteaOrg.fromJson(Map<String, dynamic> json) =>
-      _$GiteaOrgFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaRepository {
+  GiteaRepository();
+  factory GiteaRepository.fromJson(Map<String, dynamic> json) =>
+      _$GiteaRepositoryFromJson(json);
   int? id;
   GiteaUser? owner;
   String? name;
@@ -41,34 +44,33 @@ class GiteaRepository {
   int? size;
   int? openIssuesCount;
   int? openPrCounter;
-  GiteaRepository();
-  factory GiteaRepository.fromJson(Map<String, dynamic> json) =>
-      _$GiteaRepositoryFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaTree {
+  GiteaTree({required this.type, required this.name});
+  factory GiteaTree.fromJson(Map<String, dynamic> json) =>
+      _$GiteaTreeFromJson(json);
   String type;
   String name;
   String? path;
   int? size;
   String? downloadUrl;
-  GiteaTree({required this.type, required this.name});
-  factory GiteaTree.fromJson(Map<String, dynamic> json) =>
-      _$GiteaTreeFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaBlob extends GiteaTree {
-  String? content;
-  GiteaBlob({required String type, required String name})
-      : super(name: name, type: type);
+  GiteaBlob({required super.type, required super.name});
   factory GiteaBlob.fromJson(Map<String, dynamic> json) =>
       _$GiteaBlobFromJson(json);
+  String? content;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaCommit {
+  GiteaCommit();
+  factory GiteaCommit.fromJson(Map<String, dynamic> json) =>
+      _$GiteaCommitFromJson(json);
   int? number;
   GiteaUser? author;
   String? title;
@@ -76,33 +78,33 @@ class GiteaCommit {
   GiteaCommitDetail? commit;
   String? sha;
   String? htmlUrl;
-  GiteaCommit();
-  factory GiteaCommit.fromJson(Map<String, dynamic> json) =>
-      _$GiteaCommitFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaCommitDetail {
-  String? message;
-  GiteaCommitAuthor? author;
-  GiteaCommitAuthor? committer;
   GiteaCommitDetail();
   factory GiteaCommitDetail.fromJson(Map<String, dynamic> json) =>
       _$GiteaCommitDetailFromJson(json);
+  String? message;
+  GiteaCommitAuthor? author;
+  GiteaCommitAuthor? committer;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaCommitAuthor {
-  String? name;
-  String? email;
-  DateTime? date;
   GiteaCommitAuthor();
   factory GiteaCommitAuthor.fromJson(Map<String, dynamic> json) =>
       _$GiteaCommitAuthorFromJson(json);
+  String? name;
+  String? email;
+  DateTime? date;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaIssue {
+  GiteaIssue();
+  factory GiteaIssue.fromJson(Map<String, dynamic> json) =>
+      _$GiteaIssueFromJson(json);
   String? title;
   String? body;
   int? number;
@@ -112,31 +114,31 @@ class GiteaIssue {
   String? state;
   String? htmlUrl;
   List<GiteaLabel>? labels;
-  GiteaIssue();
-  factory GiteaIssue.fromJson(Map<String, dynamic> json) =>
-      _$GiteaIssueFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaLabel {
-  String? color;
-  String? name;
   GiteaLabel();
   factory GiteaLabel.fromJson(Map<String, dynamic> json) =>
       _$GiteaLabelFromJson(json);
+  String? color;
+  String? name;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaHeatmapItem {
-  int? timestamp;
-  int? contributions;
   GiteaHeatmapItem();
   factory GiteaHeatmapItem.fromJson(Map<String, dynamic> json) =>
       _$GiteaHeatmapItemFromJson(json);
+  int? timestamp;
+  int? contributions;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GiteaComment {
+  GiteaComment();
+  factory GiteaComment.fromJson(Map<String, dynamic> json) =>
+      _$GiteaCommentFromJson(json);
   String? body;
   DateTime? createdAt;
   String? htmlUrl;
@@ -144,7 +146,4 @@ class GiteaComment {
   DateTime? updatedAt;
   int? id;
   GiteaUser? user;
-  GiteaComment();
-  factory GiteaComment.fromJson(Map<String, dynamic> json) =>
-      _$GiteaCommentFromJson(json);
 }

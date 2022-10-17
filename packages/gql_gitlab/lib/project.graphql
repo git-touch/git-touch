@@ -1,0 +1,20 @@
+query Project($fullPath: String!) {
+  project(fullPath: $fullPath) {
+    name
+    avatarUrl
+    description
+    starCount
+    forksCount
+    visibility
+    webUrl
+    issuesEnabled
+    openIssuesCount
+    mergeRequestsEnabled
+    createdAt
+    lastActivityAt
+    statistics {
+      commitCount
+      repositorySize
+    }
+  }
+}

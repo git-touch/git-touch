@@ -1,122 +1,134 @@
 name: git_touch
 description: A new Flutter project.
-publish_to: none
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.13.0+26
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.5 <3.0.0"
 
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^1.0.3
-  ferry: ^0.10.2
-  ferry_flutter: ^0.5.2
+  gql_github:
+    path: ./packages/gql_github
+  gql_gitlab:
+    path: ./packages/gql_gitlab
+  github_trending:
+    path: ./packages/github_trending
+  antd_mobile:
+    path: ../ant-design-mobile-flutter
+  cupertino_icons: ^1.0.5
+  ferry: ^0.11.2+1
+  ferry_flutter: ^0.6.2
   file_icon: ^1.0.0
   filesize: ^2.0.1
-  fimber: ^0.6.1
-  fluro: ^2.0.3
+  fimber: ^0.6.6
   flutter_highlight: ^0.7.0
-  flutter_markdown: ^0.6.2
-  flutter_svg: ^0.22.0
-  flutter_vector_icons: ^1.0.0
-  github: ^8.1.0
-  github_trending: ^1.1.0
-  gql_http_link: ^0.4.0-nullsafety.1
-  http: ^0.13.3
-  # in_app_review: ^1.0.4
+  flutter_markdown: ^0.6.12
+  flutter_svg: ^1.1.5
+  flutter_vector_icons: ^2.0.0
+  github: ^9.4.0
+  gql: ^0.14.0
+  gql_http_link: ^0.4.4+1
+  http: ^0.13.5
   intl: ^0.17.0
-  json_annotation: ^4.0.1
+  json_annotation: ^4.7.0
   launch_review: ^3.0.1
   nanoid: ^1.0.0
-  package_info: ^2.0.0
+  package_info_plus: ^2.0.0
   primer: ^0.1.0
-  provider: ^5.0.0
-  share: ^2.0.1
-  shared_preferences: ^2.0.5
-  timeago: ^3.0.2
-  tuple: ^2.0.0
+  provider: ^6.0.4
+  share_plus: ^5.0.0
+  shared_preferences: ^2.0.15
+  timeago: ^3.3.0
+  tuple: ^2.0.1
   uni_links: ^0.5.1
   universal_io: ^2.0.4
   uri: ^1.0.0
-  url_launcher: ^6.0.3
-  webview_flutter: ^2.0.4
-  sentry_flutter: ^5.1.0
-  pub_semver: ^2.0.0
+  url_launcher: ^6.1.6
+  webview_flutter: ^3.0.4
+  sentry_flutter: ^6.12.2
+  pub_semver: ^2.1.2
+  google_fonts: ^3.0.1
+  go_router: ^5.1.0
+  from_css_color: ^2.0.0
+  maps_launcher: ^2.0.1
+  path: ^1.8.2
 
 dev_dependencies:
+  build_runner: ^2.3.0
+  ferry_generator: ^0.6.1
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  build_runner: ^2.0.3
-  ferry_generator: ^0.4.2
-  json_serializable: ^4.1.2
+  json_serializable: ^6.5.1
 
-# dependencies_overrides:
-#   flutter_highlight:
-#     path: ../highlight/flutter_highlight
 # For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-# The following section is specific to Flutter.
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
 flutter:
   generate: true
-  uses-material-design: true
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  # uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - images/
-  fonts:
-    - family: Fira Code
-      fonts:
-        - asset: fonts/FiraCode-Regular.ttf
-        - asset: fonts/FiraCode-Bold.ttf
-          weight: 700
-    - family: Inconsolata
-      fonts:
-        - asset: fonts/Inconsolata-Regular.ttf
-        - asset: fonts/Inconsolata-Bold.ttf
-          weight: 700
-    - family: PT Mono
-      fonts:
-        - asset: fonts/PTMono-Regular.ttf
-    - family: Source Code Pro
-      fonts:
-        - asset: fonts/SourceCodePro-Regular.ttf
-        - asset: fonts/SourceCodePro-RegularItalic.ttf
-          style: italic
-        - asset: fonts/SourceCodePro-Bold.ttf
-          weight: 700
-        - asset: fonts/SourceCodePro-BoldItalic.ttf
-          style: italic
-          weight: 700
-    - family: Ubuntu Mono
-      fonts:
-        - asset: fonts/UbuntuMono-Regular.ttf
-        - asset: fonts/UbuntuMono-RegularItalic.ttf
-          style: italic
-        - asset: fonts/UbuntuMono-Bold.ttf
-          weight: 700
-        - asset: fonts/UbuntuMono-BoldItalic.ttf
-          style: italic
-          weight: 700
-    - family: Cascadia Code
-      fonts:
-        - asset: fonts/Cascadia.ttf
-    - family: JetBrains Mono
-      fonts:
-        - asset: fonts/JetBrainsMono-Regular.ttf
-        - asset: fonts/JetBrainsMono-Italic.ttf
-          style: italic
-        - asset: fonts/JetBrainsMono-Bold.ttf
-          weight: 700
-        - asset: fonts/JetBrainsMono-Bold-Italic.ttf
-          style: italic
-          weight: 700
+
 flutter_intl:
   enabled: true

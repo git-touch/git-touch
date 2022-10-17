@@ -1,0 +1,26 @@
+query Gists($login: String!, $after: String) {
+  user(login: $login) {
+    gists(first: 30, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        name
+        description
+        files {
+          name
+          language {
+            name
+          }
+          text
+        }
+        updatedAt
+        id
+        owner {
+          avatarUrl
+        }
+      }
+    }
+  }
+}

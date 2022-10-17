@@ -1,0 +1,15 @@
+query Gist($login: String!, $name: String!) {
+  user(login: $login) {
+    gist(name: $name) {
+      name
+      files {
+        name
+        language {
+          name
+        }
+        text
+        size
+      }
+    }
+  }
+}

@@ -1,29 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/avatar.dart';
-import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/comment_item.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
 
 class BbIssueScreen extends StatelessWidget {
+  const BbIssueScreen(this.owner, this.name, this.number, {this.isPr = false});
   final String owner;
   final String name;
   final String number;
   final bool isPr;
 
-  BbIssueScreen(this.owner, this.name, this.number, {this.isPr: false});
-
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<BbIssues, Iterable<BbComment>>>(
-      title: Text("Issue: #$number"),
+      title: Text('Issue: #$number'),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final res = await Future.wait([
@@ -45,7 +45,6 @@ class BbIssueScreen extends StatelessWidget {
       bodyBuilder: (data, _) {
         final issue = data.item1;
         final comments = data.item2;
-        final theme = context.read<ThemeModel>();
         return Column(children: <Widget>[
           Container(
               padding: CommonStyle.padding,
@@ -60,43 +59,43 @@ class BbIssueScreen extends StatelessWidget {
                           url: issue.reporter!.avatarUrl,
                           size: AvatarSize.extraSmall,
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
                           '$owner / $name',
                           style: TextStyle(
                             fontSize: 17,
-                            color: theme.palette.secondaryText,
+                            color: AntTheme.of(context).colorTextSecondary,
                           ),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
                           '#$number',
                           style: TextStyle(
                             fontSize: 17,
-                            color: theme.palette.tertiaryText,
+                            color: AntTheme.of(context).colorWeak,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     issue.title!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   StateLabel(StateLabelStatus.issueOpened),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   CommonStyle.border,
                 ],
               )),
           Column(children: [
             for (var comment in comments) ...[
               Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: CommentItem(
                       avatar: Avatar(
                         url: comment.user!.avatarUrl,
@@ -107,7 +106,7 @@ class BbIssueScreen extends StatelessWidget {
                       login: comment.user!.displayName,
                       prefix: 'bitbucket')),
               CommonStyle.border,
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             ],
           ]),
         ]);

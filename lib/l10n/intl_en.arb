@@ -115,18 +115,6 @@
   "@dark": {
     "description": "dark mode"
   },
-  "scaffoldTheme": "Scaffold Theme",
-  "@scaffoldTheme": {
-    "description": "Kind of theme - cupertino or material"
-  },
-  "cupertino": "Cupertino",
-  "@cupertino": {
-    "description": "Cupertino scaffold theme"
-  },
-  "material": "Material",
-  "@material": {
-    "description": "Material scaffold theme"
-  },
   "codeTheme": "Code Theme",
   "@codeTheme": {
     "description": "code theme"
@@ -494,7 +482,7 @@
   },
   "reviewed": "reviewed",
   "@reviewed": {
-    "description": "reviewed" 
+    "description": "reviewed"
   },
   "mergedEventMessage": "merged commit {commit} into {mergeRefName}",
   "@mergedEventMessage": {
@@ -692,10 +680,10 @@
     "description": "example: repo1,repo2 were added to the installation id ID",
     "placeholders": {
       "repos": {
-        "type": "String"  
+        "type": "String"
       },
       "id": {
-        "type": "String" 
+        "type": "String"
       }
     }
   },
@@ -707,7 +695,7 @@
         "type": "String"
       },
       "id": {
-        "type": "String"  
+        "type": "String"
       }
     }
   },
@@ -749,7 +737,7 @@
   },
   "was": "was",
   "@was": {
-    "description": "was" 
+    "description": "was"
   },
   "convertProjectCard": "converted the project card into an issue",
   "@convertProjectCard": {
@@ -785,7 +773,7 @@
   },
   "made": "made",
   "@made": {
-    "description": "made"  
+    "description": "made"
   },
   "public": "public",
   "@public": {
@@ -825,7 +813,7 @@
         "type": "String"
       },
       "affectedRange": {
-        "type": "String" 
+        "type": "String"
       },
       "action": {
         "type": "String"
@@ -840,7 +828,7 @@
         "type": "String"
       },
       "action": {
-        "type": "String" 
+        "type": "String"
       }
     }
   },

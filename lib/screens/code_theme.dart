@@ -1,19 +1,18 @@
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/single.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/table_view.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class CodeThemeScreen extends StatelessWidget {
   String _getCode(bool isDark) => '''// ${isDark ? 'Dark' : 'Light'} Mode
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -35,23 +34,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var codeProvider = Provider.of<CodeModel>(context);
-    var theme = Provider.of<ThemeModel>(context);
+    final codeProvider = Provider.of<CodeModel>(context);
+    final theme = Provider.of<ThemeModel>(context);
 
     return SingleScaffold(
-      title: AppBarTitle(AppLocalizations.of(context)!.codeTheme),
+      title: Text(AppLocalizations.of(context)!.codeTheme),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           CommonStyle.verticalGap,
-          TableView(
-            headerText: AppLocalizations.of(context)!.fontStyle,
-            hasIcon: false,
-            items: [
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.fontSize),
-                rightWidget: Text(codeProvider.fontSize.toString()),
-                onTap: () {
+          AntList(
+            mode: AntListMode.card,
+            header: Text(AppLocalizations.of(context)!.fontStyle),
+            children: [
+              AntListItem(
+                extra: Text(codeProvider.fontSize.toString()),
+                onClick: () {
                   theme.showPicker(
                     context,
                     PickerGroupItem(
@@ -66,11 +64,11 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 },
+                child: Text(AppLocalizations.of(context)!.fontSize),
               ),
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.fontFamily),
-                rightWidget: Text(codeProvider.fontFamily),
-                onTap: () {
+              AntListItem(
+                extra: Text(codeProvider.fontFamily),
+                onClick: () {
                   theme.showPicker(
                     context,
                     PickerGroupItem(
@@ -78,23 +76,24 @@ class MyApp extends StatelessWidget {
                       items: CodeModel.fontFamilies
                           .map((v) => PickerItem(v, text: v))
                           .toList(),
-                      onChange: (String? value) {
+                      onChange: (value) {
                         codeProvider.setFontFamily(value!);
                       },
                     ),
                   );
                 },
+                child: Text(AppLocalizations.of(context)!.fontFamily),
               ),
             ],
           ),
           CommonStyle.verticalGap,
-          TableView(
-            headerText: AppLocalizations.of(context)!.syntaxHighlighting,
-            items: [
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.light),
-                rightWidget: Text(codeProvider.theme),
-                onTap: () {
+          AntList(
+            mode: AntListMode.card,
+            header: Text(AppLocalizations.of(context)!.syntaxHighlighting),
+            children: [
+              AntListItem(
+                extra: Text(codeProvider.theme),
+                onClick: () {
                   theme.showPicker(
                     context,
                     PickerGroupItem(
@@ -108,11 +107,20 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 },
+                child: Text(AppLocalizations.of(context)!.light),
               ),
-              TableViewItem(
-                text: Text(AppLocalizations.of(context)!.dark),
-                rightWidget: Text(codeProvider.themeDark),
-                onTap: () {
+              AntListItem(
+                child: HighlightView(
+                  _getCode(false),
+                  language: 'dart',
+                  theme: themeMap[codeProvider.theme]!,
+                  textStyle: codeProvider.fontStyle,
+                  padding: CommonStyle.padding,
+                ),
+              ),
+              AntListItem(
+                extra: Text(codeProvider.themeDark),
+                onClick: () {
                   theme.showPicker(
                     context,
                     PickerGroupItem(
@@ -126,28 +134,18 @@ class MyApp extends StatelessWidget {
                     ),
                   );
                 },
+                child: Text(AppLocalizations.of(context)!.dark),
               ),
+              AntListItem(
+                child: HighlightView(
+                  _getCode(true),
+                  language: 'dart',
+                  theme: themeMap[codeProvider.themeDark]!,
+                  textStyle: codeProvider.fontStyle,
+                  padding: CommonStyle.padding,
+                ),
+              )
             ],
-          ),
-          HighlightView(
-            _getCode(false),
-            language: 'dart',
-            theme: themeMap[codeProvider.theme]!,
-            textStyle: TextStyle(
-              fontSize: codeProvider.fontSize.toDouble(),
-              fontFamily: codeProvider.fontFamilyUsed,
-            ),
-            padding: CommonStyle.padding,
-          ),
-          HighlightView(
-            _getCode(true),
-            language: 'dart',
-            theme: themeMap[codeProvider.themeDark]!,
-            textStyle: TextStyle(
-              fontSize: codeProvider.fontSize.toDouble(),
-              fontFamily: codeProvider.fontFamilyUsed,
-            ),
-            padding: CommonStyle.padding,
           ),
         ],
       ),

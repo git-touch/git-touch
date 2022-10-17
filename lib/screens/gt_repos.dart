@@ -1,33 +1,31 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GtReposScreen extends StatelessWidget {
-  final String api;
-  final String title;
-
-  GtReposScreen(String owner)
+  const GtReposScreen(String owner)
       : api = '/users/$owner/repos',
         title = 'Repositories';
-  GtReposScreen.star(String owner)
+  const GtReposScreen.star(String owner)
       : api = '/users/$owner/starred',
         title = 'Stars';
-  GtReposScreen.org(String owner)
+  const GtReposScreen.org(String owner)
       : api = '/orgs/$owner/repos',
         title = 'Repositories';
-  GtReposScreen.forks(String owner, String repo)
+  const GtReposScreen.forks(String owner, String repo)
       : api = '/repos/$owner/$repo/forks',
         title = 'Forks';
+  final String api;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaRepository, int>(
-      title: AppBarTitle(title),
+      title: Text(title),
       fetch: (page) async {
         final res =
             await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);
@@ -38,7 +36,7 @@ class GtReposScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        return RepositoryItem(
+        return RepoItem(
           owner: v.owner!.login,
           avatarUrl: v.owner!.avatarUrl,
           name: v.name,

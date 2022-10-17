@@ -1,0 +1,32 @@
+query Releases($name: String!, $owner: String!, $cursor: String) {
+  repository(name: $name, owner: $owner) {
+    releases(
+      first: 30
+      after: $cursor
+      orderBy: { field: CREATED_AT, direction: DESC }
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        tagName
+        description
+        name
+        author {
+          name
+          avatarUrl
+        }
+        publishedAt
+        url
+        releaseAssets(first: 30) {
+          nodes {
+            name
+            downloadUrl
+            downloadCount
+          }
+        }
+      }
+    }
+  }
+}

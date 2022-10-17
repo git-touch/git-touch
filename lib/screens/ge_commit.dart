@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
@@ -7,20 +9,17 @@ import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/files_item.dart';
 import 'package:git_touch/widgets/link.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/models/theme.dart';
 
 class GeCommitScreen extends StatelessWidget {
+  const GeCommitScreen(this.owner, this.name, this.sha);
   final String owner;
   final String name;
   final String sha;
-  GeCommitScreen(this.owner, this.name, this.sha);
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.watch<ThemeModel>();
     return RefreshStatefulScaffold<GiteeCommit>(
-      title: Text("Commit: ${sha.substring(0, 7)}"),
+      title: Text('Commit: ${sha.substring(0, 7)}'),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final items = await auth.fetchGitee('/repos/$owner/$name/commits/$sha');
@@ -43,29 +42,29 @@ class GeCommitScreen extends StatelessWidget {
                           url: data.author!.avatarUrl,
                           size: AvatarSize.extraSmall,
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
                           '$owner / $name',
                           style: TextStyle(
                             fontSize: 17,
-                            color: theme.palette.secondaryText,
+                            color: AntTheme.of(context).colorTextSecondary,
                           ),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
-                          '${sha.substring(0, 7)}',
+                          sha.substring(0, 7),
                           style: TextStyle(
                             fontSize: 17,
-                            color: theme.palette.tertiaryText,
+                            color: AntTheme.of(context).colorWeak,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     data.commit!.message!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),

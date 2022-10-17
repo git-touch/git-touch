@@ -1,21 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:git_touch/models/theme.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/link.dart';
-import 'package:provider/provider.dart';
 
 class RepoHeader extends StatelessWidget {
-  final String? avatarUrl;
-  final String? avatarLink;
-  final String? owner;
-  final String? name;
-  final String? description;
-  final String? homepageUrl;
-  final List<Widget>? actions;
-  final List<Widget>? trailings;
-
-  RepoHeader({
+  const RepoHeader({
     required this.avatarUrl,
     required this.avatarLink,
     required this.owner,
@@ -25,58 +15,56 @@ class RepoHeader extends StatelessWidget {
     this.actions,
     this.trailings,
   });
+  final String? avatarUrl;
+  final String? avatarLink;
+  final String? owner;
+  final String? name;
+  final String? description;
+  final String? homepageUrl;
+  final List<Widget>? actions;
+  final List<Widget>? trailings;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
+    final theme = AntTheme.of(context);
+
     return Container(
       padding: CommonStyle.padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: join(SizedBox(height: 12), [
+        children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Avatar(
                 url: avatarUrl,
                 size: AvatarSize.small,
                 linkUrl: avatarLink,
               ),
-              SizedBox(width: 8),
               Expanded(
                 child: Text(
                   '$owner / $name',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: theme.palette.primary,
-                  ),
+                  style: TextStyle(fontSize: 20, color: theme.colorPrimary),
                   overflow: TextOverflow.visible,
                 ),
               ),
-            ],
+            ].withSeparator(const SizedBox(width: 8)),
           ),
           if (actions != null) ...actions!,
           if (description != null && description!.isNotEmpty)
             Text(
               description!,
-              style: TextStyle(
-                color: theme.palette.secondaryText,
-                fontSize: 17,
-              ),
+              style: TextStyle(color: theme.colorTextSecondary, fontSize: 16),
             ),
           if (homepageUrl != null && homepageUrl!.isNotEmpty)
             LinkWidget(
               url: homepageUrl,
               child: Text(
                 homepageUrl!,
-                style: TextStyle(
-                  color: theme.palette.primary,
-                  fontSize: 17,
-                ),
+                style: TextStyle(color: theme.colorPrimary, fontSize: 16),
               ),
             ),
           if (trailings != null) ...trailings!
-        ]),
+        ].withSeparator(const SizedBox(height: 12)),
       ),
     );
   }

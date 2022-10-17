@@ -6,22 +6,20 @@ part of 'github.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GithubEvent _$GithubEventFromJson(Map<String, dynamic> json) {
-  return GithubEvent()
-    ..actor = json['actor'] == null
-        ? null
-        : GithubEventUser.fromJson(json['actor'] as Map<String, dynamic>)
-    ..type = json['type'] as String?
-    ..repo = json['repo'] == null
-        ? null
-        : GithubEventRepo.fromJson(json['repo'] as Map<String, dynamic>)
-    ..createdAt = json['created_at'] == null
-        ? null
-        : DateTime.parse(json['created_at'] as String)
-    ..payload = json['payload'] == null
-        ? null
-        : GithubEventPayload.fromJson(json['payload'] as Map<String, dynamic>);
-}
+GithubEvent _$GithubEventFromJson(Map<String, dynamic> json) => GithubEvent()
+  ..actor = json['actor'] == null
+      ? null
+      : GithubEventUser.fromJson(json['actor'] as Map<String, dynamic>)
+  ..type = json['type'] as String?
+  ..repo = json['repo'] == null
+      ? null
+      : GithubEventRepo.fromJson(json['repo'] as Map<String, dynamic>)
+  ..createdAt = json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String)
+  ..payload = json['payload'] == null
+      ? null
+      : GithubEventPayload.fromJson(json['payload'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GithubEventToJson(GithubEvent instance) =>
     <String, dynamic>{
@@ -32,11 +30,10 @@ Map<String, dynamic> _$GithubEventToJson(GithubEvent instance) =>
       'payload': instance.payload,
     };
 
-GithubEventUser _$GithubEventUserFromJson(Map<String, dynamic> json) {
-  return GithubEventUser()
-    ..login = json['login'] as String?
-    ..avatarUrl = json['avatar_url'] as String?;
-}
+GithubEventUser _$GithubEventUserFromJson(Map<String, dynamic> json) =>
+    GithubEventUser()
+      ..login = json['login'] as String?
+      ..avatarUrl = json['avatar_url'] as String?;
 
 Map<String, dynamic> _$GithubEventUserToJson(GithubEventUser instance) =>
     <String, dynamic>{
@@ -44,72 +41,71 @@ Map<String, dynamic> _$GithubEventUserToJson(GithubEventUser instance) =>
       'avatar_url': instance.avatarUrl,
     };
 
-GithubEventRepo _$GithubEventRepoFromJson(Map<String, dynamic> json) {
-  return GithubEventRepo()..name = json['name'] as String?;
-}
+GithubEventRepo _$GithubEventRepoFromJson(Map<String, dynamic> json) =>
+    GithubEventRepo()..name = json['name'] as String?;
 
 Map<String, dynamic> _$GithubEventRepoToJson(GithubEventRepo instance) =>
     <String, dynamic>{
       'name': instance.name,
     };
 
-GithubEventPayload _$GithubEventPayloadFromJson(Map<String, dynamic> json) {
-  return GithubEventPayload()
-    ..issue = json['issue'] == null
-        ? null
-        : GithubEventIssue.fromJson(json['issue'] as Map<String, dynamic>)
-    ..pullRequest = json['pull_request'] == null
-        ? null
-        : GithubEventIssue.fromJson(
-            json['pull_request'] as Map<String, dynamic>)
-    ..comment = json['comment'] == null
-        ? null
-        : GithubEventComment.fromJson(json['comment'] as Map<String, dynamic>)
-    ..release = json['release'] == null
-        ? null
-        : GithubEventRelease.fromJson(json['release'] as Map<String, dynamic>)
-    ..action = json['action'] as String?
-    ..ref = json['ref'] as String?
-    ..refType = json['ref_type'] as String?
-    ..before = json['before'] as String?
-    ..head = json['head'] as String?
-    ..commits = (json['commits'] as List<dynamic>?)
-        ?.map((e) => GithubEventCommit.fromJson(e as Map<String, dynamic>))
-        .toList()
-    ..forkee = json['forkee'] as Map<String, dynamic>?
-    ..pages = (json['pages'] as List<dynamic>?)
-        ?.map((e) => GithubPagesItem.fromJson(e as Map<String, dynamic>))
-        .toList()
-    ..securityAdvisory = json['security_advisory'] == null
-        ? null
-        : GithubSecurityItem.fromJson(
-            json['security_advisory'] as Map<String, dynamic>)
-    ..alert = json['alert'] == null
-        ? null
-        : GithubAlertItem.fromJson(json['alert'] as Map<String, dynamic>)
-    ..project = json['project'] == null
-        ? null
-        : GithubProjectItem.fromJson(json['project'] as Map<String, dynamic>)
-    ..projectColumn = json['project_column'] == null
-        ? null
-        : GithubProjectColumnItem.fromJson(
-            json['project_column'] as Map<String, dynamic>)
-    ..installation = json['installation'] == null
-        ? null
-        : GithubInstallationRepositoriesItem.fromJson(
-            json['installation'] as Map<String, dynamic>)
-    ..checkRun = json['check_run'] == null
-        ? null
-        : GithubCheckrunItem.fromJson(json['check_run'] as Map<String, dynamic>)
-    ..checkSuite = json['check_suite'] == null
-        ? null
-        : GithubCheckSuiteItem.fromJson(
-            json['check_suite'] as Map<String, dynamic>)
-    ..contentReference = json['content_reference'] == null
-        ? null
-        : GithubContentReferenceItem.fromJson(
-            json['content_reference'] as Map<String, dynamic>);
-}
+GithubEventPayload _$GithubEventPayloadFromJson(Map<String, dynamic> json) =>
+    GithubEventPayload()
+      ..issue = json['issue'] == null
+          ? null
+          : GithubEventIssue.fromJson(json['issue'] as Map<String, dynamic>)
+      ..pullRequest = json['pull_request'] == null
+          ? null
+          : GithubEventIssue.fromJson(
+              json['pull_request'] as Map<String, dynamic>)
+      ..comment = json['comment'] == null
+          ? null
+          : GithubEventComment.fromJson(json['comment'] as Map<String, dynamic>)
+      ..release = json['release'] == null
+          ? null
+          : GithubEventRelease.fromJson(json['release'] as Map<String, dynamic>)
+      ..action = json['action'] as String?
+      ..ref = json['ref'] as String?
+      ..refType = json['ref_type'] as String?
+      ..before = json['before'] as String?
+      ..head = json['head'] as String?
+      ..commits = (json['commits'] as List<dynamic>?)
+          ?.map((e) => GithubEventCommit.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..forkee = json['forkee'] as Map<String, dynamic>?
+      ..pages = (json['pages'] as List<dynamic>?)
+          ?.map((e) => GithubPagesItem.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..securityAdvisory = json['security_advisory'] == null
+          ? null
+          : GithubSecurityItem.fromJson(
+              json['security_advisory'] as Map<String, dynamic>)
+      ..alert = json['alert'] == null
+          ? null
+          : GithubAlertItem.fromJson(json['alert'] as Map<String, dynamic>)
+      ..project = json['project'] == null
+          ? null
+          : GithubProjectItem.fromJson(json['project'] as Map<String, dynamic>)
+      ..projectColumn = json['project_column'] == null
+          ? null
+          : GithubProjectColumnItem.fromJson(
+              json['project_column'] as Map<String, dynamic>)
+      ..installation = json['installation'] == null
+          ? null
+          : GithubInstallationRepositoriesItem.fromJson(
+              json['installation'] as Map<String, dynamic>)
+      ..checkRun = json['check_run'] == null
+          ? null
+          : GithubCheckrunItem.fromJson(
+              json['check_run'] as Map<String, dynamic>)
+      ..checkSuite = json['check_suite'] == null
+          ? null
+          : GithubCheckSuiteItem.fromJson(
+              json['check_suite'] as Map<String, dynamic>)
+      ..contentReference = json['content_reference'] == null
+          ? null
+          : GithubContentReferenceItem.fromJson(
+              json['content_reference'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
     <String, dynamic>{
@@ -135,22 +131,21 @@ Map<String, dynamic> _$GithubEventPayloadToJson(GithubEventPayload instance) =>
       'content_reference': instance.contentReference,
     };
 
-GithubEventIssue _$GithubEventIssueFromJson(Map<String, dynamic> json) {
-  return GithubEventIssue()
-    ..title = json['title'] as String?
-    ..user = json['user'] == null
-        ? null
-        : GithubEventUser.fromJson(json['user'] as Map<String, dynamic>)
-    ..number = json['number'] as int?
-    ..body = json['body'] as String?
-    ..pullRequest = json['pull_request']
-    ..state = json['state'] as String?
-    ..comments = json['comments'] as int?
-    ..merged = json['merged'] as bool?
-    ..createdAt = json['created_at'] == null
-        ? null
-        : DateTime.parse(json['created_at'] as String);
-}
+GithubEventIssue _$GithubEventIssueFromJson(Map<String, dynamic> json) =>
+    GithubEventIssue()
+      ..title = json['title'] as String?
+      ..user = json['user'] == null
+          ? null
+          : GithubEventUser.fromJson(json['user'] as Map<String, dynamic>)
+      ..number = json['number'] as int?
+      ..body = json['body'] as String?
+      ..pullRequest = json['pull_request']
+      ..state = json['state'] as String?
+      ..comments = json['comments'] as int?
+      ..merged = json['merged'] as bool?
+      ..createdAt = json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String);
 
 Map<String, dynamic> _$GithubEventIssueToJson(GithubEventIssue instance) =>
     <String, dynamic>{
@@ -165,15 +160,14 @@ Map<String, dynamic> _$GithubEventIssueToJson(GithubEventIssue instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
     };
 
-GithubEventComment _$GithubEventCommentFromJson(Map<String, dynamic> json) {
-  return GithubEventComment()
-    ..body = json['body'] as String?
-    ..user = json['user'] == null
-        ? null
-        : GithubEventUser.fromJson(json['user'] as Map<String, dynamic>)
-    ..commitId = json['commit_id'] as String?
-    ..htmlUrl = json['html_url'] as String?;
-}
+GithubEventComment _$GithubEventCommentFromJson(Map<String, dynamic> json) =>
+    GithubEventComment()
+      ..body = json['body'] as String?
+      ..user = json['user'] == null
+          ? null
+          : GithubEventUser.fromJson(json['user'] as Map<String, dynamic>)
+      ..commitId = json['commit_id'] as String?
+      ..htmlUrl = json['html_url'] as String?;
 
 Map<String, dynamic> _$GithubEventCommentToJson(GithubEventComment instance) =>
     <String, dynamic>{
@@ -183,11 +177,10 @@ Map<String, dynamic> _$GithubEventCommentToJson(GithubEventComment instance) =>
       'html_url': instance.htmlUrl,
     };
 
-GithubEventCommit _$GithubEventCommitFromJson(Map<String, dynamic> json) {
-  return GithubEventCommit()
-    ..sha = json['sha'] as String?
-    ..message = json['message'] as String?;
-}
+GithubEventCommit _$GithubEventCommitFromJson(Map<String, dynamic> json) =>
+    GithubEventCommit()
+      ..sha = json['sha'] as String?
+      ..message = json['message'] as String?;
 
 Map<String, dynamic> _$GithubEventCommitToJson(GithubEventCommit instance) =>
     <String, dynamic>{
@@ -195,11 +188,10 @@ Map<String, dynamic> _$GithubEventCommitToJson(GithubEventCommit instance) =>
       'message': instance.message,
     };
 
-GithubEventRelease _$GithubEventReleaseFromJson(Map<String, dynamic> json) {
-  return GithubEventRelease()
-    ..htmlUrl = json['html_url'] as String?
-    ..tagName = json['tag_name'] as String?;
-}
+GithubEventRelease _$GithubEventReleaseFromJson(Map<String, dynamic> json) =>
+    GithubEventRelease()
+      ..htmlUrl = json['html_url'] as String?
+      ..tagName = json['tag_name'] as String?;
 
 Map<String, dynamic> _$GithubEventReleaseToJson(GithubEventRelease instance) =>
     <String, dynamic>{
@@ -208,22 +200,21 @@ Map<String, dynamic> _$GithubEventReleaseToJson(GithubEventRelease instance) =>
     };
 
 GithubNotificationItem _$GithubNotificationItemFromJson(
-    Map<String, dynamic> json) {
-  return GithubNotificationItem()
-    ..id = json['id'] as String?
-    ..subject = json['subject'] == null
-        ? null
-        : GithubNotificationItemSubject.fromJson(
-            json['subject'] as Map<String, dynamic>)
-    ..updatedAt = json['updated_at'] == null
-        ? null
-        : DateTime.parse(json['updated_at'] as String)
-    ..repository = json['repository'] == null
-        ? null
-        : GithubNotificationItemRepo.fromJson(
-            json['repository'] as Map<String, dynamic>)
-    ..unread = json['unread'] as bool?;
-}
+        Map<String, dynamic> json) =>
+    GithubNotificationItem()
+      ..id = json['id'] as String?
+      ..subject = json['subject'] == null
+          ? null
+          : GithubNotificationItemSubject.fromJson(
+              json['subject'] as Map<String, dynamic>)
+      ..updatedAt = json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String)
+      ..repository = json['repository'] == null
+          ? null
+          : GithubNotificationItemRepo.fromJson(
+              json['repository'] as Map<String, dynamic>)
+      ..unread = json['unread'] as bool?;
 
 Map<String, dynamic> _$GithubNotificationItemToJson(
         GithubNotificationItem instance) =>
@@ -236,12 +227,11 @@ Map<String, dynamic> _$GithubNotificationItemToJson(
     };
 
 GithubNotificationItemSubject _$GithubNotificationItemSubjectFromJson(
-    Map<String, dynamic> json) {
-  return GithubNotificationItemSubject()
-    ..title = json['title'] as String?
-    ..type = json['type'] as String?
-    ..url = json['url'] as String?;
-}
+        Map<String, dynamic> json) =>
+    GithubNotificationItemSubject()
+      ..title = json['title'] as String?
+      ..type = json['type'] as String?
+      ..url = json['url'] as String?;
 
 Map<String, dynamic> _$GithubNotificationItemSubjectToJson(
         GithubNotificationItemSubject instance) =>
@@ -252,9 +242,8 @@ Map<String, dynamic> _$GithubNotificationItemSubjectToJson(
     };
 
 GithubNotificationItemRepo _$GithubNotificationItemRepoFromJson(
-    Map<String, dynamic> json) {
-  return GithubNotificationItemRepo()..fullName = json['full_name'] as String?;
-}
+        Map<String, dynamic> json) =>
+    GithubNotificationItemRepo()..fullName = json['full_name'] as String?;
 
 Map<String, dynamic> _$GithubNotificationItemRepoToJson(
         GithubNotificationItemRepo instance) =>
@@ -262,15 +251,14 @@ Map<String, dynamic> _$GithubNotificationItemRepoToJson(
       'full_name': instance.fullName,
     };
 
-GithubTreeItem _$GithubTreeItemFromJson(Map<String, dynamic> json) {
-  return GithubTreeItem()
-    ..name = json['name'] as String?
-    ..path = json['path'] as String?
-    ..size = json['size'] as int?
-    ..type = json['type'] as String?
-    ..downloadUrl = json['download_url'] as String?
-    ..content = json['content'] as String?;
-}
+GithubTreeItem _$GithubTreeItemFromJson(Map<String, dynamic> json) =>
+    GithubTreeItem()
+      ..name = json['name'] as String?
+      ..path = json['path'] as String?
+      ..size = json['size'] as int?
+      ..type = json['type'] as String?
+      ..downloadUrl = json['download_url'] as String?
+      ..content = json['content'] as String?;
 
 Map<String, dynamic> _$GithubTreeItemToJson(GithubTreeItem instance) =>
     <String, dynamic>{
@@ -282,12 +270,11 @@ Map<String, dynamic> _$GithubTreeItemToJson(GithubTreeItem instance) =>
       'content': instance.content,
     };
 
-GithubPagesItem _$GithubPagesItemFromJson(Map<String, dynamic> json) {
-  return GithubPagesItem()
-    ..pageName = json['page_name'] as String?
-    ..title = json['title'] as String?
-    ..action = json['action'] as String?;
-}
+GithubPagesItem _$GithubPagesItemFromJson(Map<String, dynamic> json) =>
+    GithubPagesItem()
+      ..pageName = json['page_name'] as String?
+      ..title = json['title'] as String?
+      ..action = json['action'] as String?;
 
 Map<String, dynamic> _$GithubPagesItemToJson(GithubPagesItem instance) =>
     <String, dynamic>{
@@ -296,12 +283,11 @@ Map<String, dynamic> _$GithubPagesItemToJson(GithubPagesItem instance) =>
       'action': instance.action,
     };
 
-GithubSecurityItem _$GithubSecurityItemFromJson(Map<String, dynamic> json) {
-  return GithubSecurityItem()
-    ..summary = json['summary'] as String?
-    ..description = json['description'] as String?
-    ..severity = json['severity'] as String?;
-}
+GithubSecurityItem _$GithubSecurityItemFromJson(Map<String, dynamic> json) =>
+    GithubSecurityItem()
+      ..summary = json['summary'] as String?
+      ..description = json['description'] as String?
+      ..severity = json['severity'] as String?;
 
 Map<String, dynamic> _$GithubSecurityItemToJson(GithubSecurityItem instance) =>
     <String, dynamic>{
@@ -310,11 +296,10 @@ Map<String, dynamic> _$GithubSecurityItemToJson(GithubSecurityItem instance) =>
       'severity': instance.severity,
     };
 
-GithubAlertItem _$GithubAlertItemFromJson(Map<String, dynamic> json) {
-  return GithubAlertItem()
-    ..affectedPackageName = json['affected_package_name'] as String?
-    ..affectedRange = json['affected_range'] as String?;
-}
+GithubAlertItem _$GithubAlertItemFromJson(Map<String, dynamic> json) =>
+    GithubAlertItem()
+      ..affectedPackageName = json['affected_package_name'] as String?
+      ..affectedRange = json['affected_range'] as String?;
 
 Map<String, dynamic> _$GithubAlertItemToJson(GithubAlertItem instance) =>
     <String, dynamic>{
@@ -322,13 +307,12 @@ Map<String, dynamic> _$GithubAlertItemToJson(GithubAlertItem instance) =>
       'affected_range': instance.affectedRange,
     };
 
-GithubProjectItem _$GithubProjectItemFromJson(Map<String, dynamic> json) {
-  return GithubProjectItem()
-    ..name = json['name'] as String?
-    ..state = json['state'] as String?
-    ..body = json['body'] as String?
-    ..htmlUrl = json['html_url'] as String?;
-}
+GithubProjectItem _$GithubProjectItemFromJson(Map<String, dynamic> json) =>
+    GithubProjectItem()
+      ..name = json['name'] as String?
+      ..state = json['state'] as String?
+      ..body = json['body'] as String?
+      ..htmlUrl = json['html_url'] as String?;
 
 Map<String, dynamic> _$GithubProjectItemToJson(GithubProjectItem instance) =>
     <String, dynamic>{
@@ -339,12 +323,11 @@ Map<String, dynamic> _$GithubProjectItemToJson(GithubProjectItem instance) =>
     };
 
 GithubProjectColumnItem _$GithubProjectColumnItemFromJson(
-    Map<String, dynamic> json) {
-  return GithubProjectColumnItem()
-    ..htmlUrl = json['html_url'] as String?
-    ..columnsUrl = json['columns_url'] as String?
-    ..name = json['name'] as String?;
-}
+        Map<String, dynamic> json) =>
+    GithubProjectColumnItem()
+      ..htmlUrl = json['html_url'] as String?
+      ..columnsUrl = json['columns_url'] as String?
+      ..name = json['name'] as String?;
 
 Map<String, dynamic> _$GithubProjectColumnItemToJson(
         GithubProjectColumnItem instance) =>
@@ -355,19 +338,18 @@ Map<String, dynamic> _$GithubProjectColumnItemToJson(
     };
 
 GithubInstallationRepositoriesItem _$GithubInstallationRepositoriesItemFromJson(
-    Map<String, dynamic> json) {
-  return GithubInstallationRepositoriesItem()
-    ..repositoriesAdded = (json['repositories_added'] as List<dynamic>?)
-        ?.map((e) =>
-            GithubNotificationItemRepo.fromJson(e as Map<String, dynamic>))
-        .toList()
-    ..repositoriesRemoved = (json['repositories_removed'] as List<dynamic>?)
-        ?.map((e) =>
-            GithubNotificationItemRepo.fromJson(e as Map<String, dynamic>))
-        .toList()
-    ..repositoriesSelection = json['repositories_selection'] as String?
-    ..id = json['id'] as int?;
-}
+        Map<String, dynamic> json) =>
+    GithubInstallationRepositoriesItem()
+      ..repositoriesAdded = (json['repositories_added'] as List<dynamic>?)
+          ?.map((e) =>
+              GithubNotificationItemRepo.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..repositoriesRemoved = (json['repositories_removed'] as List<dynamic>?)
+          ?.map((e) =>
+              GithubNotificationItemRepo.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..repositoriesSelection = json['repositories_selection'] as String?
+      ..id = json['id'] as int?;
 
 Map<String, dynamic> _$GithubInstallationRepositoriesItemToJson(
         GithubInstallationRepositoriesItem instance) =>
@@ -378,12 +360,11 @@ Map<String, dynamic> _$GithubInstallationRepositoriesItemToJson(
       'id': instance.id,
     };
 
-GithubCheckrunItem _$GithubCheckrunItemFromJson(Map<String, dynamic> json) {
-  return GithubCheckrunItem()
-    ..status = json['status'] as String?
-    ..name = json['name'] as String?
-    ..id = json['id'] as int?;
-}
+GithubCheckrunItem _$GithubCheckrunItemFromJson(Map<String, dynamic> json) =>
+    GithubCheckrunItem()
+      ..status = json['status'] as String?
+      ..name = json['name'] as String?
+      ..id = json['id'] as int?;
 
 Map<String, dynamic> _$GithubCheckrunItemToJson(GithubCheckrunItem instance) =>
     <String, dynamic>{
@@ -392,11 +373,11 @@ Map<String, dynamic> _$GithubCheckrunItemToJson(GithubCheckrunItem instance) =>
       'id': instance.id,
     };
 
-GithubCheckSuiteItem _$GithubCheckSuiteItemFromJson(Map<String, dynamic> json) {
-  return GithubCheckSuiteItem()
-    ..status = json['status'] as String?
-    ..conclusion = json['conclusion'] as String?;
-}
+GithubCheckSuiteItem _$GithubCheckSuiteItemFromJson(
+        Map<String, dynamic> json) =>
+    GithubCheckSuiteItem()
+      ..status = json['status'] as String?
+      ..conclusion = json['conclusion'] as String?;
 
 Map<String, dynamic> _$GithubCheckSuiteItemToJson(
         GithubCheckSuiteItem instance) =>
@@ -406,11 +387,10 @@ Map<String, dynamic> _$GithubCheckSuiteItemToJson(
     };
 
 GithubContentReferenceItem _$GithubContentReferenceItemFromJson(
-    Map<String, dynamic> json) {
-  return GithubContentReferenceItem()
-    ..id = json['id'] as int?
-    ..reference = json['reference'] as String?;
-}
+        Map<String, dynamic> json) =>
+    GithubContentReferenceItem()
+      ..id = json['id'] as int?
+      ..reference = json['reference'] as String?;
 
 Map<String, dynamic> _$GithubContentReferenceItemToJson(
         GithubContentReferenceItem instance) =>
@@ -420,14 +400,13 @@ Map<String, dynamic> _$GithubContentReferenceItemToJson(
     };
 
 GithubContributorItem _$GithubContributorItemFromJson(
-    Map<String, dynamic> json) {
-  return GithubContributorItem()
-    ..id = json['id'] as int?
-    ..login = json['login'] as String?
-    ..avatarUrl = json['avatar_url'] as String?
-    ..htmlUrl = json['html_url'] as String?
-    ..contributions = json['contributions'] as int?;
-}
+        Map<String, dynamic> json) =>
+    GithubContributorItem()
+      ..id = json['id'] as int?
+      ..login = json['login'] as String?
+      ..avatarUrl = json['avatar_url'] as String?
+      ..htmlUrl = json['html_url'] as String?
+      ..contributions = json['contributions'] as int?;
 
 Map<String, dynamic> _$GithubContributorItemToJson(
         GithubContributorItem instance) =>
@@ -440,14 +419,13 @@ Map<String, dynamic> _$GithubContributorItemToJson(
     };
 
 GithubUserOrganizationItem _$GithubUserOrganizationItemFromJson(
-    Map<String, dynamic> json) {
-  return GithubUserOrganizationItem()
-    ..id = json['id'] as int?
-    ..login = json['login'] as String?
-    ..avatarUrl = json['avatar_url'] as String?
-    ..description = json['description'] as String?
-    ..url = json['url'] as String?;
-}
+        Map<String, dynamic> json) =>
+    GithubUserOrganizationItem()
+      ..id = json['id'] as int?
+      ..login = json['login'] as String?
+      ..avatarUrl = json['avatar_url'] as String?
+      ..description = json['description'] as String?
+      ..url = json['url'] as String?;
 
 Map<String, dynamic> _$GithubUserOrganizationItemToJson(
         GithubUserOrganizationItem instance) =>
@@ -459,17 +437,15 @@ Map<String, dynamic> _$GithubUserOrganizationItemToJson(
       'url': instance.url,
     };
 
-GistFiles _$GistFilesFromJson(Map<String, dynamic> json) {
-  return GistFiles(
-    filename: json['filename'] as String?,
-    size: json['size'] as int?,
-    rawUrl: json['raw_url'] as String?,
-    type: json['type'] as String?,
-    language: json['language'] as String?,
-    truncated: json['truncated'] as bool?,
-    content: json['content'] as String?,
-  );
-}
+GistFiles _$GistFilesFromJson(Map<String, dynamic> json) => GistFiles(
+      filename: json['filename'] as String?,
+      size: json['size'] as int?,
+      rawUrl: json['raw_url'] as String?,
+      type: json['type'] as String?,
+      language: json['language'] as String?,
+      truncated: json['truncated'] as bool?,
+      content: json['content'] as String?,
+    );
 
 Map<String, dynamic> _$GistFilesToJson(GistFiles instance) => <String, dynamic>{
       'filename': instance.filename,
@@ -481,24 +457,23 @@ Map<String, dynamic> _$GistFilesToJson(GistFiles instance) => <String, dynamic>{
       'content': instance.content,
     };
 
-GithubGistsItem _$GithubGistsItemFromJson(Map<String, dynamic> json) {
-  return GithubGistsItem()
-    ..id = json['id'] as String?
-    ..description = json['description'] as String?
-    ..public = json['public'] as bool?
-    ..files = (json['files'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, GistFiles.fromJson(e as Map<String, dynamic>)),
-    )
-    ..owner = json['owner'] == null
-        ? null
-        : GithubEventUser.fromJson(json['owner'] as Map<String, dynamic>)
-    ..createdAt = json['created_at'] == null
-        ? null
-        : DateTime.parse(json['created_at'] as String)
-    ..updatedAt = json['updated_at'] == null
-        ? null
-        : DateTime.parse(json['updated_at'] as String);
-}
+GithubGistsItem _$GithubGistsItemFromJson(Map<String, dynamic> json) =>
+    GithubGistsItem()
+      ..id = json['id'] as String?
+      ..description = json['description'] as String?
+      ..public = json['public'] as bool?
+      ..files = (json['files'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, GistFiles.fromJson(e as Map<String, dynamic>)),
+      )
+      ..owner = json['owner'] == null
+          ? null
+          : GithubEventUser.fromJson(json['owner'] as Map<String, dynamic>)
+      ..createdAt = json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String)
+      ..updatedAt = json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String);
 
 Map<String, dynamic> _$GithubGistsItemToJson(GithubGistsItem instance) =>
     <String, dynamic>{
@@ -511,15 +486,14 @@ Map<String, dynamic> _$GithubGistsItemToJson(GithubGistsItem instance) =>
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
 
-GithubFilesItem _$GithubFilesItemFromJson(Map<String, dynamic> json) {
-  return GithubFilesItem()
-    ..filename = json['filename'] as String?
-    ..status = json['status'] as String?
-    ..additions = json['additions'] as int?
-    ..deletions = json['deletions'] as int?
-    ..changes = json['changes'] as int?
-    ..patch = json['patch'] as String?;
-}
+GithubFilesItem _$GithubFilesItemFromJson(Map<String, dynamic> json) =>
+    GithubFilesItem()
+      ..filename = json['filename'] as String?
+      ..status = json['status'] as String?
+      ..additions = json['additions'] as int?
+      ..deletions = json['deletions'] as int?
+      ..changes = json['changes'] as int?
+      ..patch = json['patch'] as String?;
 
 Map<String, dynamic> _$GithubFilesItemToJson(GithubFilesItem instance) =>
     <String, dynamic>{
@@ -531,15 +505,15 @@ Map<String, dynamic> _$GithubFilesItemToJson(GithubFilesItem instance) =>
       'patch': instance.patch,
     };
 
-GithubComparisonItem _$GithubComparisonItemFromJson(Map<String, dynamic> json) {
-  return GithubComparisonItem()
-    ..files = (json['files'] as List<dynamic>?)
-        ?.map((e) => GithubFilesItem.fromJson(e as Map<String, dynamic>))
-        .toList()
-    ..status = json['status'] as String?
-    ..aheadBy = json['ahead_by'] as int?
-    ..behindBy = json['behind_by'] as int?;
-}
+GithubComparisonItem _$GithubComparisonItemFromJson(
+        Map<String, dynamic> json) =>
+    GithubComparisonItem()
+      ..files = (json['files'] as List<dynamic>?)
+          ?.map((e) => GithubFilesItem.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..status = json['status'] as String?
+      ..aheadBy = json['ahead_by'] as int?
+      ..behindBy = json['behind_by'] as int?;
 
 Map<String, dynamic> _$GithubComparisonItemToJson(
         GithubComparisonItem instance) =>

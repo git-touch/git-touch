@@ -1,26 +1,24 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gogs.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
-import 'package:git_touch/models/auth.dart';
 import 'package:provider/provider.dart';
 
 class GoUsersScreen extends StatelessWidget {
-  final String api;
-  final String title;
-
-  GoUsersScreen.followers(String login)
+  const GoUsersScreen.followers(String login)
       : api = '/users/$login/followers',
         title = 'Followers';
-  GoUsersScreen.following(String login)
+  const GoUsersScreen.following(String login)
       : api = '/users/$login/following',
-        title = "Following";
+        title = 'Following';
+  final String api;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GogsUser, int>(
-      title: AppBarTitle(title),
+      title: Text(title),
       fetch: (page) async {
         final res =
             await context.read<AuthModel>().fetchGogsWithPage(api, page: page);

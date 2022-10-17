@@ -1,20 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
-import 'package:git_touch/widgets/repository_item.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:tuple/tuple.dart';
 
 class GlUserScreen extends StatelessWidget {
+  const GlUserScreen(this.id);
   final int? id;
-  GlUserScreen(this.id);
   bool get isViewer => id == null;
 
   @override
@@ -25,10 +25,10 @@ class GlUserScreen extends StatelessWidget {
           : AppLocalizations.of(context)!.user),
       fetch: () async {
         final auth = context.read<AuthModel>();
-        final _id = id ?? auth.activeAccount!.gitlabId;
+        final finalId = id ?? auth.activeAccount!.gitlabId;
         final res = await Future.wait([
-          auth.fetchGitlab('/users/$_id'),
-          auth.fetchGitlab('/users/$_id/projects'),
+          auth.fetchGitlab('/users/$finalId'),
+          auth.fetchGitlab('/users/$finalId/projects'),
         ]);
         return Tuple2(
           GitlabUser.fromJson(res[0]),
@@ -36,7 +36,7 @@ class GlUserScreen extends StatelessWidget {
         );
       },
       action: isViewer
-          ? ActionEntry(
+          ? const ActionEntry(
               iconData: Ionicons.cog,
               url: '/settings',
             )
@@ -59,7 +59,7 @@ class GlUserScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 for (var v in projects)
-                  RepositoryItem.gl(
+                  RepoItem.gl(
                     payload: v,
                     note: 'Updated ${timeago.format(v.lastActivityAt!)}',
                   )

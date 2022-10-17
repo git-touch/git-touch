@@ -1,20 +1,19 @@
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GeIssueFormScreen extends StatefulWidget {
+  const GeIssueFormScreen(this.owner, this.name);
   final String owner;
   final String name;
-  GeIssueFormScreen(this.owner, this.name);
 
   @override
-  _GeIssueFormScreenState createState() => _GeIssueFormScreenState();
+  State<GeIssueFormScreen> createState() => _GeIssueFormScreenState();
 }
 
 class _GeIssueFormScreenState extends State<GeIssueFormScreen> {
@@ -23,7 +22,6 @@ class _GeIssueFormScreenState extends State<GeIssueFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     return CommonScaffold(
       title: Text(AppLocalizations.of(context)!.submitAnIssue),
@@ -32,7 +30,7 @@ class _GeIssueFormScreenState extends State<GeIssueFormScreen> {
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
-              style: TextStyle(color: theme.palette.text),
+              style: TextStyle(color: AntTheme.of(context).colorText),
               placeholder: AppLocalizations.of(context)!.title,
               onChanged: (v) {
                 setState(() {
@@ -44,7 +42,7 @@ class _GeIssueFormScreenState extends State<GeIssueFormScreen> {
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
-              style: TextStyle(color: theme.palette.text),
+              style: TextStyle(color: AntTheme.of(context).colorText),
               placeholder: AppLocalizations.of(context)!.body,
               onChanged: (v) {
                 setState(() {
@@ -64,8 +62,7 @@ class _GeIssueFormScreenState extends State<GeIssueFormScreen> {
               ).then((v) {
                 return GiteeIssue.fromJson(v);
               });
-              await theme.push(
-                context,
+              await context.pushUrl(
                 '/gitee/${widget.owner}/${widget.name}/issues/${res.number}',
                 replace: true,
               );

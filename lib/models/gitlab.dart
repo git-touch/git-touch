@@ -4,6 +4,9 @@ part 'gitlab.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabUser {
+  GitlabUser();
+  factory GitlabUser.fromJson(Map<String, dynamic> json) =>
+      _$GitlabUserFromJson(json);
   int? id;
   String? username;
   String? name;
@@ -11,70 +14,70 @@ class GitlabUser {
   String? bio;
   DateTime? createdAt;
   int? accessLevel;
-  GitlabUser();
-  factory GitlabUser.fromJson(Map<String, dynamic> json) =>
-      _$GitlabUserFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabGroup {
+  GitlabGroup();
+  factory GitlabGroup.fromJson(Map<String, dynamic> json) =>
+      _$GitlabGroupFromJson(json);
   int? id;
   String? path;
   String? name;
   String? avatarUrl;
   String? description;
   List<GitlabProject>? projects;
-  GitlabGroup();
-  factory GitlabGroup.fromJson(Map<String, dynamic> json) =>
-      _$GitlabGroupFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabTodoProject {
-  String? pathWithNamespace;
   GitlabTodoProject();
   factory GitlabTodoProject.fromJson(Map<String, dynamic> json) =>
       _$GitlabTodoProjectFromJson(json);
+  String? pathWithNamespace;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabTodo {
+  GitlabTodo();
+  factory GitlabTodo.fromJson(Map<String, dynamic> json) =>
+      _$GitlabTodoFromJson(json);
   GitlabUser? author;
   GitlabTodoProject? project;
   String? actionName;
   String? targetType;
   GitlabTodoTarget? target;
-  GitlabTodo();
-  factory GitlabTodo.fromJson(Map<String, dynamic> json) =>
-      _$GitlabTodoFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabTodoTarget {
+  GitlabTodoTarget();
+  factory GitlabTodoTarget.fromJson(Map<String, dynamic> json) =>
+      _$GitlabTodoTargetFromJson(json);
   int? iid;
   int? projectId;
   String? title;
   GitlabUser? author;
   String? description;
   DateTime? createdAt;
-  GitlabTodoTarget();
-  factory GitlabTodoTarget.fromJson(Map<String, dynamic> json) =>
-      _$GitlabTodoTargetFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabIssueNote {
+  GitlabIssueNote();
+  factory GitlabIssueNote.fromJson(Map<String, dynamic> json) =>
+      _$GitlabIssueNoteFromJson(json);
   GitlabUser? author;
   String? body;
   bool? system;
   DateTime? createdAt;
-  GitlabIssueNote();
-  factory GitlabIssueNote.fromJson(Map<String, dynamic> json) =>
-      _$GitlabIssueNoteFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabProject {
+  GitlabProject();
+  factory GitlabProject.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectFromJson(json);
   int? id;
   String? name;
   String? avatarUrl;
@@ -93,103 +96,103 @@ class GitlabProject {
   DateTime? lastActivityAt;
   DateTime? createdAt;
   String? defaultBranch;
-  GitlabProject();
-  factory GitlabProject.fromJson(Map<String, dynamic> json) =>
-      _$GitlabProjectFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabProjectBadge {
-  String? renderedImageUrl;
   GitlabProjectBadge();
   factory GitlabProjectBadge.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectBadgeFromJson(json);
+  String? renderedImageUrl;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabProjectStatistics {
-  int? commitCount;
-  int? repositorySize;
   GitlabProjectStatistics();
   factory GitlabProjectStatistics.fromJson(Map<String, dynamic> json) =>
       _$GitlabProjectStatisticsFromJson(json);
+  int? commitCount;
+  int? repositorySize;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabProjectNamespace {
+  GitlabProjectNamespace();
+  factory GitlabProjectNamespace.fromJson(Map<String, dynamic> json) =>
+      _$GitlabProjectNamespaceFromJson(json);
   int? id;
   String? name;
   String? path;
   String? kind;
-  GitlabProjectNamespace();
-  factory GitlabProjectNamespace.fromJson(Map<String, dynamic> json) =>
-      _$GitlabProjectNamespaceFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabTreeItem {
-  String type;
-  String path;
-  String name;
   GitlabTreeItem({required this.type, required this.path, required this.name});
   factory GitlabTreeItem.fromJson(Map<String, dynamic> json) =>
       _$GitlabTreeItemFromJson(json);
+  String type;
+  String path;
+  String name;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabBlob {
-  String? content;
   GitlabBlob();
   factory GitlabBlob.fromJson(Map<String, dynamic> json) =>
       _$GitlabBlobFromJson(json);
+  String? content;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabEvent {
+  GitlabEvent();
+  factory GitlabEvent.fromJson(Map<String, dynamic> json) =>
+      _$GitlabEventFromJson(json);
   GitlabUser? author;
   String? actionName;
   String? targetType;
   GitlabEventNote? note;
-  GitlabEvent();
-  factory GitlabEvent.fromJson(Map<String, dynamic> json) =>
-      _$GitlabEventFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabEventNote {
-  String? body;
-  String? noteableType;
-  int? noteableIid;
   GitlabEventNote();
   factory GitlabEventNote.fromJson(Map<String, dynamic> json) =>
       _$GitlabEventNoteFromJson(json);
+  String? body;
+  String? noteableType;
+  int? noteableIid;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabCommit {
+  GitlabCommit();
+  factory GitlabCommit.fromJson(Map<String, dynamic> json) =>
+      _$GitlabCommitFromJson(json);
   String? id;
   String? shortId;
   String? title;
   DateTime? createdAt;
   String? authorName;
   String? message;
-  GitlabCommit();
-  factory GitlabCommit.fromJson(Map<String, dynamic> json) =>
-      _$GitlabCommitFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabDiff {
-  String? diff;
-  String? newPath;
-  String? oldPath;
   GitlabDiff();
   factory GitlabDiff.fromJson(Map<String, dynamic> json) =>
       _$GitlabDiffFromJson(json);
+  String? diff;
+  String? newPath;
+  String? oldPath;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabIssue {
+  GitlabIssue();
+  factory GitlabIssue.fromJson(Map<String, dynamic> json) =>
+      _$GitlabIssueFromJson(json);
   String? title;
   int? iid;
   int? projectId;
@@ -197,25 +200,22 @@ class GitlabIssue {
   int? userNotesCount;
   DateTime? updatedAt;
   List<String>? labels;
-  GitlabIssue();
-  factory GitlabIssue.fromJson(Map<String, dynamic> json) =>
-      _$GitlabIssueFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabStarrer {
-  DateTime? starredSince;
-  GitlabUser? user;
   GitlabStarrer();
   factory GitlabStarrer.fromJson(Map<String, dynamic> json) =>
       _$GitlabStarrerFromJson(json);
+  DateTime? starredSince;
+  GitlabUser? user;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GitlabBranch {
-  String? name;
-  bool? merged;
   GitlabBranch();
   factory GitlabBranch.fromJson(Map<String, dynamic> json) =>
       _$GitlabBranchFromJson(json);
+  String? name;
+  bool? merged;
 }

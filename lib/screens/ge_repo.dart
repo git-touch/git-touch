@@ -1,50 +1,51 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
+
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/repo_header.dart';
-import 'package:git_touch/widgets/table_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class StatusPayload {
+  StatusPayload(this.isWatching, this.isStarred);
   bool isWatching;
   bool isStarred;
-  StatusPayload(this.isWatching, this.isStarred);
 }
 
 class GeRepoScreen extends StatelessWidget {
+  const GeRepoScreen(this.owner, this.name, {this.branch});
   final String owner;
   final String name;
   final String? branch;
-  GeRepoScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple4<GiteeRepo, MarkdownViewData, List<GiteeBranch>, StatusPayload>>(
-      title: AppBarTitle(AppLocalizations.of(context)!.repository),
+      title: Text(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final repo = await auth.fetchGitee('/repos/$owner/$name').then((v) {
           return GiteeRepo.fromJson(v);
         });
 
-        final md =
-            () => auth.fetchGitee('/repos/$owner/$name/readme').then((v) {
-                  return (v['content'] as String?)?.base64ToUtf8 ?? '';
-                });
-        final html = () => md().then((v) async {
+        md() => auth.fetchGitee('/repos/$owner/$name/readme').then((v) {
+              return (v['content'] as String?)?.base64ToUtf8 ?? '';
+            });
+        html() => md().then((v) async {
               final res = await http.post(
                 Uri.parse('${auth.activeAccount!.domain}/api/v5/markdown'),
                 headers: {'Authorization': 'token ${auth.token}'},
@@ -57,14 +58,14 @@ class GeRepoScreen extends StatelessWidget {
             await auth.fetchGitee('/repos/$owner/$name/branches').then((v) {
           return [for (var branch in v) GiteeBranch.fromJson(branch)];
         });
-        bool isStarred = await auth
+        final isStarred = await auth
             .fetchGitee('/user/starred/$owner/$name', requestType: 'NO CONTENT')
             .then((v) => v.statusCode == HttpStatus.noContent);
-        bool isWatching = await auth
+        final isWatching = await auth
             .fetchGitee('/user/subscriptions/$owner/$name',
                 requestType: 'NO CONTENT')
             .then((v) => v.statusCode == HttpStatus.noContent);
-        StatusPayload statusPayload = StatusPayload(isWatching, isStarred);
+        final statusPayload = StatusPayload(isWatching, isStarred);
         return Tuple4(repo, readmeData, branches, statusPayload);
       },
       bodyBuilder: (t, setData) {
@@ -87,7 +88,7 @@ class GeRepoScreen extends StatelessWidget {
                       active: t.item4.isWatching,
                       text: t.item4.isWatching ? 'Ignore' : 'Watch',
                       onTap: () async {
-                        final String watchType =
+                        final watchType =
                             t.item4.isWatching ? 'ignoring' : 'watching';
                         await context.read<AuthModel>().fetchGitee(
                             '/user/subscriptions/$owner/$name?watch_type=$watchType',
@@ -97,7 +98,7 @@ class GeRepoScreen extends StatelessWidget {
                         setData(t);
                       },
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     MutationButton(
                       active: t.item4.isStarred,
                       text: t.item4.isStarred ? 'Unstar' : 'Star',
@@ -115,56 +116,63 @@ class GeRepoScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 EntryItem(
-                  count: p.watchersCount,
+                  count: p.watchersCount!,
                   text: 'Watchers',
                   url: '/gitee/$owner/$name/watchers',
                 ),
                 EntryItem(
-                  count: p.stargazersCount,
+                  count: p.stargazersCount!,
                   text: 'Stars',
                   url: '/gitee/$owner/$name/stargazers',
                 ),
                 EntryItem(
-                  count: p.forksCount,
+                  count: p.forksCount!,
                   text: 'Forks',
                   url: '/gitee/$owner/$name/forks',
                 ),
               ],
             ),
             CommonStyle.border,
-            TableView(
-              items: [
-                TableViewItem(
-                  leftIconData: Octicons.code,
-                  text: Text('Code'),
-                  rightWidget: Text(p.license ?? ''),
-                  url: '/gitee/$owner/$name/tree/${branch ?? p.defaultBranch}',
+            AntList(
+              children: [
+                AntListItem(
+                  prefix: const Icon(Octicons.code),
+                  extra: Text(p.license ?? ''),
+                  onClick: () {
+                    context.push(
+                        '/gitee/$owner/$name/tree/${branch ?? p.defaultBranch}');
+                  },
+                  child: const Text('Code'),
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.issue_opened,
-                  text: Text('Issues'),
-                  rightWidget: Text(numberFormat.format(p.openIssuesCount)),
-                  url: '/gitee/$owner/$name/issues',
+                AntListItem(
+                  prefix: const Icon(Octicons.issue_opened),
+                  extra: Text(numberFormat.format(p.openIssuesCount)),
+                  onClick: () {
+                    context.push('/gitee/$owner/$name/issues');
+                  },
+                  child: const Text('Issues'),
                 ),
                 if (p.pullRequestsEnabled!)
-                  TableViewItem(
-                    leftIconData: Octicons.git_pull_request,
-                    text: Text('Pull requests'),
-                    url: '/gitee/$owner/$name/pulls',
+                  AntListItem(
+                    prefix: const Icon(Octicons.git_pull_request),
+                    child: const Text('Pull requests'),
+                    onClick: () {
+                      context.push('/gitee/$owner/$name/pulls');
+                    },
                   ),
-                TableViewItem(
-                  leftIconData: Octicons.history,
-                  text: Text('Commits'),
-                  url:
-                      '/gitee/$owner/$name/commits?branch=${branch ?? p.defaultBranch}',
+                AntListItem(
+                  prefix: const Icon(Octicons.history),
+                  child: const Text('Commits'),
+                  onClick: () {
+                    context.push(
+                        '/gitee/$owner/$name/commits?branch=${branch ?? p.defaultBranch}');
+                  },
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.git_branch,
-                  text: Text(AppLocalizations.of(context)!.branches),
-                  rightWidget: Text((branch ?? p.defaultBranch)! +
-                      ' • ' +
-                      branches.length.toString()),
-                  onTap: () async {
+                AntListItem(
+                  prefix: const Icon(Octicons.git_branch),
+                  extra: Text(
+                      '${(branch ?? p.defaultBranch)!} • ${branches.length}'),
+                  onClick: () async {
                     if (branches.length < 2) return;
 
                     await theme.showPicker(
@@ -176,19 +184,22 @@ class GeRepoScreen extends StatelessWidget {
                             .toList(),
                         onClose: (ref) {
                           if (ref != branch) {
-                            theme.push(
-                                context, '/gitee/$owner/$name?branch=$ref',
+                            context.pushUrl('/gitee/$owner/$name?branch=$ref',
                                 replace: true);
                           }
                         },
                       ),
                     );
                   },
+                  child: Text(AppLocalizations.of(context)!.branches),
                 ),
-                TableViewItem(
-                    leftIconData: Octicons.organization,
-                    text: Text('Contributors'),
-                    url: '/gitee/$owner/$name/contributors'),
+                AntListItem(
+                  prefix: const Icon(Octicons.organization),
+                  child: const Text('Contributors'),
+                  onClick: () {
+                    context.push('/gitee/$owner/$name/contributors');
+                  },
+                ),
               ],
             ),
             CommonStyle.verticalGap,

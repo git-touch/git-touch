@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
@@ -7,9 +8,9 @@ import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/contribution.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/repository_item.dart';
-import 'package:git_touch/widgets/table_view.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -24,15 +25,15 @@ class GtUserScreenPayload {
 }
 
 class GtUserScreen extends StatelessWidget {
+  const GtUserScreen(this.login, {this.isViewer = false});
   final String login;
   final bool isViewer;
-  GtUserScreen(this.login, {this.isViewer = false});
 
   static List<List<ContributionDay>> normalizeHeatmap(List userHeatmap) {
     final heatmapItems = [
       for (final v in userHeatmap) GiteaHeatmapItem.fromJson(v)
     ];
-    List<List<ContributionDay>> heatmapWeeks = [[]];
+    final heatmapWeeks = <List<ContributionDay>>[[]];
     for (var i = 0; i < heatmapItems.length; i++) {
       if (i > 0 &&
           heatmapItems[i].timestamp! - heatmapItems[i - 1].timestamp! > 86400) {
@@ -91,7 +92,7 @@ class GtUserScreen extends StatelessWidget {
         return payload;
       },
       action: isViewer
-          ? ActionEntry(
+          ? const ActionEntry(
               iconData: Ionicons.cog,
               url: '/settings',
             )
@@ -111,7 +112,7 @@ class GtUserScreen extends StatelessWidget {
               CommonStyle.border,
               Row(children: [
                 EntryItem(
-                  count: p.userRepoCount,
+                  count: p.userRepoCount!,
                   text: 'Repositories',
                   url: '/gitea/$login?tab=repositories',
                 ),
@@ -130,12 +131,14 @@ class GtUserScreen extends StatelessWidget {
               ]),
               ContributionWidget(weeks: p.userHeatmap),
               CommonStyle.border,
-              TableView(
-                items: [
-                  TableViewItem(
-                    leftIconData: Octicons.home,
-                    text: Text('Organizations'),
-                    url: '/gitea/$login?tab=organizations',
+              AntList(
+                children: [
+                  AntListItem(
+                    prefix: const Icon(Octicons.home),
+                    child: const Text('Organizations'),
+                    onClick: () {
+                      context.push('/gitea/$login?tab=organizations');
+                    },
                   ),
                 ],
               ),
@@ -143,7 +146,7 @@ class GtUserScreen extends StatelessWidget {
               Column(
                 children: <Widget>[
                   for (var v in p.userRepos)
-                    RepositoryItem(
+                    RepoItem(
                       owner: v.owner!.login,
                       avatarUrl: v.owner!.avatarUrl,
                       name: v.name,
@@ -185,7 +188,7 @@ class GtUserScreen extends StatelessWidget {
               Column(
                 children: <Widget>[
                   for (var v in p.orgRepos)
-                    RepositoryItem(
+                    RepoItem(
                       owner: v.owner!.login,
                       avatarUrl: v.owner!.avatarUrl,
                       name: v.name,
@@ -201,7 +204,7 @@ class GtUserScreen extends StatelessWidget {
             ],
           );
         } else {
-          return Text('404'); // TODO:
+          return const Text('404'); // TODO:
         }
       },
     );

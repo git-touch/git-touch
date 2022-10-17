@@ -1,20 +1,19 @@
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GtIssueFormScreen extends StatefulWidget {
+  const GtIssueFormScreen(this.owner, this.name);
   final String owner;
   final String name;
-  GtIssueFormScreen(this.owner, this.name);
 
   @override
-  _GtIssueFormScreenState createState() => _GtIssueFormScreenState();
+  State<GtIssueFormScreen> createState() => _GtIssueFormScreenState();
 }
 
 class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
@@ -23,7 +22,6 @@ class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
     return CommonScaffold(
       title: Text(AppLocalizations.of(context)!.submitAnIssue),
@@ -32,7 +30,7 @@ class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
-              style: TextStyle(color: theme.palette.text),
+              style: TextStyle(color: AntTheme.of(context).colorText),
               placeholder: AppLocalizations.of(context)!.title,
               onChanged: (v) {
                 setState(() {
@@ -44,7 +42,7 @@ class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
           Padding(
             padding: CommonStyle.padding,
             child: CupertinoTextField(
-              style: TextStyle(color: theme.palette.text),
+              style: TextStyle(color: AntTheme.of(context).colorText),
               placeholder: AppLocalizations.of(context)!.body,
               onChanged: (v) {
                 setState(() {
@@ -54,9 +52,10 @@ class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
               maxLines: 10,
             ),
           ),
-          CupertinoButton.filled(
+          AntButton(
+            color: AntTheme.of(context).colorPrimary,
             child: Text(AppLocalizations.of(context)!.submit),
-            onPressed: () async {
+            onClick: () async {
               await auth.fetchGitea(
                 '/repos/${widget.owner}/${widget.name}/issues',
                 requestType: 'POST',
@@ -65,8 +64,7 @@ class _GtIssueFormScreenState extends State<GtIssueFormScreen> {
                 return GiteaIssue.fromJson(v);
               });
               Navigator.pop(context);
-              await theme.push(
-                context,
+              await context.pushUrl(
                 '/gitea/${widget.owner}/${widget.name}/issues',
                 replace: true,
               );

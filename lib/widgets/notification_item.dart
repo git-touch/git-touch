@@ -1,33 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:git_touch/widgets/issue_icon.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/github.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/models/auth.dart';
-import 'package:provider/provider.dart';
+import 'package:git_touch/widgets/issue_icon.dart';
 import 'package:git_touch/widgets/link.dart';
-
-import '../models/theme.dart';
+import 'package:provider/provider.dart';
 
 class NotificationItem extends StatefulWidget {
+  const NotificationItem({
+    super.key,
+    required this.payload,
+    required this.markAsRead,
+  });
   final GithubNotificationItem payload;
   final Function markAsRead;
 
-  NotificationItem({
-    Key? key,
-    required this.payload,
-    required this.markAsRead,
-  }) : super(key: key);
-
   @override
-  _NotificationItemState createState() => _NotificationItemState();
+  State<NotificationItem> createState() => _NotificationItemState();
 }
 
 class _NotificationItemState extends State<NotificationItem> {
   GithubNotificationItem get payload => widget.payload;
   bool loading = false;
 
-  Widget _buildIcon(IconData data, [Color color = Colors.black54]) {
+  Widget _buildIcon(IconData data, [Color? color]) {
     return Icon(data, color: color, size: 20);
   }
 
@@ -36,20 +34,20 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'Issue':
         switch (payload.state) {
           case 'OPEN':
-            return IssueIcon(IssueIconState.open, size: 20);
+            return const IssueIcon(IssueIconState.open, size: 20);
           case 'CLOSED':
-            return IssueIcon(IssueIconState.closed, size: 20);
+            return const IssueIcon(IssueIconState.closed, size: 20);
           default:
             return _buildIcon(Octicons.person);
         }
       case 'PullRequest':
         switch (payload.state) {
           case 'OPEN':
-            return IssueIcon(IssueIconState.prOpen, size: 20);
+            return const IssueIcon(IssueIconState.prOpen, size: 20);
           case 'CLOSED':
-            return IssueIcon(IssueIconState.prClosed, size: 20);
+            return const IssueIcon(IssueIconState.prClosed, size: 20);
           case 'MERGED':
-            return IssueIcon(IssueIconState.prMerged, size: 20);
+            return const IssueIcon(IssueIconState.prMerged, size: 20);
           default:
             return _buildIcon(Octicons.person);
         }
@@ -61,16 +59,16 @@ class _NotificationItemState extends State<NotificationItem> {
       case 'CheckSuite':
         return _buildIcon(Octicons.x, GithubPalette.closed);
       default:
-        return _buildIcon(Octicons.octoface);
+        return _buildIcon(Octicons.bell);
     }
   }
 
   Widget _buildCheckIcon() {
-    final theme = Provider.of<ThemeModel>(context);
     return Icon(
-      payload.unread! ? Ionicons.checkmark : Octicons.primitive_dot,
-      color:
-          loading ? theme.palette.grayBackground : theme.palette.tertiaryText,
+      payload.unread! ? Ionicons.checkmark : Octicons.dot_fill,
+      color: loading
+          ? AntTheme.of(context).colorBox
+          : AntTheme.of(context).colorWeak,
       size: 24,
     );
   }
@@ -116,28 +114,28 @@ class _NotificationItemState extends State<NotificationItem> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     return LinkWidget(
       url: _url,
       onTap: _markAsRead,
       child: Opacity(
         opacity: payload.unread! ? 1 : 0.5,
         child: Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Row(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.only(right: 8),
                 child: _buildIconData(),
               ),
               Expanded(
                 child: Text(
                   payload.subject!.title!,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 15, color: theme.palette.text),
+                  style: TextStyle(
+                      fontSize: 15, color: AntTheme.of(context).colorText),
                 ),
               ),
-              LinkWidget(child: _buildCheckIcon(), onTap: _markAsRead),
+              LinkWidget(onTap: _markAsRead, child: _buildCheckIcon()),
             ],
           ),
         ),

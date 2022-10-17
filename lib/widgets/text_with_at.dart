@@ -1,18 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:git_touch/utils/utils.dart';
 
 class TextWithAt extends StatelessWidget {
-  final String text;
-  final String Function(String text) linkFactory;
-  final TextStyle? style;
-  final bool oneLine;
-
-  TextWithAt({
+  const TextWithAt({
     required this.text,
     required this.linkFactory,
     this.style,
     this.oneLine = false,
   });
+  final String text;
+  final String Function(String text) linkFactory;
+  final TextStyle? style;
+  final bool oneLine;
 
   static final _reg = RegExp(r'@[A-Za-z-]+');
 
@@ -21,8 +20,8 @@ class TextWithAt extends StatelessWidget {
     final matches = _reg.allMatches(text).map((m) => m.group(0)).toList();
     final chunks = text.split(_reg);
 
-    List<TextSpan> spans = [];
-    for (var index in List.generate(matches.length, (i) => (i))) {
+    final spans = <TextSpan>[];
+    for (final index in List.generate(matches.length, (i) => (i))) {
       if (chunks[index].isNotEmpty) {
         spans.add(TextSpan(text: chunks[index]));
       }

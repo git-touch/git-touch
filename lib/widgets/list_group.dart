@@ -1,26 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../models/theme.dart';
-import '../widgets/empty.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
+import 'package:git_touch/widgets/empty.dart';
 
 class ListGroup<T> extends StatelessWidget {
-  final Widget title;
-  final List<T> items;
-  final Widget Function(T item, int index) itemBuilder;
-  final EdgeInsetsGeometry padding;
-
-  ListGroup({
+  const ListGroup({
     required this.title,
     required this.items,
     required this.itemBuilder,
     this.padding = const EdgeInsets.only(left: 10, right: 10, bottom: 10),
   });
+  final Widget title;
+  final List<T> items;
+  final Widget Function(T item, int index) itemBuilder;
+  final EdgeInsetsGeometry padding;
 
   Widget _buildItem(BuildContext context, MapEntry<int, T> entry) {
-    final theme = Provider.of<ThemeModel>(context);
     return Container(
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: theme.palette.border)),
+        border:
+            Border(top: BorderSide(color: AntTheme.of(context).colorBorder)),
       ),
       child: itemBuilder(entry.value, entry.key),
     );
@@ -28,18 +26,17 @@ class ListGroup<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     return Container(
       padding: padding,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: theme.palette.border),
-          borderRadius: BorderRadius.all(Radius.circular(3)),
+          border: Border.all(color: AntTheme.of(context).colorBorder),
+          borderRadius: const BorderRadius.all(Radius.circular(3)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(padding: EdgeInsets.all(8), child: title),
+            Container(padding: const EdgeInsets.all(8), child: title),
             items.isEmpty
                 ? EmptyWidget()
                 : Column(

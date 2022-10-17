@@ -11,4 +11,4 @@ PRODUCT_NAME = git_touch
 PRODUCT_BUNDLE_IDENTIFIER = io.github.pd4d10.gitTouch
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2020 io.github.pd4d10. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 io.github.pd4d10. All rights reserved.

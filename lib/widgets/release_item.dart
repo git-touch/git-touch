@@ -1,16 +1,23 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/github.data.gql.dart';
-import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/utils/utils.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
-import 'package:git_touch/widgets/table_view.dart';
-import 'package:provider/provider.dart';
+import 'package:gql_github/releases.data.gql.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter_gen/gen_l10n/S.dart';
 
-class ReleaseItem extends StatelessWidget {
+class ReleaseItem extends StatefulWidget {
+  const ReleaseItem({
+    required this.login,
+    required this.publishedAt,
+    required this.name,
+    required this.tagName,
+    required this.avatarUrl,
+    required this.description,
+    this.releaseAssets,
+  });
   final String? login;
   final DateTime? publishedAt;
   final String? name;
@@ -19,26 +26,23 @@ class ReleaseItem extends StatelessWidget {
   final String? description;
   final GReleasesData_repository_releases_nodes_releaseAssets? releaseAssets;
 
-  ReleaseItem(
-      {required this.login,
-      required this.publishedAt,
-      required this.name,
-      required this.tagName,
-      required this.avatarUrl,
-      required this.description,
-      this.releaseAssets});
+  @override
+  State<ReleaseItem> createState() => _ReleaseItemState();
+}
+
+class _ReleaseItemState extends State<ReleaseItem> {
+  var _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 12,
         ),
         Row(children: <Widget>[
-          Avatar(url: avatarUrl, size: AvatarSize.large),
-          SizedBox(width: 10),
+          Avatar(url: widget.avatarUrl, size: AvatarSize.large),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,73 +51,68 @@ class ReleaseItem extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      tagName!,
+                      widget.tagName!,
                       style: TextStyle(
-                        color: theme.palette.primary,
+                        color: AntTheme.of(context).colorPrimary,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 DefaultTextStyle(
                   style: TextStyle(
-                    color: theme.palette.secondaryText,
+                    color: AntTheme.of(context).colorTextSecondary,
                     fontSize: 16,
                   ),
-                  child: Text(login! +
-                      " ${AppLocalizations.of(context)!.released} " +
-                      timeago.format(publishedAt!)),
+                  child: Text(
+                      '${widget.login!} ${AppLocalizations.of(context)!.released} ${timeago.format(widget.publishedAt!)}'),
                 ),
               ],
             ),
           ),
         ]),
-        if (description != null && description!.isNotEmpty) ...[
+        if (widget.description != null && widget.description!.isNotEmpty) ...[
           MarkdownFlutterView(
-            description,
+            widget.description,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
         ],
-        Card(
-          color: theme.palette.grayBackground,
-          margin: EdgeInsets.all(0),
-          child: ExpansionTile(
-            title: Text(
-              'Assets (' + (releaseAssets?.nodes?.length ?? 0).toString() + ')',
-              style: TextStyle(
-                color: theme.palette.secondaryText,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            children: <Widget>[
-              TableView(
-                hasIcon: false,
-                items: [
-                  if (releaseAssets != null)
-                    for (var asset in releaseAssets!.nodes!)
-                      TableViewItem(
-                        text: Text(
+        AntCollapse(
+          activeKey: _isExpanded ? [''] : [],
+          onChange: (_) {
+            setState(() {
+              _isExpanded = !_isExpanded;
+            });
+          },
+          panels: [
+            AntCollapsePanel(
+              key: '',
+              title:
+                  Text('Assets (${widget.releaseAssets?.nodes?.length ?? 0})'),
+              child: AntList(
+                children: [
+                  if (widget.releaseAssets != null)
+                    for (var asset in widget.releaseAssets!.nodes!)
+                      AntListItem(
+                        arrow: const Icon(Ionicons.download_outline),
+                        child: Text(
                           asset.name,
                           style: TextStyle(
-                            color: theme.palette.primary,
+                            color: AntTheme.of(context).colorPrimary,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        rightWidget: IconButton(
-                            onPressed: () {
-                              theme.push(context, asset.downloadUrl);
-                            },
-                            icon: Icon(Ionicons.download_outline)),
-                        hideRightChevron: true,
+                        onClick: () {
+                          context.pushUrl(asset.downloadUrl);
+                        },
                       ),
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         )
       ],
     );

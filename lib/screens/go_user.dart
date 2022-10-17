@@ -1,21 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gogs.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/repository_item.dart';
-import 'package:git_touch/widgets/table_view.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class GoUserScreen extends StatelessWidget {
+  const GoUserScreen(this.login, {this.isViewer = false});
   final String login;
   final bool isViewer;
-  GoUserScreen(this.login, {this.isViewer = false});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class GoUserScreen extends StatelessWidget {
         ]);
       },
       action: isViewer
-          ? ActionEntry(
+          ? const ActionEntry(
               iconData: Ionicons.cog,
               url: '/settings',
             )
@@ -71,13 +72,15 @@ class GoUserScreen extends StatelessWidget {
               ),
             ]),
             CommonStyle.border,
-            TableView(
-              items: [
-                TableViewItem(
-                  leftIconData: Octicons.home,
-                  text: Text('Organizations'),
-                  url:
-                      '/gogs/${user.username}?tab=organizations&isViewer=$isViewer',
+            AntList(
+              children: [
+                AntListItem(
+                  prefix: const Icon(Octicons.home),
+                  child: const Text('Organizations'),
+                  onClick: () {
+                    context.push(
+                        '/gogs/${user.username}?tab=organizations&isViewer=$isViewer');
+                  },
                 ),
               ],
             ),
@@ -85,7 +88,7 @@ class GoUserScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 for (var v in repos) ...[
-                  RepositoryItem.go(
+                  RepoItem.go(
                     payload: v,
                     name: v.fullName!.split('/')[1],
                     owner: v.owner!.username,

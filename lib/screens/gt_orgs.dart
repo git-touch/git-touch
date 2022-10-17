@@ -1,21 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GtOrgsScreen extends StatelessWidget {
+  const GtOrgsScreen() : api = '/orgs';
+  const GtOrgsScreen.ofUser(String login) : api = '/users/$login/orgs';
   final String api;
-  GtOrgsScreen() : api = '/orgs';
-  GtOrgsScreen.ofUser(String login) : api = '/users/$login/orgs';
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaOrg, int>(
-      title: AppBarTitle(AppLocalizations.of(context)!.organizations),
+      title: Text(AppLocalizations.of(context)!.organizations),
       fetch: (page) async {
         final res =
             await context.read<AuthModel>().fetchGiteaWithPage(api, page: page);

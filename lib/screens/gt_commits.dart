@@ -1,22 +1,21 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GtCommitsScreen extends StatelessWidget {
+  // final String branch; // TODO:
+  const GtCommitsScreen(this.owner, this.name);
   final String owner;
   final String name;
-  // final String branch; // TODO:
-  GtCommitsScreen(this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteaCommit, int>(
-      title: AppBarTitle(AppLocalizations.of(context)!.commits),
+      title: Text(AppLocalizations.of(context)!.commits),
       fetch: (page) async {
         final res = await context
             .read<AuthModel>()

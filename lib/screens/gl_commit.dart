@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/auth.dart';
@@ -7,15 +9,13 @@ import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 // TODO:
 class GlCommitScreen extends StatelessWidget {
+  const GlCommitScreen(this.id, {this.sha});
   final String id;
   final String? sha;
-  GlCommitScreen(this.id, {this.sha});
 
   Future<List<GitlabDiff>> _query(BuildContext context) async {
     final auth = context.read<AuthModel>();
@@ -30,7 +30,7 @@ class GlCommitScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
 
     return RefreshStatefulScaffold<List<GitlabDiff>>(
-      title: AppBarTitle(AppLocalizations.of(context)!.commits),
+      title: Text(AppLocalizations.of(context)!.commits),
       fetch: () => _query(context),
       bodyBuilder: (items, _) {
         return Column(
@@ -46,9 +46,7 @@ class GlCommitScreen extends StatelessWidget {
                       ? codeProvider.themeDark
                       : codeProvider.theme]!,
                   padding: CommonStyle.padding,
-                  textStyle: TextStyle(
-                      fontSize: codeProvider.fontSize.toDouble(),
-                      fontFamily: codeProvider.fontFamilyUsed),
+                  textStyle: codeProvider.fontStyle,
                 ),
               ),
           ],
