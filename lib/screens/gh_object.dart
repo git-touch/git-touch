@@ -1,28 +1,29 @@
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/blob_view.dart';
 import 'package:git_touch/widgets/object_tree.dart';
-import 'package:flutter/material.dart';
-import 'package:git_touch/models/auth.dart';
 import 'package:github/github.dart';
 import 'package:provider/provider.dart';
 
 class GhObjectScreen extends StatelessWidget {
+  const GhObjectScreen(this.owner, this.name, this.ref, {this.path, this.raw});
   final String owner;
   final String name;
   final String ref;
   final String? path;
   final String? raw;
-  GhObjectScreen(this.owner, this.name, this.ref, {this.path, this.raw});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<RepositoryContents>(
       // canRefresh: !_isImage, // TODO:
-      title: AppBarTitle(path == null ? 'Files' : path),
+      title: Text(path ?? 'Files'),
       fetch: () async {
         // Do not request again for images
         if (path != null &&
@@ -36,7 +37,7 @@ class GhObjectScreen extends StatelessWidget {
         final suffix = path == null ? '' : '/$path';
         final res = await context
             .read<AuthModel>()
-            .ghClient!
+            .ghClient
             .repositories
             .getContents(RepositorySlug(owner, name), suffix, ref: ref);
         if (res.isDirectory) {
@@ -48,7 +49,7 @@ class GhObjectScreen extends StatelessWidget {
       },
       actionBuilder: (data, _) {
         if (data.isFile) {
-          return ActionEntry(
+          return const ActionEntry(
             iconData: Ionicons.cog,
             url: '/choose-code-theme',
           );
@@ -58,8 +59,8 @@ class GhObjectScreen extends StatelessWidget {
       },
       bodyBuilder: (data, _) {
         if (data.isDirectory) {
-          return ObjectTree(
-            items: data.tree!.map((v) {
+          return AntList(
+            children: data.tree!.map((v) {
               // if (item.type == 'commit') return null;
               final uri = Uri(
                 path: '/github/$owner/$name/blob/$ref',
@@ -68,14 +69,14 @@ class GhObjectScreen extends StatelessWidget {
                   ...(v.downloadUrl == null ? {} : {'raw': v.downloadUrl}),
                 },
               ).toString();
-              return ObjectTreeItem(
-                name: v.name,
-                type: v.type,
+              return createObjectTreeItem(
+                name: v.name ?? '',
+                type: v.type ?? '',
                 url: uri.toString(),
                 downloadUrl: v.downloadUrl,
                 size: v.type == 'file' ? v.size : null,
               );
-            }),
+            }).toList(),
           );
         } else {
           // TODO: Markdown base path

@@ -1,25 +1,24 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gogs.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_entry.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/hex_color_tag.dart';
 import 'package:git_touch/widgets/issue_item.dart';
-import 'package:git_touch/widgets/label.dart';
 import 'package:provider/provider.dart';
 
 class GoIssuesScreen extends StatelessWidget {
+  const GoIssuesScreen(this.owner, this.name, {this.isPr = false});
   final String owner;
   final String name;
   final bool isPr;
-  GoIssuesScreen(this.owner, this.name, {this.isPr = false});
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GogsIssue, int>(
-      title: AppBarTitle(isPr
+      title: Text(isPr
           ? AppLocalizations.of(context)!.pullRequests
           : AppLocalizations.of(context)!.issues),
       fetch: (page) async {
@@ -43,7 +42,7 @@ class GoIssuesScreen extends StatelessWidget {
         author: p.user!.username,
         avatarUrl: p.user!.avatarUrl,
         commentCount: p.comments,
-        subtitle: '#' + p.number.toString(),
+        subtitle: '#${p.number}',
         title: p.title,
         updatedAt: p.updatedAt,
         url: isPr
@@ -55,7 +54,7 @@ class GoIssuesScreen extends StatelessWidget {
                 ? null
                 : Wrap(spacing: 4, runSpacing: 4, children: [
                     for (var label in p.labels!)
-                      MyLabel(name: label.name, cssColor: label.color)
+                      HexColorTag(name: label.name!, color: label.color!)
                   ]),
       ),
     );

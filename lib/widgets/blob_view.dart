@@ -1,26 +1,26 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/theme_map.dart';
 import 'package:git_touch/models/code.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/loading.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/utils/utils.dart';
 
 class BlobView extends StatelessWidget {
-  final String? name;
-  final String? text;
-  final String? base64Text;
-  final String? networkUrl;
-  BlobView(
+  const BlobView(
     this.name, {
     this.text,
     this.base64Text,
     this.networkUrl,
   });
+  final String? name;
+  final String? text;
+  final String? base64Text;
+  final String? networkUrl;
 
   String get _text => text ?? base64Text!.base64ToUtf8;
 
@@ -37,7 +37,7 @@ class BlobView extends StatelessWidget {
       case 'webp':
         // return PhotoView(
         //   imageProvider: MemoryImage(Uint8List.fromList(bits)),
-        //   backgroundDecoration: BoxDecoration(color: theme.palette.background),
+        //   backgroundDecoration: BoxDecoration(color: AntTheme.of(context).background),
         // );
         return base64Text == null
             ? Image.network(
@@ -45,7 +45,7 @@ class BlobView extends StatelessWidget {
                 loadingBuilder: (_, child, p) {
                   if (p == null) return child;
                   // TODO: progress
-                  return Loading();
+                  return const Loading();
                 },
               )
             : Image.memory(base64.decode(base64Text!));
@@ -62,9 +62,7 @@ class BlobView extends StatelessWidget {
                 ? codeProvider.themeDark
                 : codeProvider.theme]!,
             padding: CommonStyle.padding,
-            textStyle: TextStyle(
-                fontSize: codeProvider.fontSize.toDouble(),
-                fontFamily: codeProvider.fontFamilyUsed),
+            textStyle: codeProvider.fontStyle,
           ),
         );
     }

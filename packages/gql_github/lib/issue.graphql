@@ -1,0 +1,573 @@
+fragment CommentParts on Comment {
+  id
+  createdAt
+  body
+  author {
+    login
+    avatarUrl
+  }
+}
+fragment ReactionConnectionParts on ReactionConnection {
+  totalCount
+  viewerHasReacted
+}
+fragment ReactableParts on Reactable {
+  THUMBS_UP: reactions(content: THUMBS_UP) {
+    ...ReactionConnectionParts
+  }
+  THUMBS_DOWN: reactions(content: THUMBS_DOWN) {
+    ...ReactionConnectionParts
+  }
+  LAUGH: reactions(content: LAUGH) {
+    ...ReactionConnectionParts
+  }
+  HOORAY: reactions(content: HOORAY) {
+    ...ReactionConnectionParts
+  }
+  CONFUSED: reactions(content: CONFUSED) {
+    ...ReactionConnectionParts
+  }
+  HEART: reactions(content: HEART) {
+    ...ReactionConnectionParts
+  }
+  ROCKET: reactions(content: ROCKET) {
+    ...ReactionConnectionParts
+  }
+  EYES: reactions(content: EYES) {
+    ...ReactionConnectionParts
+  }
+}
+fragment ReferencedEventParts on ReferencedEvent {
+  createdAt
+  isCrossRepository
+  actor {
+    login
+  }
+  commit {
+    oid
+    url
+  }
+  commitRepository {
+    owner {
+      login
+    }
+    name
+  }
+}
+fragment RenamedTitleEventParts on RenamedTitleEvent {
+  createdAt
+  previousTitle
+  currentTitle
+  actor {
+    login
+  }
+}
+fragment ClosedEventParts on ClosedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment ReopenedEventParts on ReopenedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment CrossReferencedEventParts on CrossReferencedEvent {
+  createdAt
+  actor {
+    login
+  }
+  source {
+    __typename
+    ... on Issue {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+    ... on PullRequest {
+      number
+      repository {
+        owner {
+          login
+        }
+        name
+      }
+    }
+  }
+}
+fragment LabeledEventParts on LabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
+fragment UnlabeledEventParts on UnlabeledEvent {
+  createdAt
+  actor {
+    login
+  }
+  label {
+    name
+    color
+  }
+}
+fragment MilestonedEventParts on MilestonedEvent {
+  createdAt
+  actor {
+    login
+  }
+  milestoneTitle
+}
+fragment DemilestonedEventParts on DemilestonedEvent {
+  createdAt
+  actor {
+    login
+  }
+  milestoneTitle
+}
+fragment LockedEventParts on LockedEvent {
+  createdAt
+  actor {
+    login
+  }
+  lockReason
+}
+fragment UnlockedEventParts on UnlockedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment AssignedEventParts on AssignedEvent {
+  createdAt
+  actor {
+    login
+  }
+  assignee {
+    __typename
+    ... on User {
+      login
+    }
+    ... on Bot {
+      login
+    }
+    ... on Organization {
+      login
+    }
+    ... on Mannequin {
+      login
+    }
+  }
+}
+fragment UnassignedEventParts on UnassignedEvent {
+  createdAt
+  actor {
+    login
+  }
+  assignee {
+    __typename
+    ... on User {
+      login
+    }
+    ... on Bot {
+      login
+    }
+    ... on Organization {
+      login
+    }
+    ... on Mannequin {
+      login
+    }
+  }
+}
+fragment SubscribedEventParts on SubscribedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment UnsubscribedEventParts on UnsubscribedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment MentionedEventParts on MentionedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment PinnedEventParts on PinnedEvent {
+  createdAt
+  actor {
+    login
+  }
+}
+fragment TransferredEventParts on TransferredEvent {
+  createdAt
+  actor {
+    login
+  }
+  fromRepository {
+    owner {
+      login
+    }
+    name
+  }
+}
+fragment PullRequestCommitParts on PullRequestCommit {
+  commit {
+    committedDate
+    oid
+    author {
+      user {
+        login
+      }
+    }
+  }
+}
+fragment DeployedEventParts on DeployedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRef {
+      name
+    }
+  }
+}
+fragment DeploymentEnvironmentChangedEventParts on DeploymentEnvironmentChangedEvent {
+  createdAt
+  actor {
+    login
+  }
+  deploymentStatus {
+    deployment {
+      environment
+    }
+    description
+  }
+}
+fragment HeadRefRestoredEventParts on HeadRefRestoredEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRefName
+  }
+}
+fragment BaseRefForcePushedEventParts on BaseRefForcePushedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    baseRef {
+      name
+    }
+  }
+  beforeCommit {
+    oid
+  }
+  afterCommit {
+    oid
+  }
+}
+fragment HeadRefForcePushedEventParts on HeadRefForcePushedEvent {
+  createdAt
+  actor {
+    login
+  }
+  pullRequest {
+    headRefName
+  }
+  beforeCommit {
+    oid
+  }
+  afterCommit {
+    oid
+  }
+}
+fragment ReviewRequestedEventParts on ReviewRequestedEvent {
+  createdAt
+  actor {
+    login
+  }
+  requestedReviewer {
+    ... on User {
+      login
+    }
+  }
+}
+fragment ReviewRequestRemovedEventParts on ReviewRequestRemovedEvent {
+  createdAt
+  actor {
+    login
+  }
+  requestedReviewer {
+    ... on User {
+      login
+    }
+  }
+}
+fragment ReviewDismissedEventParts on ReviewDismissedEvent {
+  createdAt
+  dismissalMessage
+  actor {
+    login
+  }
+  pullRequest {
+    author {
+      login
+    }
+  }
+}
+fragment PullRequestReviewParts on PullRequestReview {
+  createdAt
+  state
+  author {
+    login
+  }
+  comments(first: 10) {
+    nodes {
+      ...CommentParts
+      ...ReactableParts
+    }
+  }
+}
+fragment MergedEventParts on MergedEvent {
+  createdAt
+  mergeRefName
+  actor {
+    login
+  }
+  commit {
+    oid
+    url
+  }
+}
+fragment HeadRefDeletedEventParts on HeadRefDeletedEvent {
+  createdAt
+  headRefName
+  actor {
+    login
+  }
+}
+query Issue($owner: String!, $name: String!, $number: Int!, $cursor: String) {
+  repository(owner: $owner, name: $name) {
+    owner {
+      avatarUrl
+    }
+    issueOrPullRequest(number: $number) {
+      ... on Issue {
+        ...CommentParts
+        ...ReactableParts
+        title
+        closed
+        url
+        viewerCanReact
+        viewerCanUpdate
+        timelineItems(first: 30, after: $cursor) {
+          totalCount
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ... on IssueComment {
+              ...CommentParts
+              ...ReactableParts
+            }
+            ... on ReferencedEvent {
+              ...ReferencedEventParts
+            }
+            ... on RenamedTitleEvent {
+              ...RenamedTitleEventParts
+            }
+            ... on ClosedEvent {
+              ...ClosedEventParts
+            }
+            ... on ReopenedEvent {
+              ...ReopenedEventParts
+            }
+            ... on CrossReferencedEvent {
+              ...CrossReferencedEventParts
+            }
+            ... on LabeledEvent {
+              ...LabeledEventParts
+            }
+            ... on UnlabeledEvent {
+              ...UnlabeledEventParts
+            }
+            ... on MilestonedEvent {
+              ...MilestonedEventParts
+            }
+            ... on DemilestonedEvent {
+              ...DemilestonedEventParts
+            }
+            ... on LockedEvent {
+              ...LockedEventParts
+            }
+            ... on UnlockedEvent {
+              ...UnlockedEventParts
+            }
+            ... on AssignedEvent {
+              ...AssignedEventParts
+            }
+            ... on UnassignedEvent {
+              ...UnassignedEventParts
+            }
+            ... on SubscribedEvent {
+              ...SubscribedEventParts
+            }
+            ... on UnsubscribedEvent {
+              ...UnsubscribedEventParts
+            }
+            ... on MentionedEvent {
+              ...MentionedEventParts
+            }
+            ... on PinnedEvent {
+              ...PinnedEventParts
+            }
+            ... on TransferredEvent {
+              ...TransferredEventParts
+            }
+          }
+        }
+      }
+      ... on PullRequest {
+        ...CommentParts
+        ...ReactableParts
+        title
+        closed
+        url
+        viewerCanReact
+        viewerCanUpdate
+        merged
+        additions
+        deletions
+        changedFiles
+        commits {
+          totalCount
+        }
+        timelineItems(first: 30, after: $cursor) {
+          totalCount
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ... on IssueComment {
+              ...CommentParts
+              ...ReactableParts
+            }
+            ... on ReferencedEvent {
+              ...ReferencedEventParts
+            }
+            ... on RenamedTitleEvent {
+              ...RenamedTitleEventParts
+            }
+            ... on ClosedEvent {
+              ...ClosedEventParts
+            }
+            ... on ReopenedEvent {
+              ...ReopenedEventParts
+            }
+            ... on CrossReferencedEvent {
+              ...CrossReferencedEventParts
+            }
+            ... on LabeledEvent {
+              ...LabeledEventParts
+            }
+            ... on UnlabeledEvent {
+              ...UnlabeledEventParts
+            }
+            ... on MilestonedEvent {
+              ...MilestonedEventParts
+            }
+            ... on DemilestonedEvent {
+              ...DemilestonedEventParts
+            }
+            ... on LockedEvent {
+              ...LockedEventParts
+            }
+            ... on UnlockedEvent {
+              ...UnlockedEventParts
+            }
+            ... on AssignedEvent {
+              ...AssignedEventParts
+            }
+            ... on UnassignedEvent {
+              ...UnassignedEventParts
+            }
+            ... on SubscribedEvent {
+              ...SubscribedEventParts
+            }
+            ... on UnsubscribedEvent {
+              ...UnsubscribedEventParts
+            }
+            ... on MentionedEvent {
+              ...MentionedEventParts
+            }
+            ... on PinnedEvent {
+              ...PinnedEventParts
+            }
+            ... on TransferredEvent {
+              ...TransferredEventParts
+            }
+            # pull request only
+            ... on PullRequestCommit {
+              ...PullRequestCommitParts
+            }
+            ... on DeployedEvent {
+              ...DeployedEventParts
+            }
+            ... on DeploymentEnvironmentChangedEvent {
+              ...DeploymentEnvironmentChangedEventParts
+            }
+            ... on HeadRefRestoredEvent {
+              ...HeadRefRestoredEventParts
+            }
+            ... on BaseRefForcePushedEvent {
+              ...BaseRefForcePushedEventParts
+            }
+            ... on HeadRefForcePushedEvent {
+              ...HeadRefForcePushedEventParts
+            }
+            ... on ReviewRequestedEvent {
+              ...ReviewRequestedEventParts
+            }
+            ... on ReviewRequestRemovedEvent {
+              ...ReviewRequestRemovedEventParts
+            }
+            ... on ReviewDismissedEvent {
+              ...ReviewDismissedEventParts
+            }
+            ... on PullRequestReview {
+              ...PullRequestReviewParts
+            }
+            ... on MergedEvent {
+              ...MergedEventParts
+            }
+            ... on HeadRefDeletedEvent {
+              ...HeadRefDeletedEventParts
+            }
+          }
+        }
+      }
+    }
+  }
+}

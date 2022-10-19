@@ -1,30 +1,28 @@
-import 'package:ferry/ferry.dart';
-import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/github.data.gql.dart';
-import 'package:git_touch/graphql/github.req.gql.dart';
-import 'package:git_touch/graphql/github.var.gql.dart';
-import 'package:git_touch/graphql/schema.schema.gql.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
+import 'package:gql_github/commits.data.gql.dart';
+import 'package:gql_github/commits.req.gql.dart';
+import 'package:gql_github/schema.schema.gql.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhCommits extends StatelessWidget {
+  const GhCommits(this.owner, this.name, {this.branch});
   final String owner;
   final String name;
   final String? branch;
-  GhCommits(this.owner, this.name, {this.branch});
 
   Widget _buildStatus(GStatusState? state) {
     const size = 18.0;
     switch (state) {
       case GStatusState.SUCCESS:
-        return Icon(Octicons.check, color: GithubPalette.open, size: size);
+        return const Icon(Octicons.check,
+            color: GithubPalette.open, size: size);
       case GStatusState.FAILURE:
-        return Icon(Octicons.x, color: GithubPalette.closed, size: size);
+        return const Icon(Octicons.x, color: GithubPalette.closed, size: size);
       default:
         return Container();
     }
@@ -33,7 +31,7 @@ class GhCommits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GCommitsRefCommit_history_nodes, String?>(
-      title: AppBarTitle(AppLocalizations.of(context)!.commits),
+      title: Text(AppLocalizations.of(context)!.commits),
       fetch: (cursor) async {
         final req = GCommitsReq((b) {
           b.vars.owner = owner;
@@ -42,21 +40,21 @@ class GhCommits extends StatelessWidget {
           b.vars.ref = branch ?? '';
           b.vars.after = cursor;
         });
-        final OperationResponse<GCommitsData, GCommitsVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+        final res =
+            await context.read<AuthModel>().ghGqlClient.request(req).first;
         final ref = res.data!.repository!.defaultBranchRef ??
             res.data!.repository!.ref!;
         final history = (ref.target as GCommitsRefCommit).history;
         return ListPayload(
           cursor: history.pageInfo.endCursor,
           hasMore: history.pageInfo.hasNextPage,
-          items: history.nodes,
+          items: history.nodes ?? [],
         );
       },
       itemBuilder: (p) {
         final login = p.author?.user?.login;
         return CommitItem(
-          url: p.url,
+          url: '/github/$owner/$name/commit/${p.oid}',
           avatarUrl: p.author?.avatarUrl,
           avatarLink: login == null ? null : '/github/$login',
           message: p.messageHeadline,
@@ -65,7 +63,7 @@ class GhCommits extends StatelessWidget {
           widgets: p.status == null
               ? null
               : [
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   _buildStatus(p.status!.state),
                 ],
         );

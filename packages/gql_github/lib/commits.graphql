@@ -1,0 +1,48 @@
+fragment CommitsRefCommit on Commit {
+  history(first: 30, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      oid
+      messageHeadline
+      committedDate
+      author {
+        name
+        avatarUrl
+        user {
+          login
+        }
+      }
+      status {
+        state
+      }
+    }
+  }
+}
+
+fragment CommitsRef on Ref {
+  target {
+    ... on Commit {
+      ...CommitsRefCommit
+    }
+  }
+}
+
+query Commits(
+  $owner: String!
+  $name: String!
+  $ref: String!
+  $hasRef: Boolean!
+  $after: String
+) {
+  repository(owner: $owner, name: $name) {
+    defaultBranchRef @skip(if: $hasRef) {
+      ...CommitsRef
+    }
+    ref(qualifiedName: $ref) @include(if: $hasRef) {
+      ...CommitsRef
+    }
+  }
+}

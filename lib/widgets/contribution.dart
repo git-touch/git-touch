@@ -1,6 +1,8 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -8,44 +10,22 @@ import 'package:provider/provider.dart';
 const contributionEmptyColor = '#ebedf0';
 const contributionColors = ['#9be9a8', '#40c463', '#30a14e', '#216e39'];
 
-const darkMapper = {
-  '#ebedf0': '#161b22',
-  '#9be9a8': '#01311f',
-  '#40c463': '#034525',
-  '#30a14e': '#0f6d31',
-  '#216e39': '#00c647'
-};
-
-class HideScrollbar extends StatelessWidget {
-  final Widget? child;
-  const HideScrollbar({Key? key, this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (_) => true,
-      child: child!,
-    );
-  }
-}
-
 class ContributionDay {
-  String? hexColor;
-  int? count;
   ContributionDay({this.hexColor, this.count})
       : assert(hexColor != null || count != null);
+  String? hexColor;
+  int? count;
 }
 
 class ContributionWidget extends StatelessWidget {
-  final Iterable<Iterable<ContributionDay>>? weeks;
   ContributionWidget({required this.weeks}) {
     int? maxCount;
-    for (var week in weeks!) {
-      for (var day in week) {
+    for (final week in weeks!) {
+      for (final day in week) {
         if (day.count != null) {
           if (maxCount == null) {
-            for (var week in weeks!) {
-              for (var day in week) {
+            for (final week in weeks!) {
+              for (final day in week) {
                 maxCount = max(day.count!, maxCount ?? 0);
               }
             }
@@ -61,17 +41,21 @@ class ContributionWidget extends StatelessWidget {
       }
     }
   }
+  final Iterable<Iterable<ContributionDay>>? weeks;
+
+  static Color _revertColor(Color color) {
+    return Color.fromRGBO(
+        0xff - color.red, 0xff - color.green, 0xff - color.blue, 1);
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeModel>();
-    return Container(
-      alignment: Alignment.center,
-      padding: CommonStyle.padding,
-      child: HideScrollbar(
-          child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        reverse: true,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      reverse: true,
+      child: Padding(
+        padding: CommonStyle.padding,
         child: Wrap(
           spacing: 3,
           children: [
@@ -81,24 +65,21 @@ class ContributionWidget extends StatelessWidget {
                 spacing: 3,
                 children: [
                   for (final day in week)
-                    SizedBox(
+                    Container(
                       width: 10,
                       height: 10,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: convertColor(
-                              theme.brightness == Brightness.dark
-                                  ? darkMapper[day.hexColor!]
-                                  : day.hexColor,
-                            ),
-                            borderRadius: BorderRadius.circular(2)),
+                      decoration: BoxDecoration(
+                        color: theme.brightness == Brightness.dark
+                            ? _revertColor(fromCssColor(day.hexColor!))
+                            : fromCssColor(day.hexColor!),
+                        borderRadius: BorderRadius.circular(2),
                       ),
                     )
                 ],
               )
           ],
         ),
-      )),
+      ),
     );
   }
 }

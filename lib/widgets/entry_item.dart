@@ -1,29 +1,32 @@
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:provider/provider.dart';
-import 'link.dart';
 
 class EntryItem extends StatelessWidget {
-  final int? count;
-  final String text;
-  final String? url;
-
-  EntryItem({
+  const EntryItem({
     required this.text,
     this.count,
     this.url,
   });
+  final int? count;
+  final String text;
+  final String? url;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
+    final theme = AntTheme.of(context);
 
     return Expanded(
-      child: LinkWidget(
-        url: url,
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 14),
+      child: Container(
+        color: theme.colorBackground,
+        child: AntButton(
+          block: true,
+          size: AntButtonSize.large,
+          fill: AntButtonFill.none,
+          color: theme.colorPrimary,
+          onClick: () {
+            if (url != null) context.pushUrl(url!);
+          },
           child: Column(
             children: <Widget>[
               Text(
@@ -31,15 +34,16 @@ class EntryItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
-                  color: theme.palette.text,
+                  color: theme.colorText,
                 ),
               ),
               Text(
                 text,
                 style: TextStyle(
                   fontSize: 14,
-                  color: theme.palette.secondaryText,
+                  color: theme.colorTextSecondary,
                   fontWeight: FontWeight.w500,
+                  // overflow: TextOverflow.ellipsis,
                 ),
               )
             ],

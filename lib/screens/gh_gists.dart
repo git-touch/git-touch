@@ -1,34 +1,31 @@
-import 'package:ferry/ferry.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/github.var.gql.dart';
-import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/gists_item.dart';
-import 'package:provider/provider.dart';
-import 'package:git_touch/models/auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
-import 'package:git_touch/graphql/github.data.gql.dart';
-import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/widgets/gists_item.dart';
+import 'package:gql_github/gists.data.gql.dart';
+import 'package:gql_github/gists.req.gql.dart';
+import 'package:provider/provider.dart';
 
 class GhGistsScreen extends StatelessWidget {
+  const GhGistsScreen(this.login);
   final String login;
-  GhGistsScreen(this.login);
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GGistsData_user_gists_nodes, String?>(
-      title: AppBarTitle(AppLocalizations.of(context)!.gists),
+      title: Text(AppLocalizations.of(context)!.gists),
       fetch: (page) async {
         final req = GGistsReq((b) => b
           ..vars.login = login
           ..vars.after = page);
-        final OperationResponse<GGistsData, GGistsVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+        final res =
+            await context.read<AuthModel>().ghGqlClient.request(req).first;
         final gists = res.data!.user!.gists;
         return ListPayload(
           cursor: gists.pageInfo.endCursor,
-          items: gists.nodes,
+          items: gists.nodes ?? [],
           hasMore: gists.pageInfo.hasNextPage,
         );
       },

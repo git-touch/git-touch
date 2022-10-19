@@ -1,18 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/theme.dart';
-import 'package:git_touch/scaffolds/tab_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:github/github.dart';
-import 'package:provider/provider.dart';
-import 'package:git_touch/models/notification.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/github.dart';
-import '../widgets/notification_item.dart';
-import '../widgets/list_group.dart';
-import '../widgets/empty.dart';
-import '../utils/utils.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/models/notification.dart';
+import 'package:git_touch/scaffolds/tab_stateful.dart';
+import 'package:git_touch/widgets/empty.dart';
+import 'package:git_touch/widgets/list_group.dart';
+import 'package:git_touch/widgets/notification_item.dart';
+import 'package:github/github.dart';
+import 'package:provider/provider.dart';
 
 class GhNotificationScreen extends StatefulWidget {
   @override
@@ -21,7 +20,7 @@ class GhNotificationScreen extends StatefulWidget {
 
 class GhNotificationScreenState extends State<GhNotificationScreen> {
   Future<Map<String, NotificationGroup>> fetchNotifications(int index) async {
-    final ns = await context.read<AuthModel>().ghClient!.getJSON(
+    final ns = await context.read<AuthModel>().ghClient.getJSON(
           '/notifications?all=${index == 2}&participating=${index == 1}',
           convert: (dynamic vs) =>
               [for (var v in vs) GithubNotificationItem.fromJson(v)],
@@ -30,21 +29,21 @@ class GhNotificationScreenState extends State<GhNotificationScreen> {
       context.read<NotificationModel>().setCount(ns.length);
     }
 
-    Map<String, NotificationGroup> _groupMap = {};
+    final groupMap = <String, NotificationGroup>{};
 
-    ns.forEach((item) {
+    for (final item in ns) {
       final repo = item.repository!.fullName ?? ''; // TODO: nullable
-      if (_groupMap[repo] == null) {
-        _groupMap[repo] = NotificationGroup(repo);
+      if (groupMap[repo] == null) {
+        groupMap[repo] = NotificationGroup(repo);
       }
 
-      _groupMap[repo]!.items.add(item);
-    });
+      groupMap[repo]!.items.add(item);
+    }
 
-    if (_groupMap.isNotEmpty) {
+    if (groupMap.isNotEmpty) {
       // query state of issues and pull requests
       var schema = '{';
-      _groupMap.forEach((repo, group) {
+      groupMap.forEach((repo, group) {
         // Check if issue and pull request exist
         if (group.items.where((item) {
           return item.subject!.type == 'Issue' ||
@@ -56,7 +55,7 @@ class GhNotificationScreenState extends State<GhNotificationScreen> {
         schema +=
             '${group.key}: repository(owner: "${group.owner}", name: "${group.name}") {';
 
-        group.items.forEach((item) {
+        for (final item in group.items) {
           switch (item.subject!.type) {
             case 'Issue':
               schema += '''
@@ -73,31 +72,31 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
 ''';
               break;
           }
-        });
+        }
 
         schema += '}';
       });
       schema += '}';
 
-      if (schema == '{}') return _groupMap;
+      if (schema == '{}') return groupMap;
 
       // Fimber.d(schema);
-      var data = await context.read<AuthModel>().query(schema);
-      _groupMap.forEach((repo, group) {
-        group.items.forEach((item) {
-          var groupData = data[group.key];
-          if (groupData == null) return;
+      final data = await context.read<AuthModel>().query(schema);
+      groupMap.forEach((repo, group) {
+        for (final item in group.items) {
+          final groupData = data[group.key];
+          if (groupData == null) continue;
 
-          var itemData = data[group.key][item.key];
+          final itemData = data[group.key][item.key];
           if (itemData != null) {
             item.state = itemData['state'];
           }
-        });
+        }
       });
       // Fimber.d(data);
     }
 
-    return _groupMap;
+    return groupMap;
   }
 
   Widget _buildGroupItem(
@@ -105,7 +104,6 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
     MapEntry<String, NotificationGroup> entry,
     Map<String, NotificationGroup> groupMap,
   ) {
-    final theme = Provider.of<ThemeModel>(context);
     final group = entry.value;
     return ListGroup(
       title: Row(
@@ -116,14 +114,14 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: theme.palette.text,
+              color: AntTheme.of(context).colorText,
             ),
           ),
           GestureDetector(
             onTap: () async {
               await context
                   .read<AuthModel>()
-                  .ghClient!
+                  .ghClient
                   .activity
                   .markRepositoryNotificationsRead(
                       RepositorySlug.full(group.fullName!));
@@ -131,7 +129,7 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
             },
             child: Icon(
               Ionicons.checkmark_done,
-              color: theme.palette.tertiaryText,
+              color: AntTheme.of(context).colorWeak,
               size: 24,
             ),
           ),
@@ -156,7 +154,7 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
   @override
   Widget build(context) {
     return TabStatefulScaffold<Map<String, NotificationGroup>>(
-      title: AppBarTitle(AppLocalizations.of(context)!.notification),
+      title: Text(AppLocalizations.of(context)!.notification),
       tabs: [
         AppLocalizations.of(context)!.unread,
         AppLocalizations.of(context)!.participating,
@@ -168,7 +166,7 @@ ${item.key}: pullRequest(number: ${item.subject!.number}) {
 
         return Column(
           children: [
-            Padding(padding: EdgeInsets.only(top: 10)),
+            const Padding(padding: EdgeInsets.only(top: 10)),
             ...groupMap.entries
                 .map((entry) => _buildGroupItem(context, entry, groupMap))
                 .toList()

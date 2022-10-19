@@ -1,0 +1,148 @@
+fragment RepoParts on Repository {
+  owner {
+    login
+    avatarUrl
+  }
+  name
+  description
+  isPrivate
+  isFork
+  stargazers {
+    totalCount
+  }
+  forks {
+    totalCount
+  }
+  primaryLanguage {
+    color
+    name
+  }
+}
+
+fragment SponsorConnectionParts on SponsorConnection {
+  totalCount
+  nodes {
+    __typename
+    ... on User {
+      avatarUrl
+    }
+    ... on Organization {
+      avatarUrl
+    }
+  }
+}
+
+fragment UserParts on User {
+  login
+  name
+  avatarUrl
+  location
+  createdAt
+  company
+  bio
+  url
+  email
+  websiteUrl
+  twitterUsername
+  viewerCanFollow # TODO: remove in viewer query
+  viewerIsFollowing
+  followers {
+    totalCount
+  }
+  following {
+    totalCount
+  }
+  contributionsCollection {
+    contributionCalendar {
+      weeks {
+        contributionDays {
+          color
+        }
+      }
+    }
+  }
+  sponsoring(first: 3) {
+    ...SponsorConnectionParts
+  }
+  sponsors(first: 3) {
+    ...SponsorConnectionParts
+  }
+  organizations(first: 3) {
+    totalCount
+    nodes {
+      avatarUrl
+    }
+  }
+  repositories(
+    first: 6
+    ownerAffiliations: OWNER
+    orderBy: { field: STARGAZERS, direction: DESC }
+  ) {
+    totalCount
+    nodes {
+      ...RepoParts
+    }
+  }
+  starredRepositories {
+    totalCount
+  }
+  gists {
+    totalCount
+  }
+  pinnedItems(first: 6) {
+    nodes {
+      ... on Repository {
+        ...RepoParts
+      }
+    }
+  }
+}
+
+query Viewer {
+  viewer {
+    ...UserParts
+  }
+}
+
+query User($login: String!) {
+  user(login: $login) {
+    ...UserParts
+  }
+  organization(login: $login) {
+    login
+    avatarUrl
+    name
+    url
+    description
+    location
+    email
+    websiteUrl
+    twitterUsername
+    createdAt
+    viewerIsFollowing
+    membersWithRole {
+      totalCount
+    }
+    sponsoring(first: 3) {
+      ...SponsorConnectionParts
+    }
+    sponsors(first: 3) {
+      ...SponsorConnectionParts
+    }
+    pinnedItems(first: 6) {
+      nodes {
+        ... on Repository {
+          ...RepoParts
+        }
+      }
+    }
+    pinnableItems(first: 6, types: [REPOSITORY]) {
+      totalCount
+      nodes {
+        ... on Repository {
+          ...RepoParts
+        }
+      }
+    }
+  }
+}

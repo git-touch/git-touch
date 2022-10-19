@@ -1,20 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/repository_item.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:tuple/tuple.dart';
 
 class GlGroupScreen extends StatelessWidget {
+  const GlGroupScreen(this.id);
   final int id;
-  GlGroupScreen(this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class GlGroupScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 for (var v in p.projects!)
-                  RepositoryItem.gl(
+                  RepoItem.gl(
                     payload: v,
                     note: 'Updated ${timeago.format(v.lastActivityAt!)}',
                   )

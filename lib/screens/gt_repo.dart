@@ -1,41 +1,42 @@
 import 'dart:convert';
 
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:filesize/filesize.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/entry_item.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
-import 'package:git_touch/widgets/table_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GtRepoScreen extends StatelessWidget {
+  const GtRepoScreen(this.owner, this.name);
   final String owner;
   final String name;
-  GtRepoScreen(this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple2<GiteaRepository, MarkdownViewData>>(
-      title: AppBarTitle(AppLocalizations.of(context)!.repository),
+      title: Text(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final repo = await auth.fetchGitea('/repos/$owner/$name').then((v) {
           return GiteaRepository.fromJson(v);
         });
 
-        final md = () =>
+        md() =>
             auth.fetchGitea('/repos/$owner/$name/contents/README.md').then((v) {
               return (v['content'] as String?)?.base64ToUtf8 ?? '';
             });
-        final html = () => md().then((v) async {
+        html() => md().then((v) async {
               final res = await http.post(
                 Uri.parse('${auth.activeAccount!.domain}/api/v1/markdown/raw'),
                 headers: {'Authorization': 'token ${auth.token}'},
@@ -64,47 +65,55 @@ class GtRepoScreen extends StatelessWidget {
             Row(
               children: <Widget>[
                 EntryItem(
+                  count: 0, // TODO:
                   text: 'Watchers',
                   url: '/gitea/$owner/$name/watchers',
                 ),
                 EntryItem(
-                  count: p.starsCount,
+                  count: p.starsCount!,
                   text: 'Stars',
                   url: '/gitea/$owner/$name/stargazers',
                 ),
                 EntryItem(
-                  count: p.forksCount,
+                  count: p.forksCount!,
                   text: 'Forks',
                   url: '/gitea/$owner/$name/forks',
                 ),
               ],
             ),
             CommonStyle.border,
-            TableView(
-              hasIcon: true,
-              items: [
-                TableViewItem(
-                  leftIconData: Octicons.code,
-                  text: Text('Code'),
-                  rightWidget: Text(filesize(p.size! * 1000)),
-                  url: '/gitea/$owner/$name/blob',
+            AntList(
+              children: [
+                AntListItem(
+                  prefix: const Icon(Octicons.code),
+                  extra: Text(filesize(p.size! * 1000)),
+                  onClick: () {
+                    context.push('/gitea/$owner/$name/blob');
+                  },
+                  child: const Text('Code'),
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.issue_opened,
-                  text: Text('Issues'),
-                  rightWidget: Text(numberFormat.format(p.openIssuesCount)),
-                  url: '/gitea/$owner/$name/issues',
+                AntListItem(
+                  prefix: const Icon(Octicons.issue_opened),
+                  extra: Text(numberFormat.format(p.openIssuesCount)),
+                  onClick: () {
+                    context.push('/gitea/$owner/$name/issues');
+                  },
+                  child: const Text('Issues'),
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.git_pull_request,
-                  text: Text('Pull requests'),
-                  rightWidget: Text(numberFormat.format(p.openPrCounter)),
-                  url: '/gitea/$owner/$name/pulls',
+                AntListItem(
+                  prefix: const Icon(Octicons.git_pull_request),
+                  extra: Text(numberFormat.format(p.openPrCounter)),
+                  onClick: () {
+                    context.push('/gitea/$owner/$name/pulls');
+                  },
+                  child: const Text('Pull requests'),
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.history,
-                  text: Text('Commits'),
-                  url: '/gitea/$owner/$name/commits',
+                AntListItem(
+                  prefix: const Icon(Octicons.history),
+                  child: const Text('Commits'),
+                  onClick: () {
+                    context.push('/gitea/$owner/$name/commits');
+                  },
                 ),
               ],
             ),

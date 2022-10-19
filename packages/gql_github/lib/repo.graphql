@@ -1,0 +1,112 @@
+fragment CommitParts on Commit {
+  history {
+    totalCount
+  }
+}
+
+fragment RefParts on Ref {
+  name
+  target {
+    ... on Commit {
+      ...CommitParts # extracted to fragment for type cast
+    }
+  }
+}
+
+query Repo(
+  $owner: String!
+  $name: String!
+  $branchSpecified: Boolean!
+  $branch: String!
+) {
+  repository(owner: $owner, name: $name) {
+    owner {
+      login
+      avatarUrl
+    }
+    name
+    description
+    homepageUrl
+    isPrivate
+    isFork
+    url
+    viewerHasStarred
+    viewerSubscription
+
+    repositoryTopics(first: 10) {
+      nodes {
+        url
+        topic {
+          name
+        }
+      }
+    }
+
+    watchers {
+      totalCount
+    }
+    stargazers {
+      totalCount
+    }
+    forks {
+      totalCount
+    }
+
+    languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
+      totalSize
+      edges {
+        size
+        node {
+          name
+          color
+        }
+      }
+    }
+
+    primaryLanguage {
+      name
+    }
+    licenseInfo {
+      name
+      spdxId
+    }
+    diskUsage
+    hasIssuesEnabled
+    issues {
+      totalCount
+    }
+    issuesOpen: issues(states: OPEN) {
+      totalCount
+    }
+    pullRequests {
+      totalCount
+    }
+    pullRequestsOpen: pullRequests(states: OPEN) {
+      totalCount
+    }
+    discussions {
+      totalCount
+    }
+    hasProjectsEnabled
+    projectsUrl
+    projects {
+      totalCount
+    }
+
+    defaultBranchRef @skip(if: $branchSpecified) {
+      ...RefParts
+    }
+    ref(qualifiedName: $branch) @include(if: $branchSpecified) {
+      ...RefParts
+    }
+    refs(first: 100, refPrefix: "refs/heads/") {
+      totalCount
+      nodes {
+        name
+      }
+    }
+    releases {
+      totalCount
+    }
+  }
+}

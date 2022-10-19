@@ -1,26 +1,25 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitlab.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/comment_item.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/models/auth.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GlIssueScreen extends StatelessWidget {
+  const GlIssueScreen(this.projectId, this.iid, {this.isMr = false});
   final int projectId;
   final int iid;
   final bool isMr;
-
-  GlIssueScreen(this.projectId, this.iid, {this.isMr = false});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<
         Tuple3<GitlabTodoTarget, Iterable<GitlabIssueNote>, List?>>(
-      title: Text(AppLocalizations.of(context)!.issue + '#$iid'),
+      title: Text('${AppLocalizations.of(context)!.issue}#$iid'),
       fetch: () async {
         final type = isMr ? 'merge_requests' : 'issues';
         final auth = context.read<AuthModel>();

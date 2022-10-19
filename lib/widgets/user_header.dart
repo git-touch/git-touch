@@ -1,40 +1,42 @@
-import 'package:flutter/material.dart';
-import 'package:git_touch/models/theme.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/avatar.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
-import 'package:provider/provider.dart';
 
 class UserHeader extends StatelessWidget {
-  final String? avatarUrl;
-  final String? name;
-  final String? login;
-  final DateTime? createdAt;
-  final String? bio;
-  final List<Widget> rightWidgets;
-
-  UserHeader({
+  const UserHeader({
+    super.key,
     required this.avatarUrl,
     required this.name,
     required this.login,
     required this.createdAt,
     required this.bio,
-    bool isViewer = false,
-    List<Widget>? rightWidgets,
-  }) : rightWidgets = [
-          if (isViewer)
-            MutationButton(
-              active: false,
-              text: 'Switch accounts',
-              url: '/login',
-            )
-          else
-            ...(rightWidgets ?? []),
-        ];
+    this.isViewer = false,
+    this.rightWidgets = const [],
+  });
+  final String? avatarUrl;
+  final String? name;
+  final String? login;
+  final DateTime? createdAt;
+  final String? bio;
+  final bool isViewer;
+  final List<Widget> rightWidgets;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
+    final right = isViewer
+        ? [
+            MutationButton(
+              text: 'Switch accounts',
+              onTap: () {
+                context.pushUrl('/login');
+              },
+            )
+          ]
+        : rightWidgets;
+
     return Container(
       padding: CommonStyle.padding,
       child: Column(
@@ -43,61 +45,51 @@ class UserHeader extends StatelessWidget {
           Row(
             children: <Widget>[
               Avatar(url: avatarUrl, size: AvatarSize.extraLarge),
-              if (rightWidgets.isNotEmpty) ...[
+              if (right.isNotEmpty) ...[
                 Expanded(child: Container()),
-                ...rightWidgets,
+                ...right,
               ]
             ],
           ),
-          SizedBox(height: 8),
-          if (name != null && name!.isNotEmpty) ...[
+          if (name != null && name!.isNotEmpty)
             Text(
               name!,
               style: TextStyle(
-                color: theme.palette.text,
+                color: AntTheme.of(context).colorText,
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
-          ],
           Text(
             login!,
             style: TextStyle(
-              color: theme.palette.primary,
-              fontSize: 18,
-            ),
+                color: AntTheme.of(context).colorPrimary, fontSize: 18),
           ),
-          SizedBox(height: 8),
           if (createdAt != null)
             Row(
               children: <Widget>[
                 Icon(
                   Octicons.clock,
                   size: 16,
-                  color: theme.palette.tertiaryText,
+                  color: AntTheme.of(context).colorWeak,
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Text(
                   'Joined on ${dateFormat.format(createdAt!)}',
                   style: TextStyle(
-                    color: theme.palette.tertiaryText,
-                    fontSize: 16,
-                  ),
+                      color: AntTheme.of(context).colorWeak, fontSize: 16),
                 ),
               ],
             ),
-          if (bio != null && bio!.isNotEmpty) ...[
-            SizedBox(height: 10),
+          if (bio != null && bio!.isNotEmpty)
             Text(
               bio!,
               style: TextStyle(
-                color: theme.palette.secondaryText,
+                color: AntTheme.of(context).colorTextSecondary,
                 fontSize: 17,
               ),
             )
-          ]
-        ],
+        ].withSeparator(const SizedBox(height: 8)),
       ),
     );
   }

@@ -1,35 +1,34 @@
-import 'package:ferry/ferry.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:filesize/filesize.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/github.data.gql.dart';
-import 'package:git_touch/graphql/github.req.gql.dart';
-import 'package:git_touch/graphql/github.var.gql.dart';
-import 'package:git_touch/graphql/schema.schema.gql.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/markdown_view.dart';
-import 'package:git_touch/widgets/label.dart';
 import 'package:git_touch/widgets/language_bar.dart';
+import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/mutation_button.dart';
 import 'package:git_touch/widgets/repo_header.dart';
-import 'package:git_touch/widgets/table_view.dart';
 import 'package:github/github.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gql_github/repo.data.gql.dart';
+import 'package:gql_github/repo.req.gql.dart';
+import 'package:gql_github/schema.schema.gql.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:tuple/tuple.dart';
-import 'package:git_touch/widgets/action_button.dart';
 import 'package:universal_io/io.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhRepoScreen extends StatelessWidget {
+  const GhRepoScreen(this.owner, this.name, {this.branch});
   final String owner;
   final String name;
   final String? branch;
-  GhRepoScreen(this.owner, this.name, {this.branch});
 
   String _buildWatchState(GSubscriptionState? state) {
     switch (state) {
@@ -49,23 +48,23 @@ class GhRepoScreen extends StatelessWidget {
     final theme = Provider.of<ThemeModel>(context);
     return RefreshStatefulScaffold<
         Tuple3<GRepoData_repository?, Future<int>, MarkdownViewData>>(
-      title: AppBarTitle(AppLocalizations.of(context)!.repository),
+      title: Text(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final req = GRepoReq((b) => b
           ..vars.owner = owner
           ..vars.name = name
           ..vars.branchSpecified = branch != null
           ..vars.branch = branch ?? '');
-        final OperationResponse<GRepoData, GRepoVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+        final res =
+            await context.read<AuthModel>().ghGqlClient.request(req).first;
         final repo = res.data!.repository;
 
-        final ghClient = context.read<AuthModel>().ghClient!;
+        final ghClient = context.read<AuthModel>().ghClient;
         final countFuture = ghClient
             .getJSON('/repos/$owner/$name/stats/contributors')
             .then((v) => (v as List).length);
 
-        final readmeFactory = (String acceptHeader) {
+        readmeFactory(String acceptHeader) {
           return () {
             return ghClient.request(
               'GET',
@@ -75,10 +74,11 @@ class GhRepoScreen extends StatelessWidget {
               return res.body;
             }).catchError((err) {
               // 404
-              return null;
+              return '';
             });
           };
-        };
+        }
+
         final readmeData = MarkdownViewData(
           context,
           md: readmeFactory('application/vnd.github.v3.raw'),
@@ -91,14 +91,7 @@ class GhRepoScreen extends StatelessWidget {
         final repo = data.item1!;
         return ActionButton(
           title: AppLocalizations.of(context)!.repositoryActions,
-          items: [
-            ActionItem(
-              text: AppLocalizations.of(context)!.projects +
-                  '(${repo.projects.totalCount})',
-              url: repo.projectsUrl,
-            ),
-            ...ActionItem.getUrlActions(repo.url),
-          ],
+          items: ActionItem.getUrlActions(repo.url),
         );
       },
       bodyBuilder: (data, setData) {
@@ -132,10 +125,8 @@ class GhRepoScreen extends StatelessWidget {
                             ActionItem(
                               text: _buildWatchState(v),
                               onTap: (_) async {
-                                final activityApi = context
-                                    .read<AuthModel>()
-                                    .ghClient!
-                                    .activity;
+                                final activityApi =
+                                    context.read<AuthModel>().ghClient.activity;
                                 switch (v) {
                                   case GSubscriptionState.SUBSCRIBED:
                                   case GSubscriptionState.IGNORED:
@@ -167,13 +158,13 @@ class GhRepoScreen extends StatelessWidget {
                         ]);
                       },
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     MutationButton(
                       active: repo.viewerHasStarred,
                       text: repo.viewerHasStarred ? 'Unstar' : 'Star',
                       onTap: () async {
                         final activityApi =
-                            context.read<AuthModel>().ghClient!.activity;
+                            context.read<AuthModel>().ghClient.activity;
                         if (repo.viewerHasStarred) {
                           await activityApi.unstar(
                               RepositorySlug(repo.owner.login, repo.name));
@@ -195,14 +186,15 @@ class GhRepoScreen extends StatelessWidget {
                   Wrap(
                     spacing: 4,
                     runSpacing: 4,
-                    children: repo.repositoryTopics.nodes!.map((node) {
-                      return MyLabel(
-                        name: node.topic.name,
-                        // color: Colors.blue.shade50,
-                        color: theme.palette.grayBackground,
-                        textColor: theme.palette.primary,
-                      );
-                    }).toList(),
+                    children: [
+                      for (final node in repo.repositoryTopics.nodes!)
+                        AntTag(
+                          color: PrimerColors.blue500,
+                          fill: AntTagFill.outline,
+                          round: true,
+                          child: Text(node.topic.name),
+                        )
+                    ],
                   )
               ],
             ),
@@ -226,7 +218,7 @@ class GhRepoScreen extends StatelessWidget {
                 ),
               ],
             ),
-            if (repo.languages!.edges!.isNotEmpty) ...[
+            if (repo.languages?.edges != null) ...[
               CommonStyle.border,
               LanguageBar([
                 for (var edge in repo.languages!.edges!)
@@ -237,51 +229,86 @@ class GhRepoScreen extends StatelessWidget {
                   )
               ]),
             ],
-            TableView(
-              hasIcon: true,
-              items: [
+            AntList(
+              children: [
                 if (ref != null)
-                  TableViewItem(
-                    leftIconData: Octicons.code,
-                    text: Text(repo.primaryLanguage?.name ?? 'Code'),
-                    rightWidget: Text(
-                      (license == null ? '' : '$license • ') +
-                          filesize(repo.diskUsage! * 1000),
+                  AntListItem(
+                    prefix: const Icon(Octicons.code),
+                    extra: Text(
+                      [
+                        repo.primaryLanguage?.name,
+                        license,
+                        repo.diskUsage == null
+                            ? null
+                            : filesize(repo.diskUsage! * 1000)
+                      ].where((e) => e != null).join(' • '),
                     ),
-                    url: '/github/$owner/$name/blob/${ref.name}',
+                    onClick: () {
+                      context.push('/github/$owner/$name/blob/${ref.name}');
+                    },
+                    child: const Text('Code'),
                   ),
                 if (repo.hasIssuesEnabled)
-                  TableViewItem(
-                    leftIconData: Octicons.issue_opened,
-                    text: Text(AppLocalizations.of(context)!.issues),
-                    rightWidget:
-                        Text(numberFormat.format(repo.issues.totalCount)),
-                    url: '/github/$owner/$name/issues',
+                  AntListItem(
+                    prefix: const Icon(Octicons.issue_opened),
+                    extra: Text(
+                        '${numberFormat.format(repo.issuesOpen.totalCount)} / ${numberFormat.format(repo.issues.totalCount)}'),
+                    onClick: () {
+                      context.push('/github/$owner/$name/issues');
+                    },
+                    child: Text(AppLocalizations.of(context)!.issues),
                   ),
-                TableViewItem(
-                  leftIconData: Octicons.git_pull_request,
-                  text: Text(AppLocalizations.of(context)!.pullRequests),
-                  rightWidget:
-                      Text(numberFormat.format(repo.pullRequests.totalCount)),
-                  url: '/github/$owner/$name/pulls',
+                AntListItem(
+                  prefix: const Icon(Octicons.git_pull_request),
+                  extra: Text(
+                      '${numberFormat.format(repo.pullRequestsOpen.totalCount)} / ${numberFormat.format(repo.pullRequests.totalCount)}'),
+                  onClick: () {
+                    context.push('/github/$owner/$name/pulls');
+                  },
+                  child: Text(AppLocalizations.of(context)!.pullRequests),
                 ),
+                if (repo.discussions.totalCount > 0)
+                  AntListItem(
+                    prefix: const Icon(Octicons.comment_discussion),
+                    extra:
+                        Text(numberFormat.format(repo.discussions.totalCount)),
+                    onClick: () {
+                      context.pushUrl(
+                          'https://github.com/$owner/$name/discussions'); // TODO: discussions screen
+                    },
+                    child: const Text('Discussions'),
+                  ),
+                if (repo.hasProjectsEnabled && repo.projects.totalCount > 0)
+                  AntListItem(
+                    prefix: const Icon(Octicons.project),
+                    extra: Text(numberFormat.format(repo.projects.totalCount)),
+                    onClick: () {
+                      context.pushUrl(repo.projectsUrl);
+                    },
+                    child: Text(AppLocalizations.of(context)!.projects),
+                  ),
+              ],
+            ),
+            CommonStyle.verticalGap,
+            AntList(
+              children: [
                 if (ref != null) ...[
-                  TableViewItem(
-                    leftIconData: Octicons.history,
-                    text: Text(AppLocalizations.of(context)!.commits),
-                    rightWidget: Text(
-                        ((ref.target as GRepoCommit).history.totalCount)
+                  AntListItem(
+                    prefix: const Icon(Octicons.history),
+                    extra: Text(
+                        ((ref.target as GCommitParts).history.totalCount)
                             .toString()),
-                    url: '/github/$owner/$name/commits/${ref.name}',
+                    onClick: () {
+                      context.push('/github/$owner/$name/commits/${ref.name}');
+                    },
+                    child: Text(AppLocalizations.of(context)!.commits),
                   ),
                   if (repo.refs != null)
-                    TableViewItem(
-                      leftIconData: Octicons.git_branch,
-                      text: Text(AppLocalizations.of(context)!.branches),
-                      rightWidget: Text(ref.name +
-                          ' • ' +
-                          numberFormat.format(repo.refs!.totalCount)),
-                      onTap: () async {
+                    AntListItem(
+                      prefix: const Icon(Octicons.git_branch),
+                      extra: Text(
+                          '${ref.name} • ${numberFormat.format(repo.refs!.totalCount)}'),
+                      onClick: () async {
                         final refs = repo.refs!.nodes!;
                         if (refs.length < 2) return;
 
@@ -294,33 +321,38 @@ class GhRepoScreen extends StatelessWidget {
                                 .toList(),
                             onClose: (ref) {
                               if (ref != branch) {
-                                theme.push(
-                                    context, '/github/$owner/$name?ref=$ref',
+                                context.pushUrl('/github/$owner/$name?ref=$ref',
                                     replace: true);
                               }
                             },
                           ),
                         );
                       },
+                      child: Text(AppLocalizations.of(context)!.branches),
                     ),
-                  TableViewItem(
-                    leftIconData: Octicons.organization,
-                    text: Text(AppLocalizations.of(context)!.contributors),
-                    rightWidget: FutureBuilder<int>(
-                      future: contributionFuture,
-                      builder: (context, snapshot) {
-                        return Text(snapshot.data?.toString() ?? '');
-                      },
-                    ),
-                    url: '/github/$owner/$name/contributors',
-                  ),
-                  TableViewItem(
-                    leftIconData: Octicons.book,
-                    text: Text("Releases"),
-                    url: '/github/$owner/$name/releases',
-                    rightWidget: Text(repo.releases.totalCount.toString()),
-                  ),
                 ],
+                AntListItem(
+                  prefix: const Icon(Octicons.people),
+                  extra: FutureBuilder<int>(
+                    future: contributionFuture,
+                    builder: (context, snapshot) {
+                      return Text(snapshot.data?.toString() ?? '');
+                    },
+                  ),
+                  onClick: () {
+                    context.push('/github/$owner/$name/contributors');
+                  },
+                  child: Text(AppLocalizations.of(context)!.contributors),
+                ),
+                if (repo.releases.totalCount > 0)
+                  AntListItem(
+                    prefix: const Icon(Octicons.book),
+                    onClick: () {
+                      context.push('/github/$owner/$name/releases');
+                    },
+                    extra: Text(repo.releases.totalCount.toString()),
+                    child: Text(AppLocalizations.of(context)!.releases),
+                  ),
               ],
             ),
             MarkdownView(readmeData),

@@ -6,6 +6,10 @@ part 'github.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEvent {
+  GithubEvent();
+
+  factory GithubEvent.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventFromJson(json);
   GithubEventUser? actor;
   String? type;
   GithubEventRepo? repo;
@@ -14,48 +18,41 @@ class GithubEvent {
 
   Tuple2<String, String>? _repo;
   String get repoOwner {
-    if (_repo == null) {
-      _repo = parseRepositoryFullName(repo!.name!);
-    }
+    _repo ??= parseRepositoryFullName(repo!.name!);
     return _repo!.item1;
   }
 
   String get repoName {
-    if (_repo == null) {
-      _repo = parseRepositoryFullName(repo!.name!);
-    }
+    _repo ??= parseRepositoryFullName(repo!.name!);
     return _repo!.item2;
   }
-
-  GithubEvent();
-
-  factory GithubEvent.fromJson(Map<String, dynamic> json) =>
-      _$GithubEventFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventUser {
-  String? login;
-  String? avatarUrl;
-
   GithubEventUser();
 
   factory GithubEventUser.fromJson(Map<String, dynamic> json) =>
       _$GithubEventUserFromJson(json);
+  String? login;
+  String? avatarUrl;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventRepo {
-  String? name;
-
   GithubEventRepo();
 
   factory GithubEventRepo.fromJson(Map<String, dynamic> json) =>
       _$GithubEventRepoFromJson(json);
+  String? name;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventPayload {
+  GithubEventPayload();
+
+  factory GithubEventPayload.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventPayloadFromJson(json);
   GithubEventIssue? issue;
   GithubEventIssue? pullRequest;
   GithubEventComment? comment;
@@ -76,14 +73,14 @@ class GithubEventPayload {
   GithubCheckrunItem? checkRun;
   GithubCheckSuiteItem? checkSuite;
   GithubContentReferenceItem? contentReference;
-  GithubEventPayload();
-
-  factory GithubEventPayload.fromJson(Map<String, dynamic> json) =>
-      _$GithubEventPayloadFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventIssue {
+  GithubEventIssue();
+
+  factory GithubEventIssue.fromJson(Map<String, dynamic> json) =>
+      _$GithubEventIssueFromJson(json);
   String? title;
   GithubEventUser? user;
   int? number;
@@ -95,51 +92,47 @@ class GithubEventIssue {
   DateTime? createdAt;
 
   bool get isPullRequestComment => pullRequest != null;
-
-  GithubEventIssue();
-
-  factory GithubEventIssue.fromJson(Map<String, dynamic> json) =>
-      _$GithubEventIssueFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventComment {
-  String? body;
-  GithubEventUser? user;
-  String? commitId;
-  String? htmlUrl;
-
   GithubEventComment();
 
   factory GithubEventComment.fromJson(Map<String, dynamic> json) =>
       _$GithubEventCommentFromJson(json);
+  String? body;
+  GithubEventUser? user;
+  String? commitId;
+  String? htmlUrl;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventCommit {
-  String? sha;
-  String? message;
-
   GithubEventCommit();
 
   factory GithubEventCommit.fromJson(Map<String, dynamic> json) =>
       _$GithubEventCommitFromJson(json);
+  String? sha;
+  String? message;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubEventRelease {
-  String? htmlUrl;
-  String? tagName;
-
   GithubEventRelease();
 
   factory GithubEventRelease.fromJson(Map<String, dynamic> json) =>
       _$GithubEventReleaseFromJson(json);
+  String? htmlUrl;
+  String? tagName;
 }
 
 // Notification
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubNotificationItem {
+  GithubNotificationItem();
+
+  factory GithubNotificationItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubNotificationItemFromJson(json);
   String? id;
   GithubNotificationItemSubject? subject;
   DateTime? updatedAt;
@@ -150,182 +143,169 @@ class GithubNotificationItem {
   String? state;
 
   String get key => '_$hashCode';
-
-  GithubNotificationItem();
-
-  factory GithubNotificationItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubNotificationItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubNotificationItemSubject {
+  GithubNotificationItemSubject();
+
+  factory GithubNotificationItemSubject.fromJson(Map<String, dynamic> json) =>
+      _$GithubNotificationItemSubjectFromJson(json);
   String? title;
   String? type;
   String? url;
 
   int? _number;
   int? get number {
-    if (_number == null) {
-      _number = int.parse(url?.split('/').last ?? '0');
-    }
+    _number ??= int.parse(url?.split('/').last ?? '0');
     return _number;
   }
-
-  GithubNotificationItemSubject();
-
-  factory GithubNotificationItemSubject.fromJson(Map<String, dynamic> json) =>
-      _$GithubNotificationItemSubjectFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubNotificationItemRepo {
-  String? fullName;
-
-  Tuple2<String, String>? _repo;
-  String get owner {
-    if (_repo == null) {
-      _repo = parseRepositoryFullName(fullName!);
-    }
-    return _repo!.item1;
-  }
-
-  String get name {
-    if (_repo == null) {
-      _repo = parseRepositoryFullName(fullName!);
-    }
-    return _repo!.item2;
-  }
-
   GithubNotificationItemRepo();
 
   factory GithubNotificationItemRepo.fromJson(Map<String, dynamic> json) =>
       _$GithubNotificationItemRepoFromJson(json);
+  String? fullName;
+
+  Tuple2<String, String>? _repo;
+  String get owner {
+    _repo ??= parseRepositoryFullName(fullName!);
+    return _repo!.item1;
+  }
+
+  String get name {
+    _repo ??= parseRepositoryFullName(fullName!);
+    return _repo!.item2;
+  }
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubTreeItem {
+  GithubTreeItem();
+  factory GithubTreeItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubTreeItemFromJson(json);
   String? name;
   String? path;
   int? size;
   String? type;
   String? downloadUrl;
   String? content;
-  GithubTreeItem();
-  factory GithubTreeItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubTreeItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubPagesItem {
-  String? pageName;
-  String? title;
-  String? action;
   GithubPagesItem();
   factory GithubPagesItem.fromJson(Map<String, dynamic> json) =>
       _$GithubPagesItemFromJson(json);
+  String? pageName;
+  String? title;
+  String? action;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubSecurityItem {
-  String? summary;
-  String? description;
-  String? severity;
   GithubSecurityItem();
   factory GithubSecurityItem.fromJson(Map<String, dynamic> json) =>
       _$GithubSecurityItemFromJson(json);
+  String? summary;
+  String? description;
+  String? severity;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubAlertItem {
-  String? affectedPackageName;
-  String? affectedRange;
   GithubAlertItem();
   factory GithubAlertItem.fromJson(Map<String, dynamic> json) =>
       _$GithubAlertItemFromJson(json);
+  String? affectedPackageName;
+  String? affectedRange;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubProjectItem {
+  GithubProjectItem();
+  factory GithubProjectItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubProjectItemFromJson(json);
   String? name;
   String? state;
   String? body;
   String? htmlUrl;
-  GithubProjectItem();
-  factory GithubProjectItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubProjectItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubProjectColumnItem {
-  String? htmlUrl;
-  String? columnsUrl;
-  String? name;
   GithubProjectColumnItem();
   factory GithubProjectColumnItem.fromJson(Map<String, dynamic> json) =>
       _$GithubProjectColumnItemFromJson(json);
+  String? htmlUrl;
+  String? columnsUrl;
+  String? name;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubInstallationRepositoriesItem {
-  List<GithubNotificationItemRepo>? repositoriesAdded, repositoriesRemoved;
-  String? repositoriesSelection;
-  int? id;
   GithubInstallationRepositoriesItem();
   factory GithubInstallationRepositoriesItem.fromJson(
           Map<String, dynamic> json) =>
       _$GithubInstallationRepositoriesItemFromJson(json);
+  List<GithubNotificationItemRepo>? repositoriesAdded, repositoriesRemoved;
+  String? repositoriesSelection;
+  int? id;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubCheckrunItem {
-  String? status;
-  String? name;
-  int? id;
   GithubCheckrunItem();
   factory GithubCheckrunItem.fromJson(Map<String, dynamic> json) =>
       _$GithubCheckrunItemFromJson(json);
+  String? status;
+  String? name;
+  int? id;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubCheckSuiteItem {
-  String? status;
-  String? conclusion;
   GithubCheckSuiteItem();
   factory GithubCheckSuiteItem.fromJson(Map<String, dynamic> json) =>
       _$GithubCheckSuiteItemFromJson(json);
+  String? status;
+  String? conclusion;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubContentReferenceItem {
-  int? id;
-  String? reference;
   GithubContentReferenceItem();
   factory GithubContentReferenceItem.fromJson(Map<String, dynamic> json) =>
       _$GithubContentReferenceItemFromJson(json);
+  int? id;
+  String? reference;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubContributorItem {
+  GithubContributorItem();
+  factory GithubContributorItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubContributorItemFromJson(json);
   int? id;
   String? login;
   String? avatarUrl;
   String? htmlUrl;
   int? contributions;
-  GithubContributorItem();
-  factory GithubContributorItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubContributorItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubUserOrganizationItem {
+  GithubUserOrganizationItem();
+  factory GithubUserOrganizationItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubUserOrganizationItemFromJson(json);
   int? id;
   String? login;
   String? avatarUrl;
   String? description;
   String? url;
-  GithubUserOrganizationItem();
-  factory GithubUserOrganizationItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubUserOrganizationItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -339,6 +319,9 @@ class GistFiles {
     this.truncated,
     this.content,
   });
+
+  factory GistFiles.fromJson(Map<String, dynamic> json) =>
+      _$GistFilesFromJson(json);
   String? filename;
   int? size;
   String? rawUrl;
@@ -346,21 +329,21 @@ class GistFiles {
   String? language;
   bool? truncated;
   String? content;
-
-  factory GistFiles.fromJson(Map<String, dynamic> json) =>
-      _$GistFilesFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubGistsItem {
+  GithubGistsItem();
+  factory GithubGistsItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubGistsItemFromJson(json);
   String? id;
   String? description;
   bool? public;
   Map<String, GistFiles>? files;
   GithubEventUser? owner;
   List<GistFiles> get fileNames {
-    List<GistFiles> filenames = [];
-    files!.forEach((String key, GistFiles value) {
+    final filenames = <GistFiles>[];
+    files!.forEach((key, value) {
       filenames.add(value);
     });
     return filenames;
@@ -368,32 +351,28 @@ class GithubGistsItem {
 
   DateTime? createdAt;
   DateTime? updatedAt;
-
-  GithubGistsItem();
-  factory GithubGistsItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubGistsItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubFilesItem {
+  GithubFilesItem();
+  factory GithubFilesItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubFilesItemFromJson(json);
   String? filename;
   String? status;
   int? additions;
   int? deletions;
   int? changes;
   String? patch;
-  GithubFilesItem();
-  factory GithubFilesItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubFilesItemFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class GithubComparisonItem {
+  GithubComparisonItem();
+  factory GithubComparisonItem.fromJson(Map<String, dynamic> json) =>
+      _$GithubComparisonItemFromJson(json);
   List<GithubFilesItem>? files;
   String? status;
   int? aheadBy;
   int? behindBy;
-  GithubComparisonItem();
-  factory GithubComparisonItem.fromJson(Map<String, dynamic> json) =>
-      _$GithubComparisonItemFromJson(json);
 }

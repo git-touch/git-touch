@@ -1,82 +1,55 @@
-import 'package:filesize/filesize.dart';
-import 'package:flutter/material.dart';
-import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/table_view.dart';
-import 'package:primer/primer.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:file_icon/file_icon.dart';
+import 'package:filesize/filesize.dart';
+import 'package:flutter/widgets.dart';
+import 'package:git_touch/utils/utils.dart';
 
-class ObjectTreeItem {
-  final String? url;
-  final String? downloadUrl;
-  final String? name;
-  final String? type;
-  final int? size;
-  ObjectTreeItem({
-    required this.name,
-    required this.url,
-    required this.downloadUrl,
-    required this.type,
-    this.size,
-  });
+Widget _buildIcon(String type, String name) {
+  switch (type) {
+    case 'blob': // github gql, gitlab
+    case 'file': // github rest, gitea
+    case 'commit_file': // bitbucket
+      return FileIcon(name, size: 26); // TODO: size
+    case 'tree': // github gql, gitlab
+    case 'dir': // github rest, gitea
+    case 'commit_directory': // bitbucket
+      return const Icon(AntIcons.folderOutline);
+    case 'commit':
+      return const Icon(AntIcons.fileOutline);
+    default:
+      throw 'object type error';
+  }
 }
 
-class ObjectTree extends StatelessWidget {
-  final Iterable<ObjectTreeItem> items;
-  ObjectTree({required this.items});
+AntListItem createObjectTreeItem({
+  required String name,
+  required String type,
+  required String url,
+  String? downloadUrl,
+  int? size,
+}) {
+  return AntListItem(
+    prefix: _buildIcon(type, name),
+    extra: size == null ? null : Text(filesize(size)),
+    onClick: () async {
+      final finalUrl = [
+        // Let system browser handle these files
+        //
+        // TODO:
+        // Unhandled Exception: PlatformException(Error, Error while launching
+        // https://github.com/flutter/flutter/issues/49162
 
-  Widget _buildIcon(ObjectTreeItem item) {
-    switch (item.type) {
-      case 'blob': // github gql, gitlab
-      case 'file': // github rest, gitea
-      case 'commit_file': // bitbucket
-        return FileIcon(item.name!, size: 36);
-      case 'tree': // github gql, gitlab
-      case 'dir': // github rest, gitea
-      case 'commit_directory': // bitbucket
-        return Icon(
-          Octicons.file_directory,
-          color: PrimerColors.blue300,
-          size: 24,
-        );
-      case 'commit':
-        return Icon(
-          Octicons.file_submodule,
-          color: PrimerColors.blue300,
-          size: 24,
-        );
-      default:
-        throw 'object type error';
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TableView(
-      hasIcon: true,
-      items: [
-        for (var item in items)
-          TableViewItem(
-            leftWidget: _buildIcon(item),
-            text: Text(item.name!),
-            rightWidget: item.size == null ? null : Text(filesize(item.size)),
-            url: [
-              // Let system browser handle these files
-              //
-              // TODO:
-              // Unhandled Exception: PlatformException(Error, Error while launching
-              // https://github.com/flutter/flutter/issues/49162
-
-              // Docs
-              'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls',
-              // Fonts
-              'ttf', 'otf', 'eot', 'woff', 'woff2',
-              'svg',
-            ].contains(item.name!.ext)
-                ? item.downloadUrl
-                : item.url,
-            hideRightChevron: item.size != null,
-          )
-      ],
-    );
-  }
+        // Docs
+        'pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls',
+        // Fonts
+        'ttf', 'otf', 'eot', 'woff', 'woff2',
+        'svg',
+      ].contains(name.ext)
+          ? downloadUrl
+          : url;
+      await launchStringUrl(finalUrl);
+    },
+    arrow: size == null ? const Icon(AntIcons.rightOutline) : null,
+    child: Text(name),
+  );
 }

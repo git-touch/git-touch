@@ -1,42 +1,28 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:provider/provider.dart';
-import '../widgets/error_reload.dart';
-import '../widgets/loading.dart';
-import '../widgets/empty.dart';
+import 'package:git_touch/widgets/empty.dart';
+import 'package:git_touch/widgets/error_reload.dart';
+import 'package:git_touch/widgets/loading.dart';
 
-class ListPayload<T, K> {
-  K cursor;
-  Iterable<T>? items;
-  bool? hasMore;
-
-  ListPayload({
-    required this.items,
-    required this.cursor,
-    required this.hasMore,
-  });
-}
+export 'package:git_touch/utils/utils.dart';
 
 // This is a scaffold for infinite scroll screens
 class ListStatefulScaffold<T, K> extends StatefulWidget {
+  const ListStatefulScaffold({
+    required this.title,
+    required this.fetch,
+    required this.itemBuilder,
+    this.actionBuilder,
+  });
   final Widget title;
   final Widget Function()? actionBuilder;
   final Widget Function(T payload) itemBuilder;
   final Future<ListPayload<T, K>> Function(K? cursor) fetch;
 
-  ListStatefulScaffold({
-    required this.title,
-    required this.itemBuilder,
-    required this.fetch,
-    this.actionBuilder,
-  });
-
   @override
-  _ListStatefulScaffoldState<T, K> createState() =>
+  State<ListStatefulScaffold<T, K>> createState() =>
       _ListStatefulScaffoldState();
 }
 
@@ -50,13 +36,21 @@ class _ListStatefulScaffoldState<T, K>
   K? cursor;
   bool? hasMore;
 
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _refresh();
-    _controller.addListener(onScroll);
+    _controller.addListener(() {
+      if (_controller.position.maxScrollExtent - _controller.offset < 100 &&
+          !_controller.position.outOfRange &&
+          !loading &&
+          !loadingMore &&
+          hasMore != false) {
+        _loadMore();
+      }
+    });
   }
 
   @override
@@ -65,49 +59,25 @@ class _ListStatefulScaffoldState<T, K>
     super.dispose();
   }
 
-  void onScroll() {
-    // Fimber.d(_controller.position.maxScrollExtent - _controller.offset);
-    if (_controller.position.maxScrollExtent - _controller.offset < 100 &&
-        !_controller.position.outOfRange &&
-        !loading &&
-        !loadingMore &&
-        hasMore!) {
-      _loadMore();
-    }
-  }
-
-  // if items not enough, fetch next page
-  // This should be triggered after build
-  // TODO: disabled
-  void _makeSureItemsFill() {
-    // Future.delayed(Duration(milliseconds: 300)).then((_) {
-    //   onScroll();
-    // });
-  }
-
-  Future<void> _refresh({bool force = false}) async {
+  Future<void> _refresh() async {
     // Fimber.d('list scaffold refresh');
     setState(() {
       error = '';
       loading = true;
-      if (force) {
-        items = [];
-      }
     });
     try {
-      final ListPayload<T, K?> _payload = await widget.fetch(null);
-      items = _payload.items!.toList();
-      cursor = _payload.cursor;
-      hasMore = _payload.hasMore;
+      final p = await widget.fetch(null);
+      items = p.items.toList();
+      cursor = p.cursor;
+      hasMore = p.hasMore;
     } catch (err) {
       error = err.toString();
-      throw err;
+      rethrow;
     } finally {
       if (mounted) {
         setState(() {
           loading = false;
         });
-        _makeSureItemsFill();
       }
     }
   }
@@ -118,37 +88,20 @@ class _ListStatefulScaffoldState<T, K>
       loadingMore = true;
     });
     try {
-      ListPayload<T, K?> _payload = await widget.fetch(cursor);
-      items.addAll(_payload.items!);
-      cursor = _payload.cursor;
-      hasMore = _payload.hasMore;
+      final p = await widget.fetch(cursor);
+      items.addAll(p.items);
+      cursor = p.cursor;
+      hasMore = p.hasMore;
     } catch (err) {
       error = err.toString();
-      throw err;
+      rethrow;
     } finally {
       if (mounted) {
         setState(() {
           loadingMore = false;
         });
-        _makeSureItemsFill();
       }
     }
-  }
-
-  Widget _buildItem(BuildContext context, int index) {
-    if (index == 2 * items.length) {
-      if (hasMore!) {
-        return Loading(more: true);
-      } else {
-        return Container();
-      }
-    }
-
-    if (index % 2 == 1) {
-      return CommonStyle.border;
-    }
-
-    return widget.itemBuilder(items[index ~/ 2]);
   }
 
   Widget _buildCupertinoSliver() {
@@ -157,54 +110,23 @@ class _ListStatefulScaffoldState<T, K>
         child: ErrorReload(text: error, onTap: _refresh),
       );
     } else if (loading && items.isEmpty) {
-      return SliverToBoxAdapter(child: Loading(more: false));
+      return const SliverToBoxAdapter(child: Loading(more: false));
     } else if (items.isEmpty) {
       return SliverToBoxAdapter(child: EmptyWidget());
     } else {
-      return SliverList(
-        delegate: SliverChildBuilderDelegate(
-          _buildItem,
-          childCount: 2 * items.length + 1,
-        ),
+      return AntSliverList(
+        count: items.length + 1,
+        itemBuilder: (context, index) {
+          if (index == items.length) {
+            if (hasMore != false) {
+              return const Loading(more: true);
+            } else {
+              return Container();
+            }
+          }
+          return widget.itemBuilder(items[index]);
+        },
       );
-    }
-  }
-
-  Widget _buildMaterial() {
-    if (error.isNotEmpty) {
-      return ErrorReload(text: error, onTap: _refresh);
-    } else if (loading && items.isEmpty) {
-      return Loading(more: false);
-    } else if (items.isEmpty) {
-      return EmptyWidget();
-    } else {
-      return Scrollbar(
-        child: ListView.builder(
-          controller: _controller,
-          itemCount: 2 * items.length + 1,
-          itemBuilder: _buildItem,
-        ),
-      );
-    }
-  }
-
-  Widget _buildBody() {
-    switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeType.cupertino:
-        return CupertinoScrollbar(
-          child: CustomScrollView(
-            controller: _controller,
-            slivers: [
-              CupertinoSliverRefreshControl(onRefresh: _refresh),
-              _buildCupertinoSliver(),
-            ],
-          ),
-        );
-      default:
-        return RefreshIndicator(
-          onRefresh: _refresh,
-          child: _buildMaterial(),
-        );
     }
   }
 
@@ -212,8 +134,16 @@ class _ListStatefulScaffoldState<T, K>
   Widget build(BuildContext context) {
     return CommonScaffold(
       title: widget.title,
-      body: _buildBody(),
-      action: widget.actionBuilder == null ? null : widget.actionBuilder!(),
+      body: CupertinoScrollbar(
+        child: CustomScrollView(
+          controller: _controller,
+          slivers: [
+            CupertinoSliverRefreshControl(onRefresh: _refresh),
+            _buildCupertinoSliver(),
+          ],
+        ),
+      ),
+      action: widget.actionBuilder?.call(),
     );
   }
 }

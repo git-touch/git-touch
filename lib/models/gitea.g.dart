@@ -6,16 +6,14 @@ part of 'gitea.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GiteaUser _$GiteaUserFromJson(Map<String, dynamic> json) {
-  return GiteaUser()
-    ..id = json['id'] as int?
-    ..login = json['login'] as String?
-    ..fullName = json['full_name'] as String?
-    ..avatarUrl = json['avatar_url'] as String?
-    ..created = json['created'] == null
-        ? null
-        : DateTime.parse(json['created'] as String);
-}
+GiteaUser _$GiteaUserFromJson(Map<String, dynamic> json) => GiteaUser()
+  ..id = json['id'] as int?
+  ..login = json['login'] as String?
+  ..fullName = json['full_name'] as String?
+  ..avatarUrl = json['avatar_url'] as String?
+  ..created = json['created'] == null
+      ? null
+      : DateTime.parse(json['created'] as String);
 
 Map<String, dynamic> _$GiteaUserToJson(GiteaUser instance) => <String, dynamic>{
       'id': instance.id,
@@ -25,16 +23,14 @@ Map<String, dynamic> _$GiteaUserToJson(GiteaUser instance) => <String, dynamic>{
       'created': instance.created?.toIso8601String(),
     };
 
-GiteaOrg _$GiteaOrgFromJson(Map<String, dynamic> json) {
-  return GiteaOrg()
-    ..id = json['id'] as int?
-    ..username = json['username'] as String?
-    ..fullName = json['full_name'] as String?
-    ..avatarUrl = json['avatar_url'] as String?
-    ..description = json['description'] as String?
-    ..website = json['website'] as String?
-    ..location = json['location'] as String?;
-}
+GiteaOrg _$GiteaOrgFromJson(Map<String, dynamic> json) => GiteaOrg()
+  ..id = json['id'] as int?
+  ..username = json['username'] as String?
+  ..fullName = json['full_name'] as String?
+  ..avatarUrl = json['avatar_url'] as String?
+  ..description = json['description'] as String?
+  ..website = json['website'] as String?
+  ..location = json['location'] as String?;
 
 Map<String, dynamic> _$GiteaOrgToJson(GiteaOrg instance) => <String, dynamic>{
       'id': instance.id,
@@ -46,24 +42,23 @@ Map<String, dynamic> _$GiteaOrgToJson(GiteaOrg instance) => <String, dynamic>{
       'location': instance.location,
     };
 
-GiteaRepository _$GiteaRepositoryFromJson(Map<String, dynamic> json) {
-  return GiteaRepository()
-    ..id = json['id'] as int?
-    ..owner = json['owner'] == null
-        ? null
-        : GiteaUser.fromJson(json['owner'] as Map<String, dynamic>)
-    ..name = json['name'] as String?
-    ..description = json['description'] as String?
-    ..starsCount = json['stars_count'] as int?
-    ..forksCount = json['forks_count'] as int?
-    ..updatedAt = json['updated_at'] == null
-        ? null
-        : DateTime.parse(json['updated_at'] as String)
-    ..website = json['website'] as String?
-    ..size = json['size'] as int?
-    ..openIssuesCount = json['open_issues_count'] as int?
-    ..openPrCounter = json['open_pr_counter'] as int?;
-}
+GiteaRepository _$GiteaRepositoryFromJson(Map<String, dynamic> json) =>
+    GiteaRepository()
+      ..id = json['id'] as int?
+      ..owner = json['owner'] == null
+          ? null
+          : GiteaUser.fromJson(json['owner'] as Map<String, dynamic>)
+      ..name = json['name'] as String?
+      ..description = json['description'] as String?
+      ..starsCount = json['stars_count'] as int?
+      ..forksCount = json['forks_count'] as int?
+      ..updatedAt = json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String)
+      ..website = json['website'] as String?
+      ..size = json['size'] as int?
+      ..openIssuesCount = json['open_issues_count'] as int?
+      ..openPrCounter = json['open_pr_counter'] as int?;
 
 Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
     <String, dynamic>{
@@ -80,14 +75,13 @@ Map<String, dynamic> _$GiteaRepositoryToJson(GiteaRepository instance) =>
       'open_pr_counter': instance.openPrCounter,
     };
 
-GiteaTree _$GiteaTreeFromJson(Map<String, dynamic> json) {
-  return GiteaTree()
-    ..type = json['type'] as String?
-    ..name = json['name'] as String?
-    ..path = json['path'] as String?
-    ..size = json['size'] as int?
-    ..downloadUrl = json['download_url'] as String?;
-}
+GiteaTree _$GiteaTreeFromJson(Map<String, dynamic> json) => GiteaTree(
+      type: json['type'] as String,
+      name: json['name'] as String,
+    )
+      ..path = json['path'] as String?
+      ..size = json['size'] as int?
+      ..downloadUrl = json['download_url'] as String?;
 
 Map<String, dynamic> _$GiteaTreeToJson(GiteaTree instance) => <String, dynamic>{
       'type': instance.type,
@@ -97,15 +91,14 @@ Map<String, dynamic> _$GiteaTreeToJson(GiteaTree instance) => <String, dynamic>{
       'download_url': instance.downloadUrl,
     };
 
-GiteaBlob _$GiteaBlobFromJson(Map<String, dynamic> json) {
-  return GiteaBlob()
-    ..type = json['type'] as String?
-    ..name = json['name'] as String?
-    ..path = json['path'] as String?
-    ..size = json['size'] as int?
-    ..downloadUrl = json['download_url'] as String?
-    ..content = json['content'] as String?;
-}
+GiteaBlob _$GiteaBlobFromJson(Map<String, dynamic> json) => GiteaBlob(
+      type: json['type'] as String,
+      name: json['name'] as String,
+    )
+      ..path = json['path'] as String?
+      ..size = json['size'] as int?
+      ..downloadUrl = json['download_url'] as String?
+      ..content = json['content'] as String?;
 
 Map<String, dynamic> _$GiteaBlobToJson(GiteaBlob instance) => <String, dynamic>{
       'type': instance.type,
@@ -116,20 +109,18 @@ Map<String, dynamic> _$GiteaBlobToJson(GiteaBlob instance) => <String, dynamic>{
       'content': instance.content,
     };
 
-GiteaCommit _$GiteaCommitFromJson(Map<String, dynamic> json) {
-  return GiteaCommit()
-    ..number = json['number'] as int?
-    ..author = json['author'] == null
-        ? null
-        : GiteaUser.fromJson(json['author'] as Map<String, dynamic>)
-    ..title = json['title'] as String?
-    ..body = json['body'] as String?
-    ..commit = json['commit'] == null
-        ? null
-        : GiteaCommitDetail.fromJson(json['commit'] as Map<String, dynamic>)
-    ..sha = json['sha'] as String?
-    ..htmlUrl = json['html_url'] as String?;
-}
+GiteaCommit _$GiteaCommitFromJson(Map<String, dynamic> json) => GiteaCommit()
+  ..number = json['number'] as int?
+  ..author = json['author'] == null
+      ? null
+      : GiteaUser.fromJson(json['author'] as Map<String, dynamic>)
+  ..title = json['title'] as String?
+  ..body = json['body'] as String?
+  ..commit = json['commit'] == null
+      ? null
+      : GiteaCommitDetail.fromJson(json['commit'] as Map<String, dynamic>)
+  ..sha = json['sha'] as String?
+  ..htmlUrl = json['html_url'] as String?;
 
 Map<String, dynamic> _$GiteaCommitToJson(GiteaCommit instance) =>
     <String, dynamic>{
@@ -142,16 +133,16 @@ Map<String, dynamic> _$GiteaCommitToJson(GiteaCommit instance) =>
       'html_url': instance.htmlUrl,
     };
 
-GiteaCommitDetail _$GiteaCommitDetailFromJson(Map<String, dynamic> json) {
-  return GiteaCommitDetail()
-    ..message = json['message'] as String?
-    ..author = json['author'] == null
-        ? null
-        : GiteaCommitAuthor.fromJson(json['author'] as Map<String, dynamic>)
-    ..committer = json['committer'] == null
-        ? null
-        : GiteaCommitAuthor.fromJson(json['committer'] as Map<String, dynamic>);
-}
+GiteaCommitDetail _$GiteaCommitDetailFromJson(Map<String, dynamic> json) =>
+    GiteaCommitDetail()
+      ..message = json['message'] as String?
+      ..author = json['author'] == null
+          ? null
+          : GiteaCommitAuthor.fromJson(json['author'] as Map<String, dynamic>)
+      ..committer = json['committer'] == null
+          ? null
+          : GiteaCommitAuthor.fromJson(
+              json['committer'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GiteaCommitDetailToJson(GiteaCommitDetail instance) =>
     <String, dynamic>{
@@ -160,13 +151,12 @@ Map<String, dynamic> _$GiteaCommitDetailToJson(GiteaCommitDetail instance) =>
       'committer': instance.committer,
     };
 
-GiteaCommitAuthor _$GiteaCommitAuthorFromJson(Map<String, dynamic> json) {
-  return GiteaCommitAuthor()
-    ..name = json['name'] as String?
-    ..email = json['email'] as String?
-    ..date =
-        json['date'] == null ? null : DateTime.parse(json['date'] as String);
-}
+GiteaCommitAuthor _$GiteaCommitAuthorFromJson(Map<String, dynamic> json) =>
+    GiteaCommitAuthor()
+      ..name = json['name'] as String?
+      ..email = json['email'] as String?
+      ..date =
+          json['date'] == null ? null : DateTime.parse(json['date'] as String);
 
 Map<String, dynamic> _$GiteaCommitAuthorToJson(GiteaCommitAuthor instance) =>
     <String, dynamic>{
@@ -175,24 +165,22 @@ Map<String, dynamic> _$GiteaCommitAuthorToJson(GiteaCommitAuthor instance) =>
       'date': instance.date?.toIso8601String(),
     };
 
-GiteaIssue _$GiteaIssueFromJson(Map<String, dynamic> json) {
-  return GiteaIssue()
-    ..title = json['title'] as String?
-    ..body = json['body'] as String?
-    ..number = json['number'] as int?
-    ..user = json['user'] == null
-        ? null
-        : GiteaUser.fromJson(json['user'] as Map<String, dynamic>)
-    ..comments = json['comments'] as int?
-    ..updatedAt = json['updated_at'] == null
-        ? null
-        : DateTime.parse(json['updated_at'] as String)
-    ..state = json['state'] as String?
-    ..htmlUrl = json['html_url'] as String?
-    ..labels = (json['labels'] as List<dynamic>?)
-        ?.map((e) => GiteaLabel.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+GiteaIssue _$GiteaIssueFromJson(Map<String, dynamic> json) => GiteaIssue()
+  ..title = json['title'] as String?
+  ..body = json['body'] as String?
+  ..number = json['number'] as int?
+  ..user = json['user'] == null
+      ? null
+      : GiteaUser.fromJson(json['user'] as Map<String, dynamic>)
+  ..comments = json['comments'] as int?
+  ..updatedAt = json['updated_at'] == null
+      ? null
+      : DateTime.parse(json['updated_at'] as String)
+  ..state = json['state'] as String?
+  ..htmlUrl = json['html_url'] as String?
+  ..labels = (json['labels'] as List<dynamic>?)
+      ?.map((e) => GiteaLabel.fromJson(e as Map<String, dynamic>))
+      .toList();
 
 Map<String, dynamic> _$GiteaIssueToJson(GiteaIssue instance) =>
     <String, dynamic>{
@@ -207,11 +195,9 @@ Map<String, dynamic> _$GiteaIssueToJson(GiteaIssue instance) =>
       'labels': instance.labels,
     };
 
-GiteaLabel _$GiteaLabelFromJson(Map<String, dynamic> json) {
-  return GiteaLabel()
-    ..color = json['color'] as String?
-    ..name = json['name'] as String?;
-}
+GiteaLabel _$GiteaLabelFromJson(Map<String, dynamic> json) => GiteaLabel()
+  ..color = json['color'] as String?
+  ..name = json['name'] as String?;
 
 Map<String, dynamic> _$GiteaLabelToJson(GiteaLabel instance) =>
     <String, dynamic>{
@@ -219,11 +205,10 @@ Map<String, dynamic> _$GiteaLabelToJson(GiteaLabel instance) =>
       'name': instance.name,
     };
 
-GiteaHeatmapItem _$GiteaHeatmapItemFromJson(Map<String, dynamic> json) {
-  return GiteaHeatmapItem()
-    ..timestamp = json['timestamp'] as int?
-    ..contributions = json['contributions'] as int?;
-}
+GiteaHeatmapItem _$GiteaHeatmapItemFromJson(Map<String, dynamic> json) =>
+    GiteaHeatmapItem()
+      ..timestamp = json['timestamp'] as int?
+      ..contributions = json['contributions'] as int?;
 
 Map<String, dynamic> _$GiteaHeatmapItemToJson(GiteaHeatmapItem instance) =>
     <String, dynamic>{
@@ -231,22 +216,20 @@ Map<String, dynamic> _$GiteaHeatmapItemToJson(GiteaHeatmapItem instance) =>
       'contributions': instance.contributions,
     };
 
-GiteaComment _$GiteaCommentFromJson(Map<String, dynamic> json) {
-  return GiteaComment()
-    ..body = json['body'] as String?
-    ..createdAt = json['created_at'] == null
-        ? null
-        : DateTime.parse(json['created_at'] as String)
-    ..htmlUrl = json['html_url'] as String?
-    ..originalAuthor = json['original_author'] as String?
-    ..updatedAt = json['updated_at'] == null
-        ? null
-        : DateTime.parse(json['updated_at'] as String)
-    ..id = json['id'] as int?
-    ..user = json['user'] == null
-        ? null
-        : GiteaUser.fromJson(json['user'] as Map<String, dynamic>);
-}
+GiteaComment _$GiteaCommentFromJson(Map<String, dynamic> json) => GiteaComment()
+  ..body = json['body'] as String?
+  ..createdAt = json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String)
+  ..htmlUrl = json['html_url'] as String?
+  ..originalAuthor = json['original_author'] as String?
+  ..updatedAt = json['updated_at'] == null
+      ? null
+      : DateTime.parse(json['updated_at'] as String)
+  ..id = json['id'] as int?
+  ..user = json['user'] == null
+      ? null
+      : GiteaUser.fromJson(json['user'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GiteaCommentToJson(GiteaComment instance) =>
     <String, dynamic>{

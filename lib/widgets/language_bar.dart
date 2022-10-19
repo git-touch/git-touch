@@ -1,56 +1,57 @@
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:git_touch/models/theme.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:provider/provider.dart';
 import 'package:github/github.dart' as github;
 
 class LanguageBarItem {
-  String? name;
-  String? hexColor;
-  double? ratio;
   LanguageBarItem({
     required this.name,
     required this.ratio,
     String? hexColor,
   }) : hexColor = hexColor ?? github.languageColors[name!];
+  String? name;
+  String? hexColor;
+  double? ratio;
 }
 
 class LanguageBar extends StatelessWidget {
+  const LanguageBar(this.items);
   final List<LanguageBarItem> items;
-  LanguageBar(this.items);
+
+  static const _padding = 8.0;
 
   @override
   Widget build(BuildContext context) {
     final langWidth = MediaQuery.of(context).size.width -
-        CommonStyle.padding.left -
-        CommonStyle.padding.right -
-        items.length +
-        1;
+        _padding * 2 - // left, right
+        (items.length - 1) - // space between items
+        1; // buffer for rounding
 
     return CupertinoButton(
       padding: EdgeInsets.zero,
       minSize: 0,
-      onPressed: () {
-        showCupertinoModalPopup(context: context, builder: _buildPopup);
+      onPressed: () async {
+        await AntPopup.show(
+          context: context,
+          closeOnMaskClick: true,
+          builder: _buildPopup,
+        );
       },
-      child: Container(
-        // color: theme.palette.background,
-        padding: CommonStyle.padding.copyWith(top: 8, bottom: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(_padding),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(5),
-          child: SizedBox(
-            height: 10,
-            child: Row(
-              children: join(
-                SizedBox(width: 1),
-                items
-                    .map((lang) => Container(
-                        color: convertColor(lang.hexColor),
-                        width: langWidth * lang.ratio!))
-                    .toList(),
-              ),
-            ),
+          borderRadius: BorderRadius.circular(100),
+          child: Wrap(
+            spacing: 1,
+            children: [
+              for (final lang in items)
+                Container(
+                  color: fromCssColor(lang.hexColor!),
+                  width: langWidth * lang.ratio!,
+                  height: 12,
+                )
+            ],
           ),
         ),
       ),
@@ -58,9 +59,8 @@ class LanguageBar extends StatelessWidget {
   }
 
   Widget _buildPopup(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     return Container(
-      color: theme.palette.background,
+      color: AntTheme.of(context).colorBackground,
       padding: CommonStyle.padding,
       height: 300,
       child: SingleChildScrollView(
@@ -74,18 +74,18 @@ class LanguageBar extends StatelessWidget {
                     width: 18,
                     height: 18,
                     decoration: BoxDecoration(
-                      color: convertColor(edge.hexColor),
+                      color: fromCssColor(edge.hexColor!),
                       shape: BoxShape.circle,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
                     edge.name!,
                     style: TextStyle(
-                      color: theme.palette.text,
+                      color: AntTheme.of(context).colorText,
                       fontSize: 18,
                       decoration: TextDecoration.underline,
-                      decorationColor: theme.palette.background,
+                      decorationColor: AntTheme.of(context).colorBackground,
                     ),
                   ),
                 ]),
@@ -95,10 +95,10 @@ class LanguageBar extends StatelessWidget {
                 child: Text(
                   '${(edge.ratio! * 100).toStringAsFixed(1)}%',
                   style: TextStyle(
-                    color: theme.palette.secondaryText,
+                    color: AntTheme.of(context).colorTextSecondary,
                     fontSize: 18,
                     decoration: TextDecoration.underline,
-                    decorationColor: theme.palette.background,
+                    decorationColor: AntTheme.of(context).colorBackground,
                   ),
                 ),
               ),

@@ -1,28 +1,27 @@
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:git_touch/models/auth.dart';
+import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/common.dart';
-import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/loading.dart';
-import 'package:git_touch/widgets/repository_item.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
-import 'package:git_touch/models/gitee.dart';
-import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class GeSearchScreen extends StatefulWidget {
   @override
-  _GeSearchScreenState createState() => _GeSearchScreenState();
+  State<GeSearchScreen> createState() => _GeSearchScreenState();
 }
 
 class _GeSearchScreenState extends State<GeSearchScreen> {
   int? _activeTab = 0;
   bool _loading = false;
-  List<List> _payloads = [[], [], []];
+  final List<List> _payloads = [[], [], []];
 
   TextEditingController? _controller;
   String get _keyword => _controller!.text.trim();
@@ -42,7 +41,7 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
   Future<void> _query() async {
     if (_loading || _keyword.isEmpty) return;
 
-    var keyword = _controller!.text;
+    final keyword = _controller!.text;
     setState(() {
       _loading = true;
     });
@@ -71,37 +70,6 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
     }
   }
 
-  Widget _buildInput() {
-    final theme = Provider.of<ThemeModel>(context);
-    switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeType.cupertino:
-        return Container(
-          color: theme.palette.background,
-          child: CupertinoTextField(
-            prefix: Row(
-              children: <Widget>[
-                SizedBox(width: 8),
-                Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
-              ],
-            ),
-            placeholder: AppLocalizations.of(context)!.search,
-            clearButtonMode: OverlayVisibilityMode.editing,
-            textInputAction: TextInputAction.go,
-            onSubmitted: (_) => _query(),
-            controller: _controller,
-          ),
-        );
-      default:
-        return TextField(
-          decoration: InputDecoration.collapsed(
-              hintText: AppLocalizations.of(context)!.search),
-          textInputAction: TextInputAction.go,
-          onSubmitted: (_) => _query(),
-          controller: _controller,
-        );
-    }
-  }
-
   _onTabSwitch(int? index) {
     setState(() {
       _activeTab = index;
@@ -116,7 +84,7 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
   Widget _buildItem(p) {
     switch (_activeTab) {
       case 0:
-        return RepositoryItem(
+        return RepoItem(
           owner: p.namespace.path,
           avatarUrl: p.owner.avatarUrl,
           name: p.path,
@@ -132,14 +100,14 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
           login: p.login,
           name: p.name,
           avatarUrl: p.avatarUrl,
-          bio: Text(p.bio != null ? p.bio : p.htmlUrl),
+          bio: Text(p.bio ?? p.htmlUrl),
         );
       default:
         return IssueItem(
           author: p.user.login,
           avatarUrl: p.user.avatarUrl,
           commentCount: p.comments,
-          subtitle: '#' + p.number,
+          subtitle: '#${p.number}',
           title: p.title,
           updatedAt: DateTime.parse(p.updatedAt),
           url:
@@ -150,49 +118,48 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context).theme;
-
-    final scaffold = CommonScaffold(
-      title: _buildInput(),
+    return CommonScaffold(
+      title: Container(
+        color: AntTheme.of(context).colorBackground,
+        child: CupertinoTextField(
+          prefix: Row(
+            children: const <Widget>[
+              SizedBox(width: 8),
+              Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
+            ],
+          ),
+          placeholder: AppLocalizations.of(context)!.search,
+          clearButtonMode: OverlayVisibilityMode.editing,
+          textInputAction: TextInputAction.go,
+          onSubmitted: (_) => _query(),
+          controller: _controller,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            if (theme == AppThemeType.cupertino)
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: CupertinoSlidingSegmentedControl(
-                    groupValue: _activeTab,
-                    onValueChanged: _onTabSwitch,
-                    children: tabs.asMap().map((key, text) => MapEntry(
-                        key,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(text, style: TextStyle(fontSize: 14)),
-                        ))),
-                  ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CupertinoSlidingSegmentedControl(
+                  groupValue: _activeTab,
+                  onValueChanged: _onTabSwitch,
+                  children: tabs.asMap().map((key, text) => MapEntry(
+                      key,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(text, style: const TextStyle(fontSize: 14)),
+                      ))),
                 ),
               ),
+            ),
             if (_loading)
-              Loading()
+              const Loading()
             else
               ..._payloads[_activeTab!].map(_buildItem).toList(),
           ],
         ),
       ),
-      bottom: TabBar(
-        onTap: _onTabSwitch,
-        tabs: tabs.map((text) => Tab(text: text.toUpperCase())).toList(),
-      ),
     );
-
-    if (theme == AppThemeType.material) {
-      return DefaultTabController(
-        length: tabs.length,
-        child: scaffold,
-      );
-    } else {
-      return scaffold;
-    }
   }
 }

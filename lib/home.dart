@@ -1,34 +1,40 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/notification.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/screens/bb_explore.dart';
 import 'package:git_touch/screens/bb_teams.dart';
 import 'package:git_touch/screens/bb_user.dart';
+import 'package:git_touch/screens/ge_search.dart';
 import 'package:git_touch/screens/ge_user.dart';
+import 'package:git_touch/screens/gh_news.dart';
+import 'package:git_touch/screens/gh_notification.dart';
+import 'package:git_touch/screens/gh_search.dart';
+import 'package:git_touch/screens/gh_trending.dart';
+import 'package:git_touch/screens/gh_user.dart';
+import 'package:git_touch/screens/gl_explore.dart';
+import 'package:git_touch/screens/gl_groups.dart';
 import 'package:git_touch/screens/gl_search.dart';
+import 'package:git_touch/screens/gl_user.dart';
 import 'package:git_touch/screens/go_search.dart';
 import 'package:git_touch/screens/go_user.dart';
 import 'package:git_touch/screens/gt_orgs.dart';
 import 'package:git_touch/screens/gt_user.dart';
-import 'package:git_touch/screens/gl_explore.dart';
-import 'package:git_touch/screens/gl_groups.dart';
-import 'package:git_touch/screens/gl_user.dart';
 import 'package:git_touch/screens/login.dart';
-import 'package:git_touch/screens/gh_notification.dart';
-import 'package:git_touch/screens/gh_user.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:github/github.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/screens/gh_news.dart';
-import 'package:git_touch/screens/gh_search.dart';
-import 'package:git_touch/screens/gh_trending.dart';
-import 'package:git_touch/screens/ge_search.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:pub_semver/pub_semver.dart';
+import 'package:universal_io/io.dart';
 
 class Home extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
@@ -38,6 +44,32 @@ class _HomeState extends State<Home> {
   final GlobalKey<NavigatorState> tab3 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab4 = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> tab5 = GlobalKey<NavigatorState>();
+
+  @override
+  initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 5), () async {
+      final latest = await GitHub()
+          .repositories
+          .getLatestRelease(RepositorySlug.full('git-touch/git-touch'));
+      final current =
+          await PackageInfo.fromPlatform().then((value) => value.version);
+      if (Version.parse(latest.tagName!.substring(1))
+              .compareTo(Version.parse(current)) ==
+          1) {
+        final res = await context.read<ThemeModel>().showConfirm(context,
+            const Text('New version released. Would you like to download it?'));
+        if (res == true) {
+          if (Platform.isIOS) {
+            // go to app store
+            LaunchReview.launch(writeReview: false);
+          } else {
+            context.pushUrl(latest.htmlUrl!);
+          }
+        }
+      }
+    });
+  }
 
   _buildScreen(int index) {
     // print(Localizations.localeOf(context).toString());
@@ -60,7 +92,7 @@ class _HomeState extends State<Home> {
           case 3:
             return GhSearchScreen();
           case 4:
-            return GhViewer();
+            return const GhViewerScreen();
         }
         break;
       case PlatformType.gitlab:
@@ -72,7 +104,7 @@ class _HomeState extends State<Home> {
           case 2:
             return GlSearchScreen();
           case 3:
-            return GlUserScreen(null);
+            return const GlUserScreen(null);
         }
         break;
       case PlatformType.bitbucket:
@@ -82,13 +114,13 @@ class _HomeState extends State<Home> {
           case 1:
             return BbTeamsScreen();
           case 2:
-            return BbUserScreen(null);
+            return const BbUserScreen(null);
         }
         break;
       case PlatformType.gitea:
         switch (index) {
           case 0:
-            return GtOrgsScreen();
+            return const GtOrgsScreen();
           case 1:
             return GtUserScreen(auth.activeAccount!.login, isViewer: true);
         }
@@ -112,8 +144,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildNotificationIcon(BuildContext context, IconData iconData) {
-    final theme = Provider.of<ThemeModel>(context);
-    int count = Provider.of<NotificationModel>(context).count;
+    final count = Provider.of<NotificationModel>(context).count;
     if (count == 0) {
       return Icon(iconData);
     }
@@ -123,10 +154,11 @@ class _HomeState extends State<Home> {
       children: <Widget>[
         Icon(iconData),
         Positioned(
-            right: -2,
-            top: -2,
-            child: Icon(Octicons.primitive_dot,
-                color: theme.palette.primary, size: 14))
+          right: -2,
+          top: -2,
+          child: Icon(Octicons.dot_fill,
+              color: AntTheme.of(context).colorPrimary, size: 14),
+        )
       ],
     );
   }
@@ -149,23 +181,23 @@ class _HomeState extends State<Home> {
 
   List<BottomNavigationBarItem> _buildNavigationItems(String platform) {
     final search = BottomNavigationBarItem(
-      icon: Icon(Ionicons.search_outline),
-      activeIcon: Icon(Ionicons.search),
+      icon: const Icon(Ionicons.search_outline),
+      activeIcon: const Icon(Ionicons.search),
       label: AppLocalizations.of(context)!.search,
     );
     final group = BottomNavigationBarItem(
-      icon: Icon(Ionicons.people_outline),
-      activeIcon: Icon(Ionicons.people),
+      icon: const Icon(Ionicons.people_outline),
+      activeIcon: const Icon(Ionicons.people),
       label: AppLocalizations.of(context)!.organizations,
     );
     final me = BottomNavigationBarItem(
-      icon: Icon(Ionicons.person_outline),
-      activeIcon: Icon(Ionicons.person),
+      icon: const Icon(Ionicons.person_outline),
+      activeIcon: const Icon(Ionicons.person),
       label: AppLocalizations.of(context)!.me,
     );
     final explore = BottomNavigationBarItem(
-      icon: Icon(Ionicons.compass_outline),
-      activeIcon: Icon(Ionicons.compass),
+      icon: const Icon(Ionicons.compass_outline),
+      activeIcon: const Icon(Ionicons.compass),
       label: AppLocalizations.of(context)!.explore,
     );
 
@@ -173,8 +205,8 @@ class _HomeState extends State<Home> {
       case PlatformType.github:
         return [
           BottomNavigationBarItem(
-            icon: Icon(Ionicons.newspaper_outline),
-            activeIcon: Icon(Ionicons.newspaper),
+            icon: const Icon(Ionicons.newspaper_outline),
+            activeIcon: const Icon(Ionicons.newspaper),
             label: AppLocalizations.of(context)!.news,
           ),
           BottomNavigationBarItem(
@@ -184,8 +216,8 @@ class _HomeState extends State<Home> {
             label: AppLocalizations.of(context)!.notification,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Ionicons.flame_outline),
-            activeIcon: Icon(Ionicons.flame),
+            icon: const Icon(Ionicons.flame_outline),
+            activeIcon: const Icon(Ionicons.flame),
             label: AppLocalizations.of(context)!.trending,
           ),
           search,
@@ -207,7 +239,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     final auth = Provider.of<AuthModel>(context);
 
     if (auth.activeAccount == null) {
@@ -216,56 +247,35 @@ class _HomeState extends State<Home> {
 
     final navigationItems = _buildNavigationItems(auth.activeAccount!.platform);
 
-    switch (theme.theme) {
-      case AppThemeType.cupertino:
-        return WillPopScope(
-          onWillPop: () async {
-            return !(await getNavigatorKey(auth.activeTab)
-                .currentState
-                ?.maybePop())!;
-          },
-          child: CupertinoTabScaffold(
-            tabBuilder: (context, index) {
-              return CupertinoTabView(
-                navigatorKey: getNavigatorKey(index),
-                builder: (context) {
-                  return _buildScreen(index);
-                },
-              );
+    return WillPopScope(
+      onWillPop: () async {
+        return !(await getNavigatorKey(auth.activeTab)
+            .currentState
+            ?.maybePop())!;
+      },
+      child: CupertinoTabScaffold(
+        tabBuilder: (context, index) {
+          return CupertinoTabView(
+            navigatorKey: getNavigatorKey(index),
+            builder: (context) {
+              return _buildScreen(index);
             },
-            tabBar: CupertinoTabBar(
-              items: navigationItems,
-              currentIndex: auth.activeTab,
-              onTap: (index) {
-                if (auth.activeTab == index) {
-                  getNavigatorKey(index)
-                      .currentState
-                      ?.popUntil((route) => route.isFirst);
-                } else {
-                  auth.setActiveTab(index);
-                }
-              },
-            ),
-          ),
-        );
-      default:
-        return Scaffold(
-          body: IndexedStack(
-            index: auth.activeTab,
-            children: [
-              for (var i = 0; i < navigationItems.length; i++) _buildScreen(i)
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: theme.palette.primary,
-            items: navigationItems,
-            currentIndex: auth.activeTab,
-            type: BottomNavigationBarType.fixed,
-            onTap: (int index) {
+          );
+        },
+        tabBar: CupertinoTabBar(
+          items: navigationItems,
+          currentIndex: auth.activeTab,
+          onTap: (index) {
+            if (auth.activeTab == index) {
+              getNavigatorKey(index)
+                  .currentState
+                  ?.popUntil((route) => route.isFirst);
+            } else {
               auth.setActiveTab(index);
-            },
-          ),
-        );
-    }
+            }
+          },
+        ),
+      ),
+    );
   }
 }

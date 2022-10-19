@@ -1,23 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_button.dart';
 import 'package:git_touch/widgets/action_entry.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/widgets/entry_item.dart';
-import 'package:git_touch/widgets/repository_item.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:git_touch/widgets/user_header.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/widgets/action_button.dart';
-import 'package:tuple/tuple.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:tuple/tuple.dart';
 
 class GeUserScreen extends StatelessWidget {
+  const GeUserScreen(this.login, {this.isViewer = false});
   final String login;
   final bool isViewer;
-  GeUserScreen(this.login, {this.isViewer = false});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class GeUserScreen extends StatelessWidget {
           [for (var v in res[1]) GiteeRepo.fromJson(v)],
         );
       },
-      title: AppBarTitle(isViewer ? 'Me' : login),
+      title: Text(isViewer ? 'Me' : login),
       action: isViewer
-          ? ActionEntry(
+          ? const ActionEntry(
               iconData: Ionicons.cog,
               url: '/settings',
             )
@@ -65,30 +65,30 @@ class GeUserScreen extends StatelessWidget {
             CommonStyle.border,
             Row(children: [
               EntryItem(
-                count: user.publicRepos,
+                count: user.publicRepos!,
                 text: 'Repositories',
                 url: '/gitee/$login?tab=repositories',
               ),
               EntryItem(
-                count: user.stared,
+                count: user.stared!,
                 text: 'Stars',
                 url: '/gitee/$login?tab=stars',
               ),
               EntryItem(
-                count: user.followers,
+                count: user.followers!,
                 text: 'Followers',
                 url: '/gitee/$login?tab=followers',
               ),
               EntryItem(
-                count: user.following,
+                count: user.following!,
                 text: 'Following',
                 url: '/gitee/$login?tab=following',
               ),
             ]),
-            // TableView(
+            // AntList(
             //   hasIcon: true,
             //   items: [
-            //     TableViewItem(
+            //     AntListItem(
             //       leftIconData: Octicons.home,
             //       text: Text('Organizations'),
             //       url: '/gitee/$login?tab=organizations',
@@ -99,7 +99,7 @@ class GeUserScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 for (var v in repos)
-                  RepositoryItem(
+                  RepoItem(
                     owner: v.namespace!.path,
                     avatarUrl: v.owner!.avatarUrl,
                     name: v.path,

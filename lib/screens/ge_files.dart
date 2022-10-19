@@ -1,23 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gitee.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
 import 'package:git_touch/widgets/action_button.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:provider/provider.dart';
 import 'package:git_touch/widgets/files_item.dart';
-import 'package:git_touch/models/auth.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:provider/provider.dart';
 
 class GeFilesScreen extends StatelessWidget {
+  const GeFilesScreen(this.owner, this.name, this.pullNumber);
   final String owner;
   final String name;
   final String pullNumber;
-  GeFilesScreen(this.owner, this.name, this.pullNumber);
 
+  @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GiteePullFile, int>(
-      title: AppBarTitle(AppLocalizations.of(context)!.files),
+      title: Text(AppLocalizations.of(context)!.files),
       actionBuilder: () {
         return ActionButton(
           title: 'Actions',

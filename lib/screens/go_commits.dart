@@ -1,23 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/gogs.dart';
 import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/commit_item.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GoCommitsScreen extends StatelessWidget {
+  const GoCommitsScreen(this.owner, this.name, {this.branch = 'master'});
   final String owner;
   final String name;
   final String? branch;
-  GoCommitsScreen(this.owner, this.name, {this.branch = 'master'});
 
   // TODO: API only returns most recent commit. No provision for all commits.
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GogsCommit, int>(
-      title: AppBarTitle(AppLocalizations.of(context)!.commits),
+      title: Text(AppLocalizations.of(context)!.commits),
       fetch: (page) async {
         final res = await context.read<AuthModel>().fetchGogsWithPage(
             '/repos/$owner/$name/commits/$branch',

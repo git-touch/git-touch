@@ -1,26 +1,26 @@
-import 'dart:convert';
 import 'dart:async';
+import 'dart:convert';
+
 import 'package:ferry/ferry.dart';
-import 'package:git_touch/utils/nil_store.dart';
-// import 'package:in_app_review/in_app_review.dart';
-import 'package:universal_io/io.dart';
+import 'package:fimber/fimber.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:git_touch/models/account.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/gitea.dart';
 import 'package:git_touch/models/gitee.dart';
+import 'package:git_touch/models/gitlab.dart';
+import 'package:git_touch/models/gogs.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:github/github.dart';
 import 'package:gql_http_link/gql_http_link.dart';
-import 'package:fimber/fimber.dart';
 import 'package:http/http.dart' as http;
-import 'package:uni_links/uni_links.dart';
 import 'package:nanoid/nanoid.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../utils/utils.dart';
-import 'account.dart';
-import 'gitlab.dart';
-import 'gogs.dart';
+import 'package:uni_links/uni_links.dart';
+// import 'package:in_app_review/in_app_review.dart';
+import 'package:universal_io/io.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const clientId = 'df930d7d2e219f26142a';
 
@@ -34,29 +34,16 @@ class PlatformType {
 }
 
 class DataWithPage<T> {
-  T data;
-  int cursor;
-  bool hasMore;
-  int total;
   DataWithPage({
-    /*required*/ required this.data,
-    /*required*/ required this.cursor,
-    /*required*/ required this.hasMore,
-    required this.total,
-  });
-}
-
-class BbPagePayload<T> {
-  T data;
-  String? cursor;
-  bool hasMore;
-  int total;
-  BbPagePayload({
     required this.data,
     required this.cursor,
     required this.hasMore,
     required this.total,
   });
+  T data;
+  int cursor;
+  bool hasMore;
+  int total;
 }
 
 class AuthModel with ChangeNotifier {
@@ -98,7 +85,7 @@ class AuthModel with ChangeNotifier {
 
   // https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
   Future<void> _onSchemeDetected(Uri? uri) async {
-    await closeWebView();
+    await closeInAppWebView();
 
     loading = true;
     notifyListeners();
@@ -120,7 +107,7 @@ class AuthModel with ChangeNotifier {
     await loginWithToken(token);
   }
 
-  Future<void> loginWithToken(String token) async {
+  Future<void> loginWithToken(String t) async {
     try {
       final queryData = await query('''
 {
@@ -129,12 +116,12 @@ class AuthModel with ChangeNotifier {
     avatarUrl
   }
 }
-''', token);
+''', t);
 
       await _addAccount(Account(
         platform: PlatformType.github,
         domain: 'https://github.com',
-        token: token,
+        token: t,
         login: queryData['viewer']['login'] as String,
         avatarUrl: queryData['viewer']['avatarUrl'] as String,
       ));
@@ -157,11 +144,7 @@ class AuthModel with ChangeNotifier {
         throw info['message'];
       }
       if (info['error'] != null) {
-        throw info['error'] +
-            '. ' +
-            (info['error_description'] != null
-                ? info['error_description']
-                : '');
+        throw info['error'] + '. ' + (info['error_description'] ?? '');
       }
       final user = GitlabUser.fromJson(info);
       await _addAccount(Account(
@@ -217,7 +200,7 @@ class AuthModel with ChangeNotifier {
       hasMore: next != null,
       total: int.tryParse(
               res.headers['X-Total'] ?? res.headers['x-total'] ?? '') ??
-          TOTAL_COUNT_FALLBACK,
+          kTotalCountFallback,
     );
   }
 
@@ -254,7 +237,7 @@ class AuthModel with ChangeNotifier {
     Map<String, dynamic> body = const {},
   }) async {
     late http.Response res;
-    Map<String, String> headers = {
+    final headers = <String, String>{
       'Authorization': 'token $token',
       HttpHeaders.contentTypeHeader: 'application/json'
     };
@@ -302,7 +285,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGiteaWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? kPageSize;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v1$path');
     uri = uri.replace(
@@ -318,9 +301,9 @@ class AuthModel with ChangeNotifier {
     return DataWithPage(
       data: info,
       cursor: page + 1,
-      hasMore: info is List && info.length > 0,
+      hasMore: info is List && info.isNotEmpty,
       total: int.tryParse(res.headers['x-total-count'] ?? '') ??
-          TOTAL_COUNT_FALLBACK,
+          kTotalCountFallback,
     );
   }
 
@@ -358,7 +341,7 @@ class AuthModel with ChangeNotifier {
     Map<String, dynamic> body = const {},
   }) async {
     late http.Response res;
-    Map<String, String> headers = {
+    final headers = <String, String>{
       'Authorization': 'token $token',
       HttpHeaders.contentTypeHeader: 'application/json'
     };
@@ -406,7 +389,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGogsWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? kPageSize;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v1$path');
     uri = uri.replace(
@@ -422,9 +405,9 @@ class AuthModel with ChangeNotifier {
     return DataWithPage(
       data: info,
       cursor: page + 1,
-      hasMore: info is List && info.length > 0,
+      hasMore: info is List && info.isNotEmpty,
       total: int.tryParse(res.headers['x-total-count'] ?? '') ??
-          TOTAL_COUNT_FALLBACK,
+          kTotalCountFallback,
     );
   }
 
@@ -434,7 +417,7 @@ class AuthModel with ChangeNotifier {
     Map<String, dynamic> body = const {},
   }) async {
     http.Response res;
-    Map<String, String> headers = {
+    final headers = <String, String>{
       'Authorization': 'token $token',
       HttpHeaders.contentTypeHeader: 'application/json'
     };
@@ -493,7 +476,7 @@ class AuthModel with ChangeNotifier {
   Future<DataWithPage> fetchGiteeWithPage(String path,
       {int? page, int? limit}) async {
     page = page ?? 1;
-    limit = limit ?? pageSize;
+    limit = limit ?? kPageSize;
 
     var uri = Uri.parse('${activeAccount!.domain}/api/v5$path');
     uri = uri.replace(
@@ -508,7 +491,7 @@ class AuthModel with ChangeNotifier {
 
     final totalPage = int.tryParse(res.headers['total_page'] ?? '');
     final totalCount =
-        int.tryParse(res.headers['total_count'] ?? '') ?? TOTAL_COUNT_FALLBACK;
+        int.tryParse(res.headers['total_count'] ?? '') ?? kTotalCountFallback;
 
     return DataWithPage(
       data: info,
@@ -558,7 +541,10 @@ class AuthModel with ChangeNotifier {
     final uri = Uri.parse(activeAccount!.domain).replace(
       userInfo: '${activeAccount!.login}:${activeAccount!.appPassword}',
       path: input.path,
-      query: input.query,
+      queryParameters: {
+        'pagelen': kPageSize.toString(),
+        ...input.queryParameters
+      },
     );
     if (isPost) {
       return http.post(
@@ -583,13 +569,12 @@ class AuthModel with ChangeNotifier {
     return json.decode(utf8.decode(res.bodyBytes));
   }
 
-  Future<BbPagePayload<List?>> fetchBbWithPage(String p) async {
+  Future<ListPayload<dynamic, String?>> fetchBbWithPage(String p) async {
     final data = await fetchBbJson(p);
     final v = BbPagination.fromJson(data);
-    return BbPagePayload(
+    return ListPayload(
       cursor: v.next,
-      total: v.size ?? TOTAL_COUNT_FALLBACK,
-      data: v.values,
+      items: v.values,
       hasMore: v.next != null,
     );
   }
@@ -626,11 +611,11 @@ class AuthModel with ChangeNotifier {
       Fimber.e('getUriLinksStream failed', ex: err);
     });
 
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     // Read accounts
     try {
-      String? str = prefs.getString(StorageKeys.accounts);
+      final str = prefs.getString(StorageKeys.accounts);
       // Fimber.d('read accounts: $str');
       _accounts = (json.decode(str ?? '[]') as List)
           .map((item) => Account.fromJson(item))
@@ -679,7 +664,8 @@ class AuthModel with ChangeNotifier {
             StorageKeys.getDefaultStartTabKey(activeAccount!.platform)) ??
         0;
     _ghClient = null;
-    _gqlClient = null;
+    _ghGqlClient = null;
+    _glGqlClient = null;
     notifyListeners();
 
     // TODO: strategy
@@ -695,47 +681,48 @@ class AuthModel with ChangeNotifier {
   }
 
   // http timeout
-  var _timeoutDuration = Duration(seconds: 10);
+  final _timeoutDuration = const Duration(seconds: 10);
   // var _timeoutDuration = Duration(seconds: 1);
 
   GitHub? _ghClient;
-  GitHub? get ghClient {
-    if (token == null) return null;
-    if (_ghClient == null) {
-      _ghClient = GitHub(auth: Authentication.withToken(token));
-    }
-    return _ghClient;
+  GitHub get ghClient {
+    _ghClient ??= GitHub(auth: Authentication.withToken(token));
+    return _ghClient!;
   }
 
-  Client? _gqlClient;
-  Client? get gqlClient {
-    if (token == null) return null;
-
-    if (_gqlClient == null) {
-      _gqlClient = Client(
-        link: HttpLink(
-          _apiPrefix + '/graphql',
-          defaultHeaders: {HttpHeaders.authorizationHeader: 'token $token'},
-        ),
-        cache: Cache(store: NilStore()),
-      );
-    }
-
-    return _gqlClient;
+  Client? _ghGqlClient;
+  Client get ghGqlClient {
+    return _ghGqlClient ??= Client(
+      link: HttpLink(
+        '$_apiPrefix/graphql',
+        defaultHeaders: {HttpHeaders.authorizationHeader: 'token $token'},
+      ),
+      // https://ferrygraphql.com/docs/fetch-policies#default-fetchpolicies
+      defaultFetchPolicies: {OperationType.query: FetchPolicy.NetworkOnly},
+    );
   }
 
-  Future<dynamic> query(String query, [String? _token]) async {
-    if (_token == null) {
-      _token = token;
-    }
-    if (_token == null) {
-      throw 'token is null';
-    }
+  Client? _glGqlClient;
+  Client get glGqlClient {
+    return _glGqlClient ??= Client(
+      link: HttpLink(
+        Uri.parse(activeAccount!.domain)
+            .replace(path: '/api/graphql')
+            .toString(),
+        defaultHeaders: {'Private-Token': token},
+      ),
+      // https://ferrygraphql.com/docs/fetch-policies#default-fetchpolicies
+      defaultFetchPolicies: {OperationType.query: FetchPolicy.NetworkOnly},
+    );
+  }
+
+  Future<dynamic> query(String query, [String? t]) async {
+    t ??= token;
 
     final res = await http
-        .post(Uri.parse(_apiPrefix + '/graphql'),
+        .post(Uri.parse('$_apiPrefix/graphql'),
             headers: {
-              HttpHeaders.authorizationHeader: 'token $_token',
+              HttpHeaders.authorizationHeader: 'token $t',
               HttpHeaders.contentTypeHeader: 'application/json'
             },
             body: json.encode({'query': query}))
@@ -757,7 +744,7 @@ class AuthModel with ChangeNotifier {
     final repoScope = publicOnly ? 'public_repo' : 'repo';
     final scope = Uri.encodeComponent(
         ['user', repoScope, 'read:org', 'notifications'].join(','));
-    launchUrl(
+    launchStringUrl(
       'https://github.com/login/oauth/authorize?client_id=$clientId&redirect_uri=gittouch://login&scope=$scope&state=$_oauthState',
     );
   }

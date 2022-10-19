@@ -1,27 +1,27 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/models/theme.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/scaffolds/common.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/issue_item.dart';
 import 'package:git_touch/widgets/loading.dart';
+import 'package:git_touch/widgets/repo_item.dart';
 import 'package:git_touch/widgets/user_item.dart';
 import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
-import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/widgets/repository_item.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class GhSearchScreen extends StatefulWidget {
   @override
-  _GhSearchScreenState createState() => _GhSearchScreenState();
+  State<GhSearchScreen> createState() => _GhSearchScreenState();
 }
 
 class _GhSearchScreenState extends State<GhSearchScreen> {
   int? _activeTab = 0;
   bool _loading = false;
-  List<List?> _payloads = [[], [], []];
+  final List<List?> _payloads = [[], [], []];
 
   TextEditingController? _controller;
 
@@ -42,7 +42,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
   Future<void> _query() async {
     if (_loading || _keyword.isEmpty) return;
 
-    var keyword = _controller!.text;
+    final keyword = _controller!.text;
     setState(() {
       _loading = true;
     });
@@ -50,7 +50,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       final auth = context.read<AuthModel>();
       final data = await auth.query('''
 {
-  repository: search(first: $pageSize, type: REPOSITORY, query: "$keyword") {
+  repository: search(first: $kPageSize, type: REPOSITORY, query: "$keyword") {
     nodes {
       ... on Repository {
         owner {
@@ -76,7 +76,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       }
     }
   }
-  user: search(first: $pageSize, type: USER, query: "$keyword") {
+  user: search(first: $kPageSize, type: USER, query: "$keyword") {
     nodes {
       ... on Organization {
         __typename
@@ -90,7 +90,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       }
     }
   }
-  issue: search(first: $pageSize, type: ISSUE, query: "$keyword") {
+  issue: search(first: $kPageSize, type: ISSUE, query: "$keyword") {
     nodes {
       ... on PullRequest {
         __typename
@@ -110,37 +110,6 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       setState(() {
         _loading = false;
       });
-    }
-  }
-
-  Widget _buildInput() {
-    final theme = Provider.of<ThemeModel>(context);
-    switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeType.cupertino:
-        return Container(
-          color: theme.palette.background,
-          child: CupertinoTextField(
-            prefix: Row(
-              children: <Widget>[
-                SizedBox(width: 8),
-                Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
-              ],
-            ),
-            placeholder: AppLocalizations.of(context)!.search,
-            clearButtonMode: OverlayVisibilityMode.editing,
-            textInputAction: TextInputAction.go,
-            onSubmitted: (_) => _query(),
-            controller: _controller,
-          ),
-        );
-      default:
-        return TextField(
-          decoration: InputDecoration.collapsed(
-              hintText: AppLocalizations.of(context)!.search),
-          textInputAction: TextInputAction.go,
-          onSubmitted: (_) => _query(),
-          controller: _controller,
-        );
     }
   }
 
@@ -169,7 +138,7 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
     switch (_activeTab) {
       case 0:
         final updatedAt = timeago.format(DateTime.parse(p['updatedAt']));
-        return RepositoryItem.gh(
+        return RepoItem.gh(
           owner: p['owner']['login'],
           avatarUrl: p['owner']['avatarUrl'],
           name: p['name'],
@@ -199,10 +168,10 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
           author: p['author']['login'],
           avatarUrl: p['author']['avatarUrl'],
           commentCount: p['comments']['totalCount'],
-          subtitle: '#' + p['number'].toString(),
+          subtitle: '#${p['number']}',
           title: p['title'],
           updatedAt: DateTime.parse(p['updatedAt']),
-          url: '/github' + Uri.parse(p['url']).path,
+          url: '/github${Uri.parse(p['url']).path}',
           isPr: p['__typename'] == 'PullRequest',
         );
     }
@@ -210,49 +179,48 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context).theme;
-
-    final scaffold = CommonScaffold(
-      title: _buildInput(),
+    return CommonScaffold(
+      title: Container(
+        color: AntTheme.of(context).colorBackground,
+        child: CupertinoTextField(
+          prefix: Row(
+            children: const <Widget>[
+              SizedBox(width: 8),
+              Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
+            ],
+          ),
+          placeholder: AppLocalizations.of(context)!.search,
+          clearButtonMode: OverlayVisibilityMode.editing,
+          textInputAction: TextInputAction.go,
+          onSubmitted: (_) => _query(),
+          controller: _controller,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            if (theme == AppThemeType.cupertino)
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: CupertinoSlidingSegmentedControl(
-                    groupValue: _activeTab,
-                    onValueChanged: _onTabSwitch,
-                    children: tabs.asMap().map((key, text) => MapEntry(
-                        key,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(text, style: TextStyle(fontSize: 14)),
-                        ))),
-                  ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CupertinoSlidingSegmentedControl(
+                  groupValue: _activeTab,
+                  onValueChanged: _onTabSwitch,
+                  children: tabs.asMap().map((key, text) => MapEntry(
+                      key,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(text, style: const TextStyle(fontSize: 14)),
+                      ))),
                 ),
               ),
+            ),
             if (_loading)
-              Loading()
+              const Loading()
             else
               ..._payloads[_activeTab!]!.map(_buildItem).toList(),
           ],
         ),
       ),
-      bottom: TabBar(
-        onTap: _onTabSwitch,
-        tabs: tabs.map((text) => Tab(text: text.toUpperCase())).toList(),
-      ),
     );
-
-    if (theme == AppThemeType.material) {
-      return DefaultTabController(
-        length: tabs.length,
-        child: scaffold,
-      );
-    } else {
-      return scaffold;
-    }
   }
 }

@@ -1,36 +1,33 @@
-import 'package:flutter/material.dart';
-import 'package:ferry/ferry.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:git_touch/graphql/github.var.gql.dart';
-import 'package:git_touch/scaffolds/list_stateful.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
-import 'package:git_touch/widgets/release_item.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/widgets.dart';
 import 'package:git_touch/models/auth.dart';
-import 'package:git_touch/graphql/github.data.gql.dart';
-import 'package:git_touch/graphql/github.req.gql.dart';
+import 'package:git_touch/scaffolds/list_stateful.dart';
+import 'package:git_touch/widgets/release_item.dart';
+import 'package:gql_github/releases.data.gql.dart';
+import 'package:gql_github/releases.req.gql.dart';
+import 'package:provider/provider.dart';
 
 class GhReleasesScreen extends StatelessWidget {
+  const GhReleasesScreen(this.owner, this.name);
   final String owner;
   final String name;
-  GhReleasesScreen(this.owner, this.name);
 
   @override
   Widget build(BuildContext context) {
     return ListStatefulScaffold<GReleasesData_repository_releases_nodes,
         String?>(
-      title: AppBarTitle("Releases"),
+      title: const Text('Releases'),
       fetch: (page) async {
         final req = GReleasesReq((b) => b
           ..vars.owner = owner
           ..vars.name = name
           ..vars.cursor = page);
-        final OperationResponse<GReleasesData, GReleasesVars?> res =
-            await context.read<AuthModel>().gqlClient!.request(req).first;
+        final res =
+            await context.read<AuthModel>().ghGqlClient.request(req).first;
         final releases = res.data!.repository!.releases;
         return ListPayload(
           cursor: releases.pageInfo.endCursor,
-          items: releases.nodes,
+          items: releases.nodes ?? [],
           hasMore: releases.pageInfo.hasNextPage,
         );
       },

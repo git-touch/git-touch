@@ -1,22 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
+
+import 'package:flutter/widgets.dart';
 import 'package:git_touch/utils/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HtmlView extends StatefulWidget {
-  final String html;
   HtmlView(String text, {String? cssText, List<String> cssLinks = const []})
-      : html = '<meta name="viewport" content="width=device-width">' +
-            cssLinks
-                .map((link) =>
-                    '<link rel="stylesheet" href="$link" crossorigin="anonymous" />')
-                .join('') +
-            '<style>body{margin:12px}${cssText ?? ''}</style>' +
-            text;
+      : html =
+            '<meta name="viewport" content="width=device-width">${cssLinks.map((link) => '<link rel="stylesheet" href="$link" crossorigin="anonymous" />').join('')}<style>body{margin:12px}${cssText ?? ''}</style>$text';
+  final String html;
 
   @override
-  _HtmlViewState createState() => _HtmlViewState();
+  State<HtmlView> createState() => _HtmlViewState();
 }
 
 class _HtmlViewState extends State<HtmlView> {
@@ -27,7 +23,7 @@ class _HtmlViewState extends State<HtmlView> {
 
   updateHeight() async {
     final value = await controller
-        .evaluateJavascript("document.documentElement.scrollHeight;");
+        .runJavascriptReturningResult('document.documentElement.scrollHeight;');
     // print(value);
     if (mounted) {
       setState(() {
@@ -49,7 +45,7 @@ class _HtmlViewState extends State<HtmlView> {
       mimeType: 'text/html',
       encoding: Encoding.getByName('utf-8'),
     );
-    return Container(
+    return SizedBox(
       height: height ??
           1, // must be integer(android). 0 would return the wrong height on page finished.
       child: WebView(
@@ -57,7 +53,7 @@ class _HtmlViewState extends State<HtmlView> {
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (c) async {
           controller = c;
-          timer = Timer.periodic(Duration(milliseconds: 1000), (t) {
+          timer = Timer.periodic(const Duration(milliseconds: 1000), (t) {
             updateHeight();
           });
         },
@@ -67,7 +63,7 @@ class _HtmlViewState extends State<HtmlView> {
         },
         navigationDelegate: (request) {
           if (loaded) {
-            launchUrl(request.url); // TODO:
+            launchStringUrl(request.url); // TODO:
             return NavigationDecision.prevent;
           } else {
             loaded = true;

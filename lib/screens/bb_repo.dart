@@ -1,30 +1,31 @@
 import 'dart:convert';
 
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:filesize/filesize.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/S.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/bitbucket.dart';
 import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/scaffolds/refresh_stateful.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/app_bar_title.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
 import 'package:git_touch/widgets/repo_header.dart';
-import 'package:git_touch/widgets/table_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_gen/gen_l10n/S.dart';
 
 class BbRepoScreen extends StatelessWidget {
+  const BbRepoScreen(this.owner, this.name, {this.branch});
   final String owner;
   final String name;
   final String? branch;
-  BbRepoScreen(this.owner, this.name, {this.branch});
 
   @override
   Widget build(BuildContext context) {
     return RefreshStatefulScaffold<Tuple3<BbRepo, String?, List<BbBranch>>>(
-      title: AppBarTitle(AppLocalizations.of(context)!.repository),
+      title: Text(AppLocalizations.of(context)!.repository),
       fetch: () async {
         final auth = context.read<AuthModel>();
         final r = await auth.fetchBbJson('/repositories/$owner/$name');
@@ -36,7 +37,7 @@ class BbRepoScreen extends StatelessWidget {
         final branches = await auth
             .fetchBbWithPage('/repositories/$owner/$name/refs/branches')
             .then((v) {
-          return [for (var branch in v.data!) BbBranch.fromJson(branch)];
+          return [for (var branch in v.items) BbBranch.fromJson(branch)];
         });
         return Tuple3(repo, readme, branches);
       },
@@ -56,61 +57,65 @@ class BbRepoScreen extends StatelessWidget {
               homepageUrl: p.website,
             ),
             CommonStyle.border,
-            TableView(
-              hasIcon: true,
-              items: [
-                TableViewItem(
-                  leftIconData: Octicons.code,
-                  text: Text('Code'),
-                  rightWidget: Text(filesize(p.size)),
-                  url:
-                      '/bitbucket/$owner/$name/src/${branch == null ? p.mainbranch!.name : branch}',
+            AntList(
+              children: [
+                AntListItem(
+                  prefix: const Icon(Octicons.code),
+                  extra: Text(filesize(p.size)),
+                  onClick: () {
+                    context.push(
+                        '/bitbucket/$owner/$name/src/${branch ?? p.mainbranch!.name}');
+                  },
+                  child: const Text('Code'),
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.issue_opened,
-                  text: Text('Issues'),
-                  url: '/bitbucket/$owner/$name/issues',
+                AntListItem(
+                  prefix: const Icon(Octicons.issue_opened),
+                  child: const Text('Issues'),
+                  onClick: () {
+                    context.push('/bitbucket/$owner/$name/issues');
+                  },
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.git_pull_request,
-                  text: Text('Pull requests'),
-                  url: '/bitbucket/$owner/$name/pulls',
+                AntListItem(
+                  prefix: const Icon(Octicons.git_pull_request),
+                  child: const Text('Pull requests'),
+                  onClick: () {
+                    context.push('/bitbucket/$owner/$name/pulls');
+                  },
                 ),
-                TableViewItem(
-                  leftIconData: Octicons.history,
-                  text: Text('Commits'),
-                  url:
-                      '/bitbucket/$owner/$name/commits/${branch == null ? p.mainbranch!.name : branch}',
+                AntListItem(
+                  prefix: const Icon(Octicons.history),
+                  child: const Text('Commits'),
+                  onClick: () {
+                    context.push(
+                        '/bitbucket/$owner/$name/commits/${branch ?? p.mainbranch!.name}');
+                  },
                 ),
-                if (branches != null)
-                  TableViewItem(
-                    leftIconData: Octicons.git_branch,
-                    text: Text(AppLocalizations.of(context)!.branches),
-                    rightWidget: Text(
-                        (branch == null ? p.mainbranch!.name : branch)! +
-                            ' • ' +
-                            branches.length.toString()),
-                    onTap: () async {
-                      if (branches.length < 2) return;
+                AntListItem(
+                  prefix: const Icon(Octicons.git_branch),
+                  extra: Text(
+                      '${(branch ?? p.mainbranch!.name)!} • ${branches.length}'),
+                  onClick: () async {
+                    if (branches.length < 2) return;
 
-                      await theme.showPicker(
-                        context,
-                        PickerGroupItem(
-                          value: branch,
-                          items: branches
-                              .map((b) => PickerItem(b.name, text: b.name))
-                              .toList(),
-                          onClose: (ref) {
-                            if (ref != branch) {
-                              theme.push(context,
-                                  '/bitbucket/$owner/$name?branch=$ref',
-                                  replace: true);
-                            }
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                    await theme.showPicker(
+                      context,
+                      PickerGroupItem(
+                        value: branch,
+                        items: branches
+                            .map((b) => PickerItem(b.name, text: b.name))
+                            .toList(),
+                        onClose: (ref) {
+                          if (ref != branch) {
+                            context.pushUrl(
+                                '/bitbucket/$owner/$name?branch=$ref',
+                                replace: true);
+                          }
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(AppLocalizations.of(context)!.branches),
+                ),
               ],
             ),
             CommonStyle.verticalGap,

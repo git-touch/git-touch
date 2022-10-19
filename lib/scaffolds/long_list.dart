@@ -1,20 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import 'package:git_touch/models/theme.dart';
 import 'package:git_touch/utils/utils.dart';
-import 'package:provider/provider.dart';
-import '../widgets/loading.dart';
-import '../widgets/link.dart';
-import '../widgets/error_reload.dart';
+import 'package:git_touch/widgets/error_reload.dart';
+import 'package:git_touch/widgets/link.dart';
+import 'package:git_touch/widgets/loading.dart';
 
 class LongListPayload<T, K> {
-  T header;
-  int totalCount;
-  String? cursor;
-  List<K> leadingItems;
-  List<K>? trailingItems;
-
   LongListPayload({
     required this.header,
     required this.totalCount,
@@ -22,6 +13,11 @@ class LongListPayload<T, K> {
     required this.leadingItems,
     this.trailingItems,
   });
+  T header;
+  int totalCount;
+  String? cursor;
+  List<K> leadingItems;
+  List<K>? trailingItems;
 }
 
 // This is a scaffold for issue and pull request
@@ -29,14 +25,7 @@ class LongListPayload<T, K> {
 // We should load leading and trailing items at first fetching, and do load more in the middle
 // e.g. https://github.com/reactjs/rfcs/pull/68
 class LongListStatefulScaffold<T, K> extends StatefulWidget {
-  final Widget title;
-  final Widget Function(T t)? trailingBuilder;
-  final Widget Function(T t) headerBuilder;
-  final Widget Function(K k) itemBuilder;
-  final Future<LongListPayload<T, K>> Function() onRefresh;
-  final Future<LongListPayload<T, K>> Function(String? cursor) onLoadMore;
-
-  LongListStatefulScaffold({
+  const LongListStatefulScaffold({
     required this.title,
     this.trailingBuilder,
     required this.headerBuilder,
@@ -44,9 +33,15 @@ class LongListStatefulScaffold<T, K> extends StatefulWidget {
     required this.onRefresh,
     required this.onLoadMore,
   });
+  final Widget title;
+  final Widget Function(T t)? trailingBuilder;
+  final Widget Function(T t) headerBuilder;
+  final Widget Function(K k) itemBuilder;
+  final Future<LongListPayload<T, K>> Function() onRefresh;
+  final Future<LongListPayload<T, K>> Function(String? cursor) onLoadMore;
 
   @override
-  _LongListStatefulScaffoldState<T, K> createState() =>
+  State<LongListStatefulScaffold<T, K>> createState() =>
       _LongListStatefulScaffoldState();
 }
 
@@ -74,7 +69,7 @@ class _LongListStatefulScaffoldState<T, K>
       payload = await widget.onRefresh();
     } catch (err) {
       error = err.toString();
-      throw err;
+      rethrow;
     } finally {
       if (mounted) {
         setState(() {
@@ -90,11 +85,10 @@ class _LongListStatefulScaffoldState<T, K>
       loadingMore = true;
     });
     try {
-      LongListPayload<T?, K> _payload =
-          await widget.onLoadMore(payload!.cursor);
-      payload!.totalCount = _payload.totalCount;
-      payload!.cursor = _payload.cursor;
-      payload!.leadingItems.addAll(_payload.leadingItems);
+      final LongListPayload<T?, K> p = await widget.onLoadMore(payload!.cursor);
+      payload!.totalCount = p.totalCount;
+      payload!.cursor = p.cursor;
+      payload!.leadingItems.addAll(p.leadingItems);
     } finally {
       if (mounted) {
         setState(() {
@@ -105,18 +99,16 @@ class _LongListStatefulScaffoldState<T, K>
   }
 
   Widget _buildItem(BuildContext context, int index) {
-    final theme = Provider.of<ThemeModel>(context);
-
     if (index % 2 == 1) {
       return CommonStyle.border;
     }
 
-    int realIndex = index ~/ 2;
+    final realIndex = index ~/ 2;
 
     if (realIndex < payload!.leadingItems.length) {
       return widget.itemBuilder(payload!.leadingItems[realIndex]);
     } else if (realIndex == payload!.leadingItems.length) {
-      var count = payload!.totalCount -
+      final count = payload!.totalCount -
           payload!.leadingItems.length +
           payload!.trailingItems!.length;
       return Container(
@@ -127,20 +119,21 @@ class _LongListStatefulScaffoldState<T, K>
             child: Container(
               padding: CommonStyle.padding,
               decoration: BoxDecoration(
-                border: Border.all(color: theme.palette.text),
+                border: Border.all(color: AntTheme.of(context).colorText),
               ),
               child: Column(
                 children: <Widget>[
                   Text('$count hidden items',
-                      style:
-                          TextStyle(color: theme.palette.text, fontSize: 15)),
-                  Padding(padding: EdgeInsets.only(top: 4)),
+                      style: TextStyle(
+                          color: AntTheme.of(context).colorText, fontSize: 15)),
+                  const Padding(padding: EdgeInsets.only(top: 4)),
                   loadingMore
-                      ? CupertinoActivityIndicator()
+                      ? const CupertinoActivityIndicator()
                       : Text(
                           'Load more...',
                           style: TextStyle(
-                              color: theme.palette.primary, fontSize: 16),
+                              color: AntTheme.of(context).colorPrimary,
+                              fontSize: 16),
                         ),
                 ],
               ),
@@ -155,7 +148,7 @@ class _LongListStatefulScaffoldState<T, K>
   }
 
   int get _itemCount {
-    int count = payload!.leadingItems.length + payload!.trailingItems!.length;
+    var count = payload!.leadingItems.length + payload!.trailingItems!.length;
     if (payload!.totalCount > count) {
       count++;
     }
@@ -168,7 +161,7 @@ class _LongListStatefulScaffoldState<T, K>
           child: ErrorReload(text: error, onTap: _refresh));
     } else if (loading) {
       // TODO:
-      return SliverToBoxAdapter(child: Loading(more: false));
+      return const SliverToBoxAdapter(child: Loading(more: false));
     } else {
       return SliverList(
         delegate:
@@ -179,51 +172,27 @@ class _LongListStatefulScaffoldState<T, K>
 
   @override
   Widget build(BuildContext context) {
-    switch (Provider.of<ThemeModel>(context).theme) {
-      case AppThemeType.cupertino:
-        List<Widget> slivers = [
-          CupertinoSliverRefreshControl(onRefresh: _refresh)
-        ];
-        if (payload != null) {
-          slivers.add(
-            SliverToBoxAdapter(child: widget.headerBuilder(payload!.header)),
-          );
-        }
-        slivers.add(_buildSliver());
-
-        return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: widget.title,
-            trailing: payload == null
-                ? null
-                : widget.trailingBuilder!(payload!.header),
-          ),
-          child: SafeArea(
-            child: CupertinoScrollbar(
-              child: CustomScrollView(slivers: slivers),
-            ),
-          ),
-        );
-      default:
-        return Scaffold(
-          appBar: AppBar(
-            title: widget.title,
-            actions: payload == null
-                ? null
-                : [widget.trailingBuilder!(payload!.header)],
-          ),
-          body: RefreshIndicator(
-            onRefresh: _refresh,
-            child: Scrollbar(
-              child: CustomScrollView(slivers: [
-                if (payload != null)
-                  SliverToBoxAdapter(
-                      child: widget.headerBuilder(payload!.header)),
-                _buildSliver(),
-              ]),
-            ),
-          ),
-        );
+    final slivers = <Widget>[
+      CupertinoSliverRefreshControl(onRefresh: _refresh)
+    ];
+    if (payload != null) {
+      slivers.add(
+        SliverToBoxAdapter(child: widget.headerBuilder(payload!.header)),
+      );
     }
+    slivers.add(_buildSliver());
+
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: widget.title,
+        trailing:
+            payload == null ? null : widget.trailingBuilder!(payload!.header),
+      ),
+      child: SafeArea(
+        child: CupertinoScrollbar(
+          child: CustomScrollView(slivers: slivers),
+        ),
+      ),
+    );
   }
 }

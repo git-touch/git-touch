@@ -1,39 +1,37 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:git_touch/graphql/github.data.gql.dart';
-import 'package:git_touch/graphql/schema.schema.gql.dart';
+import 'package:antd_mobile/antd_mobile.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:git_touch/models/auth.dart';
 import 'package:git_touch/models/theme.dart';
+import 'package:git_touch/utils/utils.dart';
 import 'package:git_touch/widgets/action_button.dart';
+import 'package:git_touch/widgets/avatar.dart';
+import 'package:git_touch/widgets/link.dart';
 import 'package:git_touch/widgets/markdown_view.dart';
+import 'package:git_touch/widgets/user_name.dart';
+import 'package:gql_github/issue.data.gql.dart';
+import 'package:gql_github/schema.schema.gql.dart';
+import 'package:primer/primer.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:primer/primer.dart';
-import '../utils/utils.dart';
-import 'avatar.dart';
-import 'link.dart';
-import 'user_name.dart';
 
 class EmojiPayload {
-  GReactionContent key;
-  String text;
-  int count;
-  bool reacted;
   EmojiPayload({
     required this.key,
     required this.text,
     required this.count,
     required this.reacted,
   });
+  GReactionContent key;
+  String text;
+  int count;
+  bool reacted;
 }
 
 typedef EmojiUpdateCallaback = void Function(GReactionContent data);
 
 class GhEmojiAction extends StatefulWidget {
-  final String? id;
-  final Iterable<EmojiPayload> items;
-  final EmojiUpdateCallaback onReaction;
-
   GhEmojiAction(this.id, GReactableParts r, this.onReaction)
       : items = [
           EmojiPayload(
@@ -85,8 +83,11 @@ class GhEmojiAction extends StatefulWidget {
             reacted: r.EYES.viewerHasReacted,
           ),
         ];
+  final String? id;
+  final Iterable<EmojiPayload> items;
+  final EmojiUpdateCallaback onReaction;
   @override
-  _GhEmojiActionState createState() => _GhEmojiActionState();
+  State<GhEmojiAction> createState() => _GhEmojiActionState();
 }
 
 class _GhEmojiActionState extends State<GhEmojiAction> {
@@ -125,22 +126,23 @@ mutation {
                 _onReaction(item);
               },
               child: Container(
-                padding: EdgeInsets.all(4),
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   color: item.reacted
                       ? (theme.brightness == Brightness.dark
                           ? PrimerColors.blue900
                           : PrimerColors.blue000)
-                      : Colors.transparent,
+                      : null,
                 ),
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: <Widget>[
-                    Text(item.text, style: TextStyle(fontSize: 18)),
-                    SizedBox(width: 4),
+                    Text(item.text, style: const TextStyle(fontSize: 18)),
+                    const SizedBox(width: 4),
                     Text(numberFormat.format(item.count),
                         style: TextStyle(
-                            color: theme.palette.primary, fontSize: 14))
+                            color: AntTheme.of(context).colorPrimary,
+                            fontSize: 14))
                   ],
                 ),
               ),
@@ -158,12 +160,14 @@ mutation {
             ]);
           },
           child: Container(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Text('+', style: TextStyle(color: theme.palette.primary)),
-                Icon(Octicons.smiley, color: theme.palette.primary, size: 18),
+                Text('+',
+                    style: TextStyle(color: AntTheme.of(context).colorPrimary)),
+                Icon(Octicons.smiley,
+                    color: AntTheme.of(context).colorPrimary, size: 18),
               ],
             ),
           ),
@@ -174,30 +178,9 @@ mutation {
 }
 
 class CommentItem extends StatelessWidget {
-  final Avatar avatar;
-  final String? login;
-  final DateTime? createdAt;
-  final String? body;
-  final String prefix;
-  final List<Widget>? widgets;
-  final List<ActionItem>? commentActionItemList;
+  // TODO
 
-  // p.author could be null (deleted user)
-  CommentItem.gql(
-      GCommentParts p, GReactableParts r, EmojiUpdateCallaback onReaction)
-      : avatar = Avatar(
-          url: p.author?.avatarUrl ??
-              'https://avatars.githubusercontent.com/u/10137?s=460&u=b1951d34a583cf12ec0d3b0781ba19be97726318&v=4',
-          linkUrl: '/github/' + (p.author?.login ?? 'ghost'),
-        ),
-        login = p.author?.login ?? 'ghost',
-        createdAt = p.createdAt,
-        body = p.body,
-        widgets = [GhEmojiAction(p.id, r, onReaction)],
-        prefix = 'github',
-        commentActionItemList = []; // TODO
-
-  CommentItem({
+  const CommentItem({
     required this.avatar,
     required this.login,
     required this.createdAt,
@@ -207,25 +190,46 @@ class CommentItem extends StatelessWidget {
     this.commentActionItemList,
   });
 
+  // p.author could be null (deleted user)
+  CommentItem.gql(
+      GCommentParts p, GReactableParts r, EmojiUpdateCallaback onReaction)
+      : avatar = Avatar(
+          url: p.author?.avatarUrl ??
+              'https://avatars.githubusercontent.com/u/10137?s=460&u=b1951d34a583cf12ec0d3b0781ba19be97726318&v=4',
+          linkUrl: '/github/${p.author?.login ?? 'ghost'}',
+        ),
+        login = p.author?.login ?? 'ghost',
+        createdAt = p.createdAt,
+        body = p.body,
+        widgets = [GhEmojiAction(p.id, r, onReaction)],
+        prefix = 'github',
+        commentActionItemList = [];
+  final Avatar avatar;
+  final String? login;
+  final DateTime? createdAt;
+  final String? body;
+  final String prefix;
+  final List<Widget>? widgets;
+  final List<ActionItem>? commentActionItemList;
+
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeModel>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(children: <Widget>[
           avatar,
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 UserName(login, prefix),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   timeago.format(createdAt!),
                   style: TextStyle(
-                      color: theme.palette.tertiaryText, fontSize: 13),
+                      color: AntTheme.of(context).colorWeak, fontSize: 13),
                 ),
               ],
             ),
@@ -240,9 +244,9 @@ class CommentItem extends StatelessWidget {
                 ],
               )),
         ]),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         MarkdownFlutterView(body, padding: EdgeInsets.zero), // TODO: link
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         if (widgets != null) ...widgets!
       ],
     );

@@ -1,21 +1,14 @@
-import 'package:universal_io/io.dart';
 import 'dart:async';
+
+import 'package:antd_mobile/antd_mobile.dart';
 import 'package:fimber/fimber.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:git_touch/utils/utils.dart';
-import 'package:git_touch/widgets/action_button.dart';
-import 'package:primer/primer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/S.dart';
-
-class AppThemeType {
-  static const material = 0;
-  static const cupertino = 1;
-  static const values = [AppThemeType.material, AppThemeType.cupertino];
-}
+import 'package:git_touch/utils/utils.dart';
+import 'package:git_touch/widgets/action_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:universal_io/io.dart';
 
 class AppBrightnessType {
   static const followSystem = 0;
@@ -35,76 +28,47 @@ class AppMarkdownType {
 }
 
 class PickerItem<T> {
+  PickerItem(this.value, {required this.text});
   final T value;
   final String? text;
-  PickerItem(this.value, {required this.text});
 }
 
 class PickerGroupItem<T> {
-  final T value;
-  final List<PickerItem<T>> items;
-  final Function(T value)? onChange;
-  final Function(T value)? onClose;
-
   PickerGroupItem({
     required this.value,
     required this.items,
     this.onChange,
     this.onClose,
   });
+  final T value;
+  final List<PickerItem<T>> items;
+  final Function(T value)? onChange;
+  final Function(T value)? onClose;
 }
 
 class SelectorItem<T> {
+  SelectorItem({required this.value, required this.text});
   T value;
   String text;
-  SelectorItem({required this.value, required this.text});
 }
 
 // No animation. For replacing route
 // TODO: Go back
 class StaticRoute extends PageRouteBuilder {
-  final WidgetBuilder? builder;
   StaticRoute({this.builder})
       : super(
-          pageBuilder: (BuildContext context, Animation<double> animation,
-              Animation<double> secondaryAnimation) {
+          pageBuilder: (context, animation, secondaryAnimation) {
             return builder!(context);
           },
-          transitionsBuilder: (BuildContext context,
-              Animation<double> animation,
-              Animation<double> secondaryAnimation,
-              Widget child) {
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child;
           },
         );
-}
-
-class Palette {
-  final Color primary;
-  final Color text;
-  final Color secondaryText;
-  final Color tertiaryText;
-  final Color background;
-  final Color grayBackground;
-  final Color border;
-
-  const Palette({
-    required this.primary,
-    required this.text,
-    required this.secondaryText,
-    required this.tertiaryText,
-    required this.background,
-    required this.grayBackground,
-    required this.border,
-  });
+  final WidgetBuilder? builder;
 }
 
 class ThemeModel with ChangeNotifier {
   String? markdownCss;
-
-  int? _theme;
-  int? get theme => _theme;
-  bool get ready => _theme != null;
 
   Brightness systemBrightness = Brightness.light;
   void setSystemBrightness(Brightness v) {
@@ -177,51 +141,11 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final router = FluroRouter();
-
-  final paletteLight = Palette(
-    primary: PrimerColors.blue500,
-    text: Colors.black,
-    secondaryText: Colors.grey.shade800,
-    tertiaryText: Colors.grey.shade600,
-    background: Colors.white,
-    grayBackground: Colors.grey.shade100,
-    border: Colors.grey.shade300,
-  );
-  final paletteDark = Palette(
-    primary: PrimerColors.blue500,
-    text: Colors.grey.shade300,
-    secondaryText: Colors.grey.shade400,
-    tertiaryText: Colors.grey.shade500,
-    background: Colors.black,
-    grayBackground: Colors.grey.shade900,
-    border: Colors.grey.shade700,
-  );
-
-  Palette get palette {
-    switch (brightness) {
-      case Brightness.dark:
-        return paletteDark;
-      case Brightness.light:
-      default:
-        return paletteLight;
-    }
-  }
-
   Future<void> init() async {
     markdownCss = await rootBundle.loadString('images/github-markdown.css');
 
     final prefs = await SharedPreferences.getInstance();
 
-    final v = prefs.getInt(StorageKeys.iTheme);
-    Fimber.d('read theme: $v');
-    if (AppThemeType.values.contains(v)) {
-      _theme = v;
-    } else if (Platform.isIOS || Platform.isMacOS) {
-      _theme = AppThemeType.cupertino;
-    } else {
-      _theme = AppThemeType.material;
-    }
     final b = prefs.getInt(StorageKeys.iBrightness);
     Fimber.d('read brightness: $b');
     if (AppBrightnessType.values.contains(b)) {
@@ -239,49 +163,6 @@ class ThemeModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setTheme(int v) async {
-    _theme = v;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(StorageKeys.iTheme, v);
-    Fimber.d('write theme: $v');
-    notifyListeners();
-  }
-
-  push(BuildContext context, String url, {bool replace = false}) {
-    // Fimber.d(url);
-    if (url.startsWith('/')) {
-      return router.navigateTo(
-        context,
-        url,
-        transition: theme == AppThemeType.cupertino
-            ? TransitionType.cupertino
-            : TransitionType.material,
-        replace: replace,
-      );
-    } else {
-      launchUrl(url);
-    }
-  }
-
-  Future<void> showWarning(BuildContext context, String message) async {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text(message),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   Future<bool?> showConfirm(BuildContext context, Widget content) {
     return showCupertinoDialog(
       context: context,
@@ -290,11 +171,11 @@ class ThemeModel with ChangeNotifier {
           title: content,
           actions: <Widget>[
             CupertinoDialogAction(
-              child: const Text('cancel'),
               isDefaultAction: true,
               onPressed: () {
                 Navigator.pop(context, false);
               },
+              child: const Text('cancel'),
             ),
             CupertinoDialogAction(
               child: const Text('OK'),
@@ -306,37 +187,15 @@ class ThemeModel with ChangeNotifier {
         );
       },
     );
-    // default:
-    //   return showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         content: content,
-    //         actions: <Widget>[
-    //           FlatButton(
-    //             child: const Text('CANCEL'),
-    //             onPressed: () {
-    //               Navigator.pop(context, false);
-    //             },
-    //           ),
-    //           FlatButton(
-    //             child: const Text('OK'),
-    //             onPressed: () {
-    //               Navigator.pop(context, true);
-    //             },
-    //           )
-    //         ],
-    //       );
-    //     },
-    //   );
   }
 
   static Timer? _debounce;
   String? _selectedItem;
 
   showPicker(BuildContext context, PickerGroupItem<String?> groupItem) async {
-    await showCupertinoModalPopup(
+    await AntPopup.show(
       context: context,
+      closeOnMaskClick: true,
       builder: (context) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -344,10 +203,10 @@ class ThemeModel with ChangeNotifier {
             Container(
               alignment: Alignment.bottomCenter,
               decoration: BoxDecoration(
-                color: palette.background,
+                color: AntTheme.of(context).colorBackground,
                 border: Border(
                   bottom: BorderSide(
-                    color: palette.grayBackground,
+                    color: AntTheme.of(context).colorBox,
                     width: 0.0,
                   ),
                 ),
@@ -356,7 +215,6 @@ class ThemeModel with ChangeNotifier {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   CupertinoButton(
-                    child: Text('Cancel'),
                     onPressed: () {
                       Navigator.pop(context);
                       _selectedItem = groupItem.value;
@@ -365,9 +223,9 @@ class ThemeModel with ChangeNotifier {
                       horizontal: 16.0,
                       vertical: 5.0,
                     ),
+                    child: const Text('Cancel'),
                   ),
                   CupertinoButton(
-                    child: Text('Confirm'),
                     onPressed: () {
                       Navigator.pop(context);
                       groupItem.onClose!(_selectedItem);
@@ -376,18 +234,15 @@ class ThemeModel with ChangeNotifier {
                       horizontal: 16.0,
                       vertical: 5.0,
                     ),
+                    child: const Text('Confirm'),
                   )
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: 216,
               child: CupertinoPicker(
-                backgroundColor: palette.background,
-                children: <Widget>[
-                  for (var v in groupItem.items)
-                    Text(v.text!, style: TextStyle(color: palette.text)),
-                ],
+                backgroundColor: AntTheme.of(context).colorBackground,
                 itemExtent: 40,
                 scrollController: FixedExtentScrollController(
                     initialItem: groupItem.items
@@ -406,6 +261,12 @@ class ThemeModel with ChangeNotifier {
                     });
                   }
                 },
+                children: <Widget>[
+                  for (var v in groupItem.items)
+                    Text(v.text!,
+                        style:
+                            TextStyle(color: AntTheme.of(context).colorText)),
+                ],
               ),
             )
           ],
@@ -415,34 +276,23 @@ class ThemeModel with ChangeNotifier {
   }
 
   showActions(BuildContext context, List<ActionItem> actionItems) async {
-    if (actionItems == null) return;
-    final value = await showCupertinoModalPopup<int>(
+    await AntActionSheet.show(
       context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          title: Text('Actions'),
-          actions: actionItems.asMap().entries.map((entry) {
-            return CupertinoActionSheetAction(
-              child: Text(entry.value.text!),
-              isDestructiveAction: entry.value.isDestructiveAction,
-              onPressed: () {
-                Navigator.pop(context, entry.key);
-              },
-            );
-          }).toList(),
-          cancelButton: CupertinoActionSheetAction(
-            child: const Text('Cancel'),
-            isDefaultAction: true,
-            onPressed: () {
-              Navigator.pop(context);
+      extra: const Text('Actions'),
+      actions: [
+        for (final item in actionItems)
+          AntActionSheetAction(
+            text: Text(
+              item.text!,
+              style: TextStyle(
+                  color: item.danger ? AntTheme.of(context).colorDanger : null),
+            ),
+            onClick: () {
+              item.onTap?.call(context);
             },
+            key: null,
           ),
-        );
-      },
+      ],
     );
-
-    if (value != null) {
-      actionItems[value].onTap!(context);
-    }
   }
 }

@@ -1,0 +1,57 @@
+fragment RepoParts on Repository {
+  owner {
+    login
+    avatarUrl
+  }
+  name
+  description
+  isPrivate
+  isFork
+  stargazers {
+    totalCount
+  }
+  forks {
+    totalCount
+  }
+  primaryLanguage {
+    color
+    name
+  }
+  updatedAt
+}
+
+query Repos($login: String!, $after: String) {
+  repositoryOwner(login: $login) {
+    repositories(
+      first: 30
+      after: $after
+      orderBy: { field: UPDATED_AT, direction: DESC }
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...RepoParts
+      }
+    }
+  }
+}
+
+query Stars($login: String!, $after: String) {
+  user(login: $login) {
+    starredRepositories(
+      first: 30
+      after: $after
+      orderBy: { field: STARRED_AT, direction: DESC }
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        ...RepoParts
+      }
+    }
+  }
+}

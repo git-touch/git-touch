@@ -1,42 +1,42 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'bitbucket.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbPagination {
-  int? pagelen;
-  int? size;
-  int? page;
-  String? next;
-  List? values;
-  BbPagination();
+  BbPagination({required this.values});
   factory BbPagination.fromJson(Map<String, dynamic> json) =>
       _$BbPaginationFromJson(json);
+  String? next;
+  List values;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbRepoOwner {
+  BbRepoOwner();
+  factory BbRepoOwner.fromJson(Map<String, dynamic> json) =>
+      _$BbRepoOwnerFromJson(json);
   String? nickname;
   String? displayName;
   String? type; // user, team
   Map<String, dynamic>? links;
   String? get avatarUrl => links!['avatar']['href'];
-  BbRepoOwner();
-  factory BbRepoOwner.fromJson(Map<String, dynamic> json) =>
-      _$BbRepoOwnerFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbUser extends BbRepoOwner {
+  BbUser();
+  factory BbUser.fromJson(Map<String, dynamic> json) => _$BbUserFromJson(json);
   String? username;
   bool? isStaff;
   DateTime? createdOn;
   String? accountId;
-  BbUser();
-  factory BbUser.fromJson(Map<String, dynamic> json) => _$BbUserFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbRepo {
+  BbRepo();
+  factory BbRepo.fromJson(Map<String, dynamic> json) => _$BbRepoFromJson(json);
   String? name;
   BbRepoOwner? owner;
   String? website;
@@ -53,51 +53,52 @@ class BbRepo {
   Map<String, dynamic>? links;
   String get ownerLogin => fullName!.split('/')[0]; // owner has no username
   String? get avatarUrl => links!['avatar']['href'];
-  BbRepo();
-  factory BbRepo.fromJson(Map<String, dynamic> json) => _$BbRepoFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbRepoMainbranch {
-  String? type;
-  String? name;
   BbRepoMainbranch();
   factory BbRepoMainbranch.fromJson(Map<String, dynamic> json) =>
       _$BbRepoMainbranchFromJson(json);
+  String? type;
+  String? name;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbTree {
-  String? type;
-  String? path;
+  BbTree({required this.type, required this.path});
+  factory BbTree.fromJson(Map<String, dynamic> json) => _$BbTreeFromJson(json);
+  String type;
+  String path;
   int? size;
   Map<String, dynamic>? links;
-  BbTree();
-  factory BbTree.fromJson(Map<String, dynamic> json) => _$BbTreeFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbCommit {
+  BbCommit();
+  factory BbCommit.fromJson(Map<String, dynamic> json) =>
+      _$BbCommitFromJson(json);
   String? message;
   DateTime? date;
   String? hash;
   BbCommitAuthor? author;
-  BbCommit();
-  factory BbCommit.fromJson(Map<String, dynamic> json) =>
-      _$BbCommitFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbCommitAuthor {
-  String? raw;
-  BbRepoOwner? user;
   BbCommitAuthor();
   factory BbCommitAuthor.fromJson(Map<String, dynamic> json) =>
       _$BbCommitAuthorFromJson(json);
+  String? raw;
+  BbRepoOwner? user;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbIssues {
+  BbIssues();
+  factory BbIssues.fromJson(Map<String, dynamic> json) =>
+      _$BbIssuesFromJson(json);
   String? priority;
   String? state;
   BbRepo? repository;
@@ -106,50 +107,47 @@ class BbIssues {
   DateTime? createdOn;
   Map<String, dynamic>? links;
   String? get issueLink => links!['self']['href'];
-  BbIssues();
-  factory BbIssues.fromJson(Map<String, dynamic> json) =>
-      _$BbIssuesFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbPulls {
+  BbPulls();
+  factory BbPulls.fromJson(Map<String, dynamic> json) =>
+      _$BbPullsFromJson(json);
   String? description;
   BbRepoOwner? author;
   String? title;
   Map<String, dynamic>? links;
   String? get pullRequestLink => links!['self']['href'];
   DateTime? createdOn;
-  BbPulls();
-  factory BbPulls.fromJson(Map<String, dynamic> json) =>
-      _$BbPullsFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbCommentContent {
-  String? raw;
-  String? markup;
-  String? html;
   BbCommentContent();
   factory BbCommentContent.fromJson(Map<String, dynamic> json) =>
       _$BbCommentContentFromJson(json);
+  String? raw;
+  String? markup;
+  String? html;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbComment {
+  BbComment();
+  factory BbComment.fromJson(Map<String, dynamic> json) =>
+      _$BbCommentFromJson(json);
   String? createdOn;
   String? updatedOn;
   BbCommentContent? content;
   BbRepoOwner? user;
-  BbComment();
-  factory BbComment.fromJson(Map<String, dynamic> json) =>
-      _$BbCommentFromJson(json);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class BbBranch {
-  String? name;
-  String? type;
   BbBranch();
   factory BbBranch.fromJson(Map<String, dynamic> json) =>
       _$BbBranchFromJson(json);
+  String? name;
+  String? type;
 }
