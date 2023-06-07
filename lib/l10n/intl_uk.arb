@@ -1,0 +1,519 @@
+{
+  "trending": "В тренді",
+  "@trending": {
+    "description": "Trending"
+  },
+  "search": "Пошук",
+  "@search": {
+    "description": "The Search tab"
+  },
+  "me": "Я",
+  "@me": {
+    "description": "The Me tab"
+  },
+  "pinnedRepositories": "Закріплені репозиторії",
+  "@pinnedRepositories": {
+    "description": "pinned repositories"
+  },
+  "news": "Новини",
+  "@news": {
+    "description": "The News tab"
+  },
+  "events": "Події",
+  "@events": {
+    "description": "events for a user"
+  },
+  "repositories": "Репозиторії",
+  "@repositories": {
+    "description": "repository text"
+  },
+  "unfollow": "Відписатися",
+  "@unfollow": {
+    "description": "unfollow someone"
+  },
+  "follow": "Підписатися",
+  "@follow": {
+    "description": "follow someone"
+  },
+  "stars": "Зірки",
+  "@stars": {
+    "description": "stars on a repo"
+  },
+  "followers": "Підписники",
+  "@followers": {
+    "description": "followers for a person"
+  },
+  "reviewPermissions": "Перегляд дозволів",
+  "@reviewPermissions": {
+    "description": "review Permissions"
+  },
+  "gitlabStatus": "Статус GitLab",
+  "@gitlabStatus": {
+    "description": "GitLab status"
+  },
+  "giteaStatus": "Статус Gitea",
+  "@giteaStatus": {
+    "description": "Gitea status"
+  },
+  "switchAccounts": "Переключити акаунти",
+  "@switchAccounts": {
+    "description": "Switch accounts"
+  },
+  "brightness": "Яскравість",
+  "@brightness": {
+    "description": "brightness"
+  },
+  "followSystem": "Як у системі",
+  "@followSystem": {
+    "description": "follow systems setting"
+  },
+  "light": "Світлий",
+  "@light": {
+    "description": "light mode"
+  },
+  "dark": "Темний",
+  "@dark": {
+    "description": "dark mode"
+  },
+  "codeTheme": "Тема коду",
+  "@codeTheme": {
+    "description": "code theme"
+  },
+  "markdownRenderEngine": "Механізм візуалізації Markdown",
+  "@markdownRenderEngine": {
+    "description": "flutter or webview rendering for markdown"
+  },
+  "feedback": "зворотній зв'язок",
+  "@feedback": {
+    "description": "provide feedback"
+  },
+  "submitAnIssue": "Надіслати проблему",
+  "@submitAnIssue": {
+    "description": "submit issue for app"
+  },
+  "submit": "Надіслати",
+  "@submit": {
+    "description": "submit button text"
+  },
+  "rateThisApp": "Оцініть цей додаток",
+  "@rateThisApp": {
+    "description": "rate the app"
+  },
+  "email": "Ел. пошта",
+  "@email": {
+    "description": "Email to report issues"
+  },
+  "about": "Про додаток",
+  "@about": {
+    "description": "about section"
+  },
+  "version": "Версія",
+  "@version": {
+    "description": "app version"
+  },
+  "sourceCode": "Вихідний код",
+  "@sourceCode": {
+    "description": "source code for app"
+  },
+  "repository": "Репозиторій",
+  "@repository": {
+    "description": "Repository screen title"
+  },
+  "repositoryActions": "Дії в репозиторії",
+  "@repositoryActions": {
+    "description": "Repository Actions"
+  },
+  "projects": "Проекти",
+  "@projects": {
+    "description": "projects"
+  },
+  "releases": "Релізи",
+  "@releases": {
+    "description": "releases"
+  },
+  "released": "випущено",
+  "@released": {
+    "description": "released"
+  },
+  "watchers": "Спостерігачі",
+  "@watchers": {
+    "description": "watchers"
+  },
+  "forks": "Форки",
+  "@forks": {
+    "description": "forks"
+  },
+  "commits": "Комміти",
+  "@commits": {
+    "description": "Commits"
+  },
+  "branches": "Гілки",
+  "@branches": {
+    "description": "branches"
+  },
+  "contributors": "Автори",
+  "@contributors": {
+    "description": "contributors"
+  },
+  "unread": "Непрочитане",
+  "@unread": {
+    "description": "unread"
+  },
+  "developers": "Розробники",
+  "@developers": {
+    "description": "developers"
+  },
+  "explore": "Дослідження",
+  "@explore": {
+    "description": "explore"
+  },
+  "teams": "Команди",
+  "@teams": {
+    "description": "teams"
+  },
+  "file": "Файл",
+  "@file": {
+    "description": "file"
+  },
+  "groups": "Групи",
+  "@groups": {
+    "description": "groups"
+  },
+  "mergeRequests": "Запити на об'єднання",
+  "@mergeRequests": {
+    "description": "Merge request"
+  },
+  "activity": "Діяльність",
+  "@activity": {
+    "description": "activity"
+  },
+  "project": "Проект",
+  "@project": {
+    "description": "project"
+  },
+  "selectAccount": "Виберіть обліковий запис",
+  "@selectAccount": {
+    "description": "select account message"
+  },
+  "removeAccount": "Видалити обліковий запис",
+  "@removeAccount": {
+    "description": "remove account"
+  },
+  "githubAccount": "Обліковий запис GitHub",
+  "@githubAccount": {
+    "description": "Gitea Account"
+  },
+  "permissionRequiredMessage": "GitTouch потребує таких дозволів",
+  "@permissionRequiredMessage": {
+    "description": "Permission Required Message"
+  },
+  "notFoundMessage": "Не знайдено",
+  "@notFoundMessage": {
+    "description": "Not found page header"
+  },
+  "group": "Група",
+  "@group": {
+    "description": "group"
+  },
+  "code": "Код",
+  "@code": {
+    "description": "Code"
+  },
+  "syntaxHighlighting": "ПІДСВІЧУВАННЯ СИНТАКСИСУ",
+  "@syntaxHighlighting": {
+    "description": "Syntax Highlighting"
+  },
+  "fontSize": "Розмір шрифту",
+  "@fontSize": {
+    "description": "font size"
+  },
+  "reloadMessage": "Додаток перезавантажиться, щоб налаштування мови вступило в силу",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "title": "Назва",
+  "@title": {
+    "description": "title"
+  },
+  "body": "Тіло",
+  "@body": {
+    "description": "body"
+  },
+  "timelineTypeNotImplemented": "Тип ще не реалізовано",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "pullRequestCommitMessage": "додано комміт {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "crossReferencedEventMessage": "посилається на це",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "closedEventMessage": "закрив це",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "reopenedEventMessage": "знову відкрив",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "subscribedEventMessage": "підписався на цей issue",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "added": "додано",
+  "@added": {
+    "description": "added"
+  },
+  "removed": "видалено",
+  "@removed": {
+    "description": "removed"
+  },
+  "label": "мітка",
+  "@label": {
+    "description": "label"
+  },
+  "milestonedEventMessage": "додано до milestone {milestone}",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "видалено це з {milestone} milestone",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "renamedTitleEventMessage": "змінив назву на {title} з",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "unlockedConversationEventMessage": "розблокував цю розмову",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "transferredEventMessage": "перенесено це питання з {repoName}",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewed": "переглянуто",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "mergedEventMessage": "об'єднали комміт {commit} в {mergeRefName}",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "mentionedEventMessage": "було згадано",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "deploymentEnvironmentChangedEventMessage": "змінено середовище розробки на {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "видалено гілку {headRefName}",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "fromReviewRequest": "із запиту на перегляд",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "reviewDismissedEventMessage": "відхилив розгляд запиту на pull request, про який просили",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "notification": "Повідомлення",
+  "@notification": {
+    "description": "The Notification tab"
+  },
+  "organizations": "Організації",
+  "@organizations": {
+    "description": "organizations for a user"
+  },
+  "popularRepositories": "Популярні репозиторії",
+  "@popularRepositories": {
+    "description": "popular repositories"
+  },
+  "members": "Члени",
+  "@members": {
+    "description": "members of an organization"
+  },
+  "settings": "Налаштування",
+  "@settings": {
+    "description": "settings"
+  },
+  "system": "Система",
+  "@system": {
+    "description": "system"
+  },
+  "githubStatus": "Статус GitHub",
+  "@githubStatus": {
+    "description": "github status"
+  },
+  "reviewRequestEventMessage": "звернувся з запитом на рецензію до",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "commit": "Комміт",
+  "@commit": {
+    "description": "Commit"
+  },
+  "fontStyle": "СТИЛЬ ШРИФТА",
+  "@fontStyle": {
+    "description": "font style"
+  },
+  "issues": "Питання",
+  "@issues": {
+    "description": "issues"
+  },
+  "all": "Усе",
+  "@all": {
+    "description": "all"
+  },
+  "files": "Файли",
+  "@files": {
+    "description": "file plural"
+  },
+  "actions": "Дії",
+  "@actions": {
+    "description": "actions"
+  },
+  "gitlabAccount": "Обліковий запис GitLab",
+  "@gitlabAccount": {
+    "description": "Gitlab Account"
+  },
+  "somethingBadHappens": "Щось погане трапилося:",
+  "@somethingBadHappens": {
+    "description": "error message"
+  },
+  "longPressToRemoveAccount": "Довге натискання, щоб видалити обліковий запис",
+  "@longPressToRemoveAccount": {
+    "description": "Long Press to remove account"
+  },
+  "notFoundTextDisplay": "На жаль, ця сторінка ще не реалізована.",
+  "@notFoundTextDisplay": {
+    "description": "Not found error message"
+  },
+  "bitbucketAccount": "Обліковий запис Bitbucket",
+  "@bitbucketAccount": {
+    "description": "Bitbucket Account"
+  },
+  "giteaAccount": "Обліковий запис Gitea",
+  "@giteaAccount": {
+    "description": "Gitea Account"
+  },
+  "giteeAccount": "Обліковий запис Gitee",
+  "@giteeAccount": {
+    "description": "Gitee Account"
+  },
+  "user": "Користувач",
+  "@user": {
+    "description": "user"
+  },
+  "fontFamily": "Сімейство шрифтів",
+  "@fontFamily": {
+    "description": "Font Family"
+  },
+  "referencedEventMessage": "посилається на цей pull request з комміту {commit} від {repoName}",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "appLanguage": "Мова додатка",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "theme": "Тема",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "unsubscribedEventMessage": "відписався від цього issue",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "lockedConversationEventMessage": "заблокував цю розмову",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "approvedChanges": "затвердив ці зміни",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "checkSuiteEventConclusionMessage": "це {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefRestoredEventMessage": "відновлено гілку {headRefName}",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventSecondMessage": "гілка із",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "actionRequiredConclusion": "потрібно більше дій",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  }
+}
