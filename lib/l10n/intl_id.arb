@@ -11,7 +11,7 @@
   "@fontFamily": {
     "description": "Font Family"
   },
-  "syntaxHighlighting": "PENYOROTAN SINTAKS",
+  "syntaxHighlighting": "PENYOROTAN SINTAKSIS",
   "@syntaxHighlighting": {
     "description": "Syntax Highlighting"
   },
@@ -159,7 +159,7 @@
   "@watchers": {
     "description": "watchers"
   },
-  "releases": "Rilisan",
+  "releases": "Rilis",
   "@releases": {
     "description": "releases"
   },
@@ -259,7 +259,7 @@
   "@reviewPermissions": {
     "description": "review Permissions"
   },
-  "trending": "Trending",
+  "trending": "Sedang tren",
   "@trending": {
     "description": "Trending"
   },
@@ -299,7 +299,7 @@
   "@gists": {
     "description": "gists for a user"
   },
-  "events": "Event",
+  "events": "Peristiwa",
   "@events": {
     "description": "events for a user"
   },
@@ -636,7 +636,7 @@
   "@forked": {
     "description": "forked"
   },
-  "nCommitsTo": "{count,plural, =1{{count} commit to} lainya {{count} commits to}}",
+  "nCommitsTo": "{count,plural, =1{{count} commit to} lainnya{{count} commits to}}",
   "@nCommitsTo": {
     "description": "no. of commits to a branch",
     "placeholders": {
@@ -810,7 +810,7 @@
   "@made": {
     "description": "made"
   },
-  "pullRequestEventMessage": "{action} pull request",
+  "pullRequestEventMessage": "{action} permintaan pull",
   "@pullRequestEventMessage": {
     "description": "pull request event",
     "placeholders": {
@@ -843,5 +843,22 @@
   "headRefForcedPushedEventFirstMessage": "force-push",
   "@headRefForcedPushedEventFirstMessage": {
     "description": "head ref forced pushed event message first half"
+  },
+  "commit": "Commit",
+  "@commit": {
+    "description": "Commit"
+  },
+  "filesChanged": "{count,plural, =1{{count} file changed} other{{count} files changed}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blankDiff": "Tak ada teks yang ditampilkan di sini",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
   }
 }
