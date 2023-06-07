@@ -346,5 +346,93 @@
   "news": "新闻",
   "@news": {
     "description": "The News tab"
+  },
+  "fromReviewRequest": "来自审核请求",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "mentionedEventMessage": "被提及",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "reviewed": "已审核",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "approvedChanges": "批准了这些修改",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "unlockedConversationEventMessage": "已解锁此对话",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "lockedConversationEventMessage": "锁定了此对话",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "label": "标签",
+  "@label": {
+    "description": "label"
+  },
+  "removed": "移除了",
+  "@removed": {
+    "description": "removed"
+  },
+  "added": "增加了",
+  "@added": {
+    "description": "added"
+  },
+  "unassignedEventMessage": "取消将此事分配给",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "assignedEventMessage": "将此事分配给",
+  "@assignedEventMessage": {
+    "description": "assigned event"
+  },
+  "unsubscribedEventMessage": "取消订阅了此事件",
+  "@unsubscribedEventMessage": {
+    "description": "unsubscribed event"
+  },
+  "subscribedEventMessage": "订阅了此事件",
+  "@subscribedEventMessage": {
+    "description": "subscribed event"
+  },
+  "reopenedEventMessage": "重开了此事件",
+  "@reopenedEventMessage": {
+    "description": "reopened event"
+  },
+  "closedEventMessage": "关闭了此事件",
+  "@closedEventMessage": {
+    "description": "closed event"
+  },
+  "timelineTypeNotImplemented": "该类型尚未实施",
+  "@timelineTypeNotImplemented": {
+    "description": "Timeline type not implemented"
+  },
+  "appLanguage": "应用程序的语言",
+  "@appLanguage": {
+    "description": "The app's language"
+  },
+  "title": "标题",
+  "@title": {
+    "description": "title"
+  },
+  "theme": "主题",
+  "@theme": {
+    "description": "Theme header text"
+  },
+  "reloadMessage": "应用程序将重新加载，以使语言设置生效",
+  "@reloadMessage": {
+    "description": "Reload message"
+  },
+  "released": "已发布",
+  "@released": {
+    "description": "released"
+  },
+  "submit": "提交",
+  "@submit": {
+    "description": "submit button text"
   }
 }
