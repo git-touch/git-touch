@@ -848,7 +848,7 @@
   "@commit": {
     "description": "Commit"
   },
-  "filesChanged": "{count,plural, =1{{count} file changed} other{{count} files changed}}",
+  "filesChanged": "{count,plural, =1{{count} file diubah} other{{count} file diubah}}",
   "@filesChanged": {
     "description": "no. of files changed",
     "placeholders": {
