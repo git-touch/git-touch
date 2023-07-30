@@ -10,7 +10,7 @@ class TrendingRepositoryPrimaryLanguage {
 }
 
 class GithubTrending {
-  GithubTrending({this.prefix = 'https://ghapi.huchen.dev'});
+  GithubTrending({this.prefix = 'https://api.gitterapp.com/'});
   String prefix;
 
   Future _getJson(Uri url) async {
