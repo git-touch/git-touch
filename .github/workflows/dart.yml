@@ -21,8 +21,11 @@ jobs:
       # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@v1
       - uses: subosito/flutter-action@v1
+
+      - name: No analysistics
+        run: flutter config --no-analytics
 
       - name: Build apk
         run: flutter build apk --no-tree-shake-icons
