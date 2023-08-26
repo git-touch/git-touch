@@ -37,7 +37,7 @@ dependencies:
     path: ./packages/gql_gitlab
   github_trending:
     path: ./packages/github_trending
-  antd_mobile: ^0.11.0
+  antd_mobile: ^0.1.0
   cupertino_icons: ^1.0.5
   ferry: ^0.11.2+1
   ferry_flutter: ^0.6.2
