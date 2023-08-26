@@ -52,7 +52,7 @@ dependencies:
   gql: ^0.14.0
   gql_http_link: ^0.4.4+1
   http: ^0.13.5
-  intl: ^0.17.0
+  intl: ^0.18.1
   json_annotation: ^4.7.0
   launch_review: ^3.0.1
   nanoid: ^1.0.0
