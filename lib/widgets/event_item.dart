@@ -399,7 +399,7 @@ class EventItem extends StatelessWidget {
         }
         if (pageNamesEdited.isNotEmpty) {
           pageNamesEdited =
-              ' ${AppLocalizations.of(context)!.editedPages(pageNamesEdited)}';
+              ' ${AppLocalizations.of(context)!.editedPages(pageNamesEdited, pageNamesEdited)}';
         }
 
         return _buildItem(

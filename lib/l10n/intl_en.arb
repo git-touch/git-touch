@@ -376,7 +376,8 @@
     "description": "pull request commit message",
     "placeholders": {
       "commit": {
-        "type": "String"
+        "type": "String",
+        "format": "String"
       }
     }
   },
