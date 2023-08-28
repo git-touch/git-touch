@@ -29,3 +29,10 @@ jobs:
 
       - name: Build apk
         run: flutter build apk --no-tree-shake-icons
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-without-markdown
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
