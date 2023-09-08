@@ -560,6 +560,17 @@ final router = GoRouter(
                     state.pathParameters['ref']!,
                     path: state.uri.queryParameters['path'],
                   ),
+                  routes: [
+                    GoRoute(
+                      path: ':path',
+                      builder: (context, state) => BbObjectScreen(
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
+                        state.pathParameters['ref']!,
+                        path: state.pathParameters['path'],
+                      ),
+                    )
+                  ],
                 ),
                 GoRoute(
                   path: 'commits/:ref',
