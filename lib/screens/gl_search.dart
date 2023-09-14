@@ -52,8 +52,8 @@ class _GlSearchScreenState extends State<GlSearchScreen> {
           .fetchGitlabWithPage('/search?scope=projects&search=$keyword');
       final users =
           await auth.fetchGitlabWithPage('/search?scope=users&search=$keyword');
-      _projects = [for (var v in projects.data) GitlabProject.fromJson(v)];
-      _users = [for (var v in users.data) GitlabUser.fromJson(v)];
+      _projects = [for (final v in projects.data) GitlabProject.fromJson(v)];
+      _users = [for (final v in users.data) GitlabUser.fromJson(v)];
     } finally {
       setState(() {
         _loading = false;

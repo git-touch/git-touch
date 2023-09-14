@@ -35,7 +35,7 @@ class GeFilesScreen extends StatelessWidget {
               '/repos/$owner/$name/pulls/$pullNumber/files?page=$page',
             )
             .then((v) {
-          return [for (var file in v.data) GiteePullFile.fromJson(file)];
+          return [for (final file in v.data) GiteePullFile.fromJson(file)];
         });
         return ListPayload(
           cursor: page + 1,

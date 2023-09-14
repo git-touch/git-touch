@@ -70,7 +70,7 @@ class GlProjectScreen extends StatelessWidget {
         final branches = await auth
             .fetchGitlab('/projects/$id/repository/branches')
             .then((v) {
-          return [for (var branch in v) GitlabBranch.fromJson(branch)];
+          return [for (final branch in v) GitlabBranch.fromJson(branch)];
         });
 
         return Tuple5(p, langFuture, memberCountFuture, readmeData, branches);
@@ -149,7 +149,7 @@ class GlProjectScreen extends StatelessWidget {
                   ]);
                 } else {
                   return LanguageBar([
-                    for (var e in data.entries)
+                    for (final e in data.entries)
                       LanguageBarItem(name: e.key, ratio: e.value / 100)
                   ]);
                 }

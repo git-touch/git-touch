@@ -34,7 +34,7 @@ class GhFilesScreen extends StatelessWidget {
             .ghClient
             .getJSON<List, List<GithubFilesItem>>(
               '/repos/$owner/$name/pulls/$pullNumber/files?page=$page',
-              convert: (vs) => [for (var v in vs) GithubFilesItem.fromJson(v)],
+              convert: (vs) => [for (final v in vs) GithubFilesItem.fromJson(v)],
             );
         return ListPayload(
           cursor: page + 1,

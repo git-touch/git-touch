@@ -62,7 +62,7 @@ class GeIssueScreen extends StatelessWidget {
           auth.fetchGitee('/repos/$owner/$name/issues/$number/comments')
         ]);
         return Tuple2(GiteeIssue.fromJson(items[0]),
-            [for (var v in items[1]) GiteeComment.fromJson(v)]);
+            [for (final v in items[1]) GiteeComment.fromJson(v)]);
       },
       actionBuilder: (data, _) => ActionEntry(
         iconData: Octicons.plus,
@@ -123,7 +123,7 @@ class GeIssueScreen extends StatelessWidget {
                 ],
               )),
           Column(children: [
-            for (var comment in comments) ...[
+            for (final comment in comments) ...[
               Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: CommentItem(

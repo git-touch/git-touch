@@ -23,7 +23,7 @@ class GhNotificationScreenState extends State<GhNotificationScreen> {
     final ns = await context.read<AuthModel>().ghClient.getJSON(
           '/notifications?all=${index == 2}&participating=${index == 1}',
           convert: (dynamic vs) =>
-              [for (var v in vs) GithubNotificationItem.fromJson(v)],
+              [for (final v in vs) GithubNotificationItem.fromJson(v)],
         );
     if (index == 0) {
       context.read<NotificationModel>().setCount(ns.length);

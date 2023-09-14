@@ -24,7 +24,7 @@ class BbCommitsScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbCommit>[
-            for (var v in res.items) BbCommit.fromJson(v),
+            for (final v in res.items) BbCommit.fromJson(v),
           ],
         );
       },

@@ -30,7 +30,7 @@ class GhGistsScreen extends StatelessWidget {
         );
       },
       itemBuilder: (v) {
-        final filenames = [for (var file in v.files!) file.name];
+        final filenames = [for (final file in v.files!) file.name];
         // TODO: add gist comments
         return GistsItem(
           description: v.description,

@@ -25,7 +25,7 @@ class GoUsersScreen extends StatelessWidget {
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,
-          items: [for (var v in res.data) GogsUser.fromJson(v)],
+          items: [for (final v in res.data) GogsUser.fromJson(v)],
         );
       },
       itemBuilder: (payload) {

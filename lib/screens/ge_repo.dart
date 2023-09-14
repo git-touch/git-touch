@@ -56,7 +56,7 @@ class GeRepoScreen extends StatelessWidget {
         final readmeData = MarkdownViewData(context, md: md, html: html);
         final branches =
             await auth.fetchGitee('/repos/$owner/$name/branches').then((v) {
-          return [for (var branch in v) GiteeBranch.fromJson(branch)];
+          return [for (final branch in v) GiteeBranch.fromJson(branch)];
         });
         final isStarred = await auth
             .fetchGitee('/user/starred/$owner/$name', requestType: 'NO CONTENT')

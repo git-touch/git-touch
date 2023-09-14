@@ -30,7 +30,7 @@ class GeUserScreen extends StatelessWidget {
         ]);
         return Tuple2(
           GiteeUser.fromJson(res[0]),
-          [for (var v in res[1]) GiteeRepo.fromJson(v)],
+          [for (final v in res[1]) GiteeRepo.fromJson(v)],
         );
       },
       title: Text(isViewer ? 'Me' : login),
@@ -98,7 +98,7 @@ class GeUserScreen extends StatelessWidget {
             CommonStyle.border,
             Column(
               children: <Widget>[
-                for (var v in repos)
+                for (final v in repos)
                   RepoItem(
                     owner: v.namespace!.path,
                     avatarUrl: v.owner!.avatarUrl,

@@ -32,7 +32,7 @@ class GlTreeScreen extends StatelessWidget {
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,
-          items: [for (var v in res.data) GitlabTreeItem.fromJson(v)],
+          items: [for (final v in res.data) GitlabTreeItem.fromJson(v)],
         );
       },
       itemBuilder: (item) {

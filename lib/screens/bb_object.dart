@@ -37,7 +37,7 @@ class BbObjectScreen extends StatelessWidget {
         } else {
           final v =
               BbPagination.fromJson(json.decode(utf8.decode(res.bodyBytes)));
-          final items = [for (var t in v.values) BbTree.fromJson(t)];
+          final items = [for (final t in v.values) BbTree.fromJson(t)];
           items.sort((a, b) {
             return sortByKey('dir', a.type, b.type);
           });

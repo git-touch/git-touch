@@ -32,7 +32,7 @@ class GoUserScreen extends StatelessWidget {
         ]);
 
         return Tuple2(GogsUser.fromJson(res[0]), [
-          for (var repo in (res[1] as DataWithPage).data)
+          for (final repo in (res[1] as DataWithPage).data)
             GogsRepository.fromJson(repo)
         ]);
       },
@@ -87,7 +87,7 @@ class GoUserScreen extends StatelessWidget {
             CommonStyle.border,
             Column(
               children: <Widget>[
-                for (var v in repos) ...[
+                for (final v in repos) ...[
                   RepoItem.go(
                     payload: v,
                     name: v.fullName!.split('/')[1],

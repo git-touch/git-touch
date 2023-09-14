@@ -636,7 +636,7 @@
   "@forked": {
     "description": "forked"
   },
-  "nCommitsTo": "{count,plural, =1{{count} commit to} lainnya{{count} commits to}}",
+  "nCommitsTo": "{count,plural, =1{{count} commit to} other{{count} commits to}}",
   "@nCommitsTo": {
     "description": "no. of commits to a branch",
     "placeholders": {

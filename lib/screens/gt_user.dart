@@ -76,7 +76,7 @@ class GtUserScreen extends StatelessWidget {
           payload.org = GiteaOrg.fromJson(org);
           final orgReposData = res[3] as DataWithPage;
           payload.orgRepos = [
-            for (var v in orgReposData.data) GiteaRepository.fromJson(v)
+            for (final v in orgReposData.data) GiteaRepository.fromJson(v)
           ];
           payload.orgRepoCount = orgReposData.total;
         } else {
@@ -84,7 +84,7 @@ class GtUserScreen extends StatelessWidget {
           payload.user = GiteaUser.fromJson(res[2]);
           final userRepoData = res[3] as DataWithPage;
           payload.userRepos = [
-            for (var v in userRepoData.data) GiteaRepository.fromJson(v)
+            for (final v in userRepoData.data) GiteaRepository.fromJson(v)
           ];
           payload.userRepoCount = userRepoData.total;
           payload.userHeatmap = normalizeHeatmap(res[4]);
@@ -145,7 +145,7 @@ class GtUserScreen extends StatelessWidget {
               CommonStyle.border,
               Column(
                 children: <Widget>[
-                  for (var v in p.userRepos)
+                  for (final v in p.userRepos)
                     RepoItem(
                       owner: v.owner!.login,
                       avatarUrl: v.owner!.avatarUrl,
@@ -187,7 +187,7 @@ class GtUserScreen extends StatelessWidget {
               CommonStyle.border,
               Column(
                 children: <Widget>[
-                  for (var v in p.orgRepos)
+                  for (final v in p.orgRepos)
                     RepoItem(
                       owner: v.owner!.login,
                       avatarUrl: v.owner!.avatarUrl,

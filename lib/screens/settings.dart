@@ -137,7 +137,7 @@ class SettingsScreen extends StatelessWidget {
                         : AppLocalizations.of(context)!.followSystem),
                 onClick: () {
                   theme.showActions(context, [
-                    for (var t in [
+                    for (final t in [
                       Tuple2(AppLocalizations.of(context)!.followSystem,
                           AppBrightnessType.followSystem),
                       Tuple2(AppLocalizations.of(context)!.light,
@@ -170,7 +170,7 @@ class SettingsScreen extends StatelessWidget {
                     : AppLocalizations.of(context)!.webview),
                 onClick: () {
                   theme.showActions(context, [
-                    for (var t in [
+                    for (final t in [
                       Tuple2(AppLocalizations.of(context)!.flutter,
                           AppMarkdownType.flutter),
                       Tuple2(AppLocalizations.of(context)!.webview,

@@ -20,7 +20,7 @@ class BbTeamsScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbUser>[
-            for (var v in res.items) BbUser.fromJson(v),
+            for (final v in res.items) BbUser.fromJson(v),
           ],
         );
       },

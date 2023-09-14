@@ -59,12 +59,12 @@ class _HtmlViewState extends State<HtmlView> {
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {
+        onPageStarted: (url) {},
+        onPageFinished: (url) {
           //timer.cancel();
           updateHeight();
         },
-        onNavigationRequest: (NavigationRequest request) {
+        onNavigationRequest: (request) {
           if (loaded) {
             launchStringUrl(request.url); // TODO:
             return NavigationDecision.prevent;

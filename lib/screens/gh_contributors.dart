@@ -24,7 +24,7 @@ class GhContributorsScreen extends StatelessWidget {
             .getJSON<List, List<GithubContributorItem>>(
               '/repos/$owner/$name/contributors?page=$page',
               convert: (vs) =>
-                  [for (var v in vs) GithubContributorItem.fromJson(v)],
+                  [for (final v in vs) GithubContributorItem.fromJson(v)],
             );
         return ListPayload(
           cursor: page + 1,

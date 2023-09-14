@@ -593,7 +593,7 @@
   "@actionRequiredConclusion": {
     "description": "it requires more action"
   },
-  "checkSuiteEventConclusionMessage": "het is een {conclusion)",
+  "checkSuiteEventConclusionMessage": "het is een {conclusion}",
   "@checkSuiteEventConclusionMessage": {
     "description": "check suite event conclusion",
     "placeholders": {

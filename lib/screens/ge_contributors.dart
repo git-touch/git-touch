@@ -23,7 +23,7 @@ class GeContributorsScreen extends StatelessWidget {
             .fetchGiteeWithPage('/repos/$owner/$name/contributors')
             .then((v) {
           return [
-            for (var contributor in v.data)
+            for (final contributor in v.data)
               GiteeContributor.fromJson(contributor)
           ];
         });

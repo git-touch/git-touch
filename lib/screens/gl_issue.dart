@@ -57,7 +57,7 @@ class GlIssueScreen extends StatelessWidget {
             CommonStyle.border,
             Column(
               children: <Widget>[
-                for (var note in notes)
+                for (final note in notes)
                   if (note.system!)
                     Container(
                       padding: CommonStyle.padding,

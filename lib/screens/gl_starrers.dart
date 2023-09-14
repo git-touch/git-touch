@@ -24,7 +24,7 @@ class GlStarrersScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <GitlabStarrer>[
-            for (var v in res.data) GitlabStarrer.fromJson(v),
+            for (final v in res.data) GitlabStarrer.fromJson(v),
           ],
         );
       },

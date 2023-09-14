@@ -34,7 +34,7 @@ class BbUserScreen extends StatelessWidget {
               .then((value) => BbUser.fromJson(value)),
           auth
               .fetchBbWithPage('/repositories/$finalLogin')
-              .then((value) => [for (var v in value.items) BbRepo.fromJson(v)]),
+              .then((value) => [for (final v in value.items) BbRepo.fromJson(v)]),
         ]);
         return Tuple2(res[0] as BbUser, res[1] as Iterable<BbRepo>);
       },
@@ -59,7 +59,7 @@ class BbUserScreen extends StatelessWidget {
             ),
             CommonStyle.border,
             Column(
-              children: <Widget>[for (var v in repos) RepoItem.bb(payload: v)],
+              children: <Widget>[for (final v in repos) RepoItem.bb(payload: v)],
             )
           ],
         );

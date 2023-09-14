@@ -34,7 +34,7 @@ class BbIssueScreen extends StatelessWidget {
               .fetchBbWithPage(
                   '/repositories/$owner/$name/issues/$number/comments')
               .then(
-                  (value) => [for (var v in value.items) BbComment.fromJson(v)])
+                  (value) => [for (final v in value.items) BbComment.fromJson(v)])
         ]);
         return Tuple2(res[0] as BbIssues, res[1] as Iterable<BbComment>);
       },
@@ -93,7 +93,7 @@ class BbIssueScreen extends StatelessWidget {
                 ],
               )),
           Column(children: [
-            for (var comment in comments) ...[
+            for (final comment in comments) ...[
               Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: CommentItem(

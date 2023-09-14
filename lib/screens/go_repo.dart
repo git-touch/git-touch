@@ -50,7 +50,7 @@ class GoRepoScreen extends StatelessWidget {
         final branches =
             await auth.fetchGogs('/repos/$owner/$name/branches').then((v) {
           return [
-            for (var branch in (v is List ? v : [])) GogsBranch.fromJson(branch)
+            for (final branch in (v is List ? v : [])) GogsBranch.fromJson(branch)
           ]; // Valid API Response only returned if repo contains >= 2 branches
         });
 

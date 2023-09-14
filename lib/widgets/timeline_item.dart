@@ -318,7 +318,7 @@ class TimelineItem extends StatelessWidget {
               padding: CommonStyle.padding.copyWith(left: 50),
               child: Column(
                 children: <Widget>[
-                  for (var v in p.comments.nodes!)
+                  for (final v in p.comments.nodes!)
                     CommentItem.gql(v, v, (key) {}),
                 ],
               ),

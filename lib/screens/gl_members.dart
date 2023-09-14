@@ -33,7 +33,7 @@ class GlMembersScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <GitlabUser>[
-            for (var v in res.data) GitlabUser.fromJson(v),
+            for (final v in res.data) GitlabUser.fromJson(v),
           ],
         );
       },

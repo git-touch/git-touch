@@ -23,7 +23,7 @@ class BbPullsScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbPulls>[
-            for (var v in res.items) BbPulls.fromJson(v),
+            for (final v in res.items) BbPulls.fromJson(v),
           ],
         );
       },

@@ -23,7 +23,7 @@ class GeTreeScreen extends StatelessWidget {
         final res = await context
             .read<AuthModel>()
             .fetchGitee('/repos/$owner/$name/git/trees/$sha');
-        final items = [for (var v in res['tree']) GiteeTreeItem.fromJson(v)];
+        final items = [for (final v in res['tree']) GiteeTreeItem.fromJson(v)];
         items.sort((a, b) {
           return sortByKey('tree', a.type, b.type);
         });
@@ -32,7 +32,7 @@ class GeTreeScreen extends StatelessWidget {
       bodyBuilder: (data, _) {
         return AntList(
           children: [
-            for (var item in data)
+            for (final item in data)
               createObjectTreeItem(
                 type: item.type,
                 name: item.path,

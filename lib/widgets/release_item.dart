@@ -94,7 +94,7 @@ class _ReleaseItemState extends State<ReleaseItem> {
               child: AntList(
                 children: [
                   if (widget.releaseAssets != null)
-                    for (var asset in widget.releaseAssets!.nodes!)
+                    for (final asset in widget.releaseAssets!.nodes!)
                       AntListItem(
                         arrow: const Icon(Ionicons.download_outline),
                         child: Text(
