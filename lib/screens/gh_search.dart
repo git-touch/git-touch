@@ -183,8 +183,8 @@ class _GhSearchScreenState extends State<GhSearchScreen> {
       title: Container(
         color: AntTheme.of(context).colorBackground,
         child: CupertinoTextField(
-          prefix: Row(
-            children: const <Widget>[
+          prefix: const Row(
+            children: <Widget>[
               SizedBox(width: 8),
               Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
             ],
