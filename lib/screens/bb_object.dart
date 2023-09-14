@@ -53,12 +53,14 @@ class BbObjectScreen extends StatelessWidget {
         if (pl is String) {
           return BlobView(path, text: pl);
         } else if (pl is BbTree) {
-          return createObjectTreeItem(
+          return createObjectTreeItemC(
+            context: context,
             name: p.basename(pl.path),
             type: pl.type,
             // size: v.type == 'commit_file' ? v.size : null,
             size: pl.size,
-            url: '/bitbucket/$owner/$name/src/$ref?path=${pl.path.urlencode}',
+            //url: '/bitbucket/$owner/$name/src/$ref?path=${pl.path.urlencode}',
+            url: '/bitbucket/$owner/$name/src/$ref/${pl.path}',
             downloadUrl: pl.links!['self']['href'] as String?,
           );
         } else {

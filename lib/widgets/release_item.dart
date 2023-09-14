@@ -80,7 +80,7 @@ class _ReleaseItemState extends State<ReleaseItem> {
           const SizedBox(height: 10),
         ],
         AntCollapse(
-          activeKey: _isExpanded ? {''} : {},
+          activeKey: _isExpanded ? [''] : [],
           onChange: (_) {
             setState(() {
               _isExpanded = !_isExpanded;

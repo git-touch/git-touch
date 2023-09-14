@@ -376,7 +376,8 @@
     "description": "pull request commit message",
     "placeholders": {
       "commit": {
-        "type": "String"
+        "type": "String",
+        "format": "String"
       }
     }
   },
@@ -565,7 +566,7 @@
     "description": "no. of commits to a branch",
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "num"
       }
     }
   },
@@ -841,7 +842,7 @@
     "description": "no. of files changed",
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "num"
       }
     }
   },

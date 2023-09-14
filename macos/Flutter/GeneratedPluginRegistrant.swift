@@ -6,11 +6,11 @@ import FlutterMacOS
 import Foundation
 
 import maps_launcher
-import package_info_plus_macos
-import path_provider_macos
+import package_info_plus
+import path_provider_foundation
 import sentry_flutter
-import share_plus_macos
-import shared_preferences_macos
+import share_plus
+import shared_preferences_foundation
 import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {

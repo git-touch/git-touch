@@ -1,4 +1,50 @@
-# [](https://github.com/git-touch/git-touch/compare/v1.13.0...v) (2021-06-14)
+# [](https://github.com/git-touch/git-touch/compare/v1.13.0...v) (2023-08-17)
+
+
+### Bug Fixes
+
+* add monospace filter for code fonts ([55f3f6a](https://github.com/git-touch/git-touch/commit/55f3f6a71302d646ae8d9e2a425222f24b186f49))
+* android bundle id ([e8f3d95](https://github.com/git-touch/git-touch/commit/e8f3d956c39ef550ee5bcea2d1defc909e70e333))
+* contributions bar padding ([d86229e](https://github.com/git-touch/git-touch/commit/d86229e367c03474347b4db60286811858fa0dbc))
+* entry item style ([633b58d](https://github.com/git-touch/git-touch/commit/633b58d36f099baac7373f16d3743b5b9f70b545))
+* **gh:** pull request router ([a30385a](https://github.com/git-touch/git-touch/commit/a30385a4141527c23a2b7c8c0c7391f47b5e9f20))
+* github gql query ([7a71d13](https://github.com/git-touch/git-touch/commit/7a71d13f7d471d54074a123295fccfd2cfb69cd5))
+* **github:** request review event ([#250](https://github.com/git-touch/git-touch/issues/250)) ([68253e0](https://github.com/git-touch/git-touch/commit/68253e071e9411c999452226e2a1a985a8515362)), closes [#248](https://github.com/git-touch/git-touch/issues/248)
+* hex color parse ([d5f3bd9](https://github.com/git-touch/git-touch/commit/d5f3bd9f24d0215fe0b75b199930c1eeea62d7e6))
+* hex color prefix ([d9c50cd](https://github.com/git-touch/git-touch/commit/d9c50cd0a946971f8bb3bd5024205fd15a087f2b))
+* new issue route priority ([3953544](https://github.com/git-touch/git-touch/commit/3953544d551bf20fc45a257bcf04ada5f1509750))
+* path screen map ([cac6385](https://github.com/git-touch/git-touch/commit/cac6385e6e10f51d8dd954de1ce95babdc0687b5))
+* pull page redirect ([7b51747](https://github.com/git-touch/git-touch/commit/7b517475767cbd6ec80e5169632f237693054e2a))
+* router path typo ([606370a](https://github.com/git-touch/git-touch/commit/606370a85e52f9085e4e86426d5df6334787da23))
+* settings screen repetition ([#252](https://github.com/git-touch/git-touch/issues/252)) ([d6a24c2](https://github.com/git-touch/git-touch/commit/d6a24c257a1c336d7a02d2225092815ebedebaba))
+* split to packages to support gql gen ([706d456](https://github.com/git-touch/git-touch/commit/706d456c4675cc15dff574c0404799e7ba7e262d))
+* swipe to remove account ([b65ce98](https://github.com/git-touch/git-touch/commit/b65ce98077a1b05004311fa259b131b8926fe839))
+* tag color with dark theme ([ad44495](https://github.com/git-touch/git-touch/commit/ad44495236d206ea267534c2f3b8a0d60c6aa767))
+* text height behavior ([e2de7fe](https://github.com/git-touch/git-touch/commit/e2de7feec2faecb23e46f0744d4303b9056513b9))
+* theme usage ([073af6f](https://github.com/git-touch/git-touch/commit/073af6f492d932f152422b4a2edf2029385d182b))
+* unused fragments server error ([89966a9](https://github.com/git-touch/git-touch/commit/89966a95e61ff5d99eba3f839b8360949d658442))
+* update collapse props ([0f4192f](https://github.com/git-touch/git-touch/commit/0f4192f0be3fa3513f61dcefba3fda2e59b07ac3))
+
+
+### Features
+
+* add sponsors ([536b031](https://github.com/git-touch/git-touch/commit/536b0316557a6cca8385ca768406f088012197b4))
+* add toast to indicate submit ([#243](https://github.com/git-touch/git-touch/issues/243)) ([19a8787](https://github.com/git-touch/git-touch/commit/19a87870bbed6f7f9c9dbcfdc63bf46d671fa732)), closes [#223](https://github.com/git-touch/git-touch/issues/223)
+* apply dark theme ([fee559b](https://github.com/git-touch/git-touch/commit/fee559ba9ac97d0ce9ccd87876644f2397cb02bd))
+* dynamic fetch google fonts ([0e952a6](https://github.com/git-touch/git-touch/commit/0e952a6ef7c067d7b4e66f5dcfb15149b0e1b62f))
+* gh repo tweaks ([56402d7](https://github.com/git-touch/git-touch/commit/56402d789c50dc9706df493c454c166d8d390673))
+* **gh:** organization follow ([6df89e7](https://github.com/git-touch/git-touch/commit/6df89e771ea9faae1a03595ff70444b56aa30c6d))
+* **github:** add meta screen ([f0b52e8](https://github.com/git-touch/git-touch/commit/f0b52e82ab0ee91c2a256550e64dd58f0fb825f8))
+* **github:** organization sponsors ([f7eb0e6](https://github.com/git-touch/git-touch/commit/f7eb0e6f6269d2011deb58c033adb6d7bda194d9))
+* **github:** refine user screen organizations ([a1182ed](https://github.com/git-touch/git-touch/commit/a1182ed6a5a06c980187d0329d7077dfe134640c))
+* **github:** single commit screen ([#253](https://github.com/git-touch/git-touch/issues/253)) ([88ca58d](https://github.com/git-touch/git-touch/commit/88ca58d62bfd2c577c689d5b932fc7ca0a497fd0)), closes [#238](https://github.com/git-touch/git-touch/issues/238)
+* **github:** sponsors and sponsoring ([830441b](https://github.com/git-touch/git-touch/commit/830441ba05988ac7dffa0ec09e4cbaf939549c38))
+* **github:** twitter username at user screen ([9b339c6](https://github.com/git-touch/git-touch/commit/9b339c6cdf9adadc8d8fcd48afb47580fc8c2092))
+* **github:** twitter username for orgs ([4c2a717](https://github.com/git-touch/git-touch/commit/4c2a7177ebe4776e4395cc78bea97557738eacd2))
+* **gitlab:** add gql client ([048d351](https://github.com/git-touch/git-touch/commit/048d35112b8c3d3cfe304df284c51eea9bc5bdbe))
+* **gitlab:** graphql schema and build config ([efc2359](https://github.com/git-touch/git-touch/commit/efc2359f27ae5587515d346e062a5f0a5e71e28c))
+* launch built-in maps ([9e28505](https://github.com/git-touch/git-touch/commit/9e2850558dae63af32ef232bcd0ccdb3f0b08037))
+* launch built-in maps ([206cd12](https://github.com/git-touch/git-touch/commit/206cd1244c07db360c37d1dee472d702cb87ebb2))
 
 
 
@@ -51,8 +97,8 @@
 
 ### Bug Fixes
 
-* locale fallback ([c80ca3e](https://github.com/git-touch/git-touch/commit/c80ca3e86034979ade2fb170be9a047def016395)), closes [#199](https://github.com/git-touch/git-touch/issues/199)
 * **bitbucket:** pull requests url ([#197](https://github.com/git-touch/git-touch/issues/197)) ([4a7028f](https://github.com/git-touch/git-touch/commit/4a7028f5256fde36a951f09b6c88e2f420e77e79))
+* locale fallback ([c80ca3e](https://github.com/git-touch/git-touch/commit/c80ca3e86034979ade2fb170be9a047def016395)), closes [#199](https://github.com/git-touch/git-touch/issues/199)
 
 
 
@@ -61,28 +107,28 @@
 
 ### Bug Fixes
 
-* **github:** commits screen ref ([07d3910](https://github.com/git-touch/git-touch/commit/07d39100d71ebb32c28e74a2d70a031fc0178f6b)), closes [#196](https://github.com/git-touch/git-touch/issues/196)
 * files screen error ([#184](https://github.com/git-touch/git-touch/issues/184)) ([4f3d472](https://github.com/git-touch/git-touch/commit/4f3d47200e81f8f77898004d44f8f8006b41d20d))
-* html view disposed before set state ([f4e5df4](https://github.com/git-touch/git-touch/commit/f4e5df4068847c0033c6cfed4a94128e2cee8354))
-* set locale and reload ([d488d4b](https://github.com/git-touch/git-touch/commit/d488d4b8269b2df5e9b54dace2da21262f368633))
 * **github:** comment emoji reaction ([dd6fe2b](https://github.com/git-touch/git-touch/commit/dd6fe2b96148aa25afced4b28da555289b70867c))
 * **github:** comment of deleted user ([09edf5f](https://github.com/git-touch/git-touch/commit/09edf5f04b31b36c202f2f6d76bf376f95c76d2a)), closes [#161](https://github.com/git-touch/git-touch/issues/161)
+* **github:** commits screen ref ([07d3910](https://github.com/git-touch/git-touch/commit/07d39100d71ebb32c28e74a2d70a031fc0178f6b)), closes [#196](https://github.com/git-touch/git-touch/issues/196)
 * **github:** release screen error ([#183](https://github.com/git-touch/git-touch/issues/183)) ([af3c165](https://github.com/git-touch/git-touch/commit/af3c1655e42d4d2057e1996fc57945a46bc49709))
 * **github:** repo and user mutations ([10477a7](https://github.com/git-touch/git-touch/commit/10477a707115eb11ababb20a684b2b56b84c6e84))
 * hide contribution graph scrollbar ([#177](https://github.com/git-touch/git-touch/issues/177)) ([b0193a5](https://github.com/git-touch/git-touch/commit/b0193a5deff73b6d9efc263b89431c02a95a2455)), closes [#37](https://github.com/git-touch/git-touch/issues/37)
+* html view disposed before set state ([f4e5df4](https://github.com/git-touch/git-touch/commit/f4e5df4068847c0033c6cfed4a94128e2cee8354))
+* set locale and reload ([d488d4b](https://github.com/git-touch/git-touch/commit/d488d4b8269b2df5e9b54dace2da21262f368633))
 * typo ([7a21961](https://github.com/git-touch/git-touch/commit/7a2196170eeacc2428d3ea8f7c2e0c01d98d3605)), closes [#172](https://github.com/git-touch/git-touch/issues/172)
 
 
 ### Features
 
 * choose locale in settings ([#189](https://github.com/git-touch/git-touch/issues/189)) ([717b7cd](https://github.com/git-touch/git-touch/commit/717b7cd3369e8fddca0699b5732726cde37066d7))
-* skip login screen when logged in ([#191](https://github.com/git-touch/git-touch/issues/191)) ([3b88ad0](https://github.com/git-touch/git-touch/commit/3b88ad01f7af1c7763084d3df2c6b9de27fe602e))
+* dark mode avatar placeholder ([c1b3d33](https://github.com/git-touch/git-touch/commit/c1b3d330e009fc3001793d0f1e3aa35d8ba47eb8))
 * **gitee:** watch, star a repo ([#157](https://github.com/git-touch/git-touch/issues/157)) ([c75288e](https://github.com/git-touch/git-touch/commit/c75288ef977ae84123afc6ed7a1efd2527cc859a))
 * **github:** add public repos only login option ([31c43ee](https://github.com/git-touch/git-touch/commit/31c43eebc8e3b11a60da92926b94b4c052029e9a)), closes [#133](https://github.com/git-touch/git-touch/issues/133)
 * **github:** releases, gists(graphql) ([#179](https://github.com/git-touch/git-touch/issues/179)) ([fba6e4c](https://github.com/git-touch/git-touch/commit/fba6e4cb724957357f3ab0410619e6a29d93acb9)), closes [#174](https://github.com/git-touch/git-touch/issues/174)
-* dark mode avatar placeholder ([c1b3d33](https://github.com/git-touch/git-touch/commit/c1b3d330e009fc3001793d0f1e3aa35d8ba47eb8))
 * **gitlab:** branches, issueAdd, router path fix ([#165](https://github.com/git-touch/git-touch/issues/165)) ([d826107](https://github.com/git-touch/git-touch/commit/d826107621286cf3e93e870233f070bb4ed9d797))
 * **gogs:** setup ([#170](https://github.com/git-touch/git-touch/issues/170)) ([4f1e044](https://github.com/git-touch/git-touch/commit/4f1e0441d2e16042482cdc0235a81dd7981c604e)), closes [#117](https://github.com/git-touch/git-touch/issues/117)
+* skip login screen when logged in ([#191](https://github.com/git-touch/git-touch/issues/191)) ([3b88ad0](https://github.com/git-touch/git-touch/commit/3b88ad01f7af1c7763084d3df2c6b9de27fe602e))
 
 
 
@@ -100,15 +146,16 @@
 
 ### Bug Fixes
 
-* new issue link ([09ed700](https://github.com/git-touch/git-touch/commit/09ed70024ce38bf72084797884534233567eaaec))
-* **github:** proper spacing in branch creation/deletion events ([#149](https://github.com/git-touch/git-touch/issues/149)) ([efe882a](https://github.com/git-touch/git-touch/commit/efe882a0dfdc4b824fd3265464f5e92e9557ba96))
 * fallback language ([#141](https://github.com/git-touch/git-touch/issues/141)) ([8aa6604](https://github.com/git-touch/git-touch/commit/8aa660437fa3ed098ecd1fb1462a80e87a36d1fc)), closes [#140](https://github.com/git-touch/git-touch/issues/140)
 * gitee typo ([#145](https://github.com/git-touch/git-touch/issues/145)) ([4679ca1](https://github.com/git-touch/git-touch/commit/4679ca10ee1898a10798c10091445f09bfa26617))
+* **github:** proper spacing in branch creation/deletion events ([#149](https://github.com/git-touch/git-touch/issues/149)) ([efe882a](https://github.com/git-touch/git-touch/commit/efe882a0dfdc4b824fd3265464f5e92e9557ba96))
+* new issue link ([09ed700](https://github.com/git-touch/git-touch/commit/09ed70024ce38bf72084797884534233567eaaec))
 * UserItem assertion failure ([#135](https://github.com/git-touch/git-touch/issues/135)) ([c6757c1](https://github.com/git-touch/git-touch/commit/c6757c154890b9120848d985229f80c7c842fbfd))
 
 
 ### Features
 
+* add generated runner for Linux ([#134](https://github.com/git-touch/git-touch/issues/134)) ([f152c9a](https://github.com/git-touch/git-touch/commit/f152c9afdc2d27d6f3559470370cde649e0c33cc))
 * **bitbucket:** update ([#147](https://github.com/git-touch/git-touch/issues/147)) ([76f9999](https://github.com/git-touch/git-touch/commit/76f999953496fa1828795fa22cf1e05148a9ea9b))
 * **gitea:** issue, issueComment, labels, refactor(GeIssueComment) ([#155](https://github.com/git-touch/git-touch/issues/155)) ([d74b141](https://github.com/git-touch/git-touch/commit/d74b1412791cf94af2ad570eb645ee19f7b9db17))
 * **gitee:** branches, labels, contributors, refactor(RouterScreen) ([#153](https://github.com/git-touch/git-touch/issues/153)) ([f723eef](https://github.com/git-touch/git-touch/commit/f723eef83af655f383f4da01c41735608777ffec))
@@ -116,7 +163,6 @@
 * **gitee:** issues, issue, pullRequests screens ([#144](https://github.com/git-touch/git-touch/issues/144)) ([1ac27f4](https://github.com/git-touch/git-touch/commit/1ac27f4853dfe8a8c9aa801bcffac57c7fce2c72))
 * **gitee:** search screen ([#146](https://github.com/git-touch/git-touch/issues/146)) ([8415a67](https://github.com/git-touch/git-touch/commit/8415a677c0425a5130b6c409a69139c98103b231))
 * **gitee:** updates ([#148](https://github.com/git-touch/git-touch/issues/148)) ([92bcdaa](https://github.com/git-touch/git-touch/commit/92bcdaa4b0924dfff3fb1b50886d510df93b9fbf))
-* add generated runner for Linux ([#134](https://github.com/git-touch/git-touch/issues/134)) ([f152c9a](https://github.com/git-touch/git-touch/commit/f152c9afdc2d27d6f3559470370cde649e0c33cc))
 * localization ([#137](https://github.com/git-touch/git-touch/issues/137)) ([0a1da29](https://github.com/git-touch/git-touch/commit/0a1da29c3eac6aa1785f7722f8da376281bb9865)), closes [#119](https://github.com/git-touch/git-touch/issues/119)
 
 
@@ -137,8 +183,8 @@
 
 ### Bug Fixes
 
-* launch image icon size ([15fe6db](https://github.com/git-touch/git-touch/commit/15fe6dbdb648b254e39cefbaa7f87c1787e38062))
 * **github:** trending api encoding ([9dd02e0](https://github.com/git-touch/git-touch/commit/9dd02e081672b0acc6619bff0195ba013f52c6c4)), closes [#120](https://github.com/git-touch/git-touch/issues/120)
+* launch image icon size ([15fe6db](https://github.com/git-touch/git-touch/commit/15fe6dbdb648b254e39cefbaa7f87c1787e38062))
 
 
 ### Features
@@ -161,8 +207,8 @@
 
 ### Features
 
-* **bitbucket:** clarify app password ([53897f6](https://github.com/git-touch/git-touch/commit/53897f6fb32633659b3a2d4b46b1b688e1af556f)), closes [#125](https://github.com/git-touch/git-touch/issues/125)
 * add markdown render engine setting ([5795413](https://github.com/git-touch/git-touch/commit/5795413f25d40febfc9bbe3d699c61f7464fac50)), closes [#124](https://github.com/git-touch/git-touch/issues/124)
+* **bitbucket:** clarify app password ([53897f6](https://github.com/git-touch/git-touch/commit/53897f6fb32633659b3a2d4b46b1b688e1af556f)), closes [#125](https://github.com/git-touch/git-touch/issues/125)
 
 
 
@@ -171,13 +217,13 @@
 
 ### Bug Fixes
 
-* **github:** contribution heatmap ([895f479](https://github.com/git-touch/git-touch/commit/895f4792d648d433b0a75b58a71cac59064307fb)), closes [#122](https://github.com/git-touch/git-touch/issues/122)
 * avoid hex color parse error ([5f45a54](https://github.com/git-touch/git-touch/commit/5f45a54f95e5386523f33f08a8f7d648e4120ada))
-* handle navigation in webview ([d940f3b](https://github.com/git-touch/git-touch/commit/d940f3b3e9a7d6e9f25b23064841698244925f8a))
 * **gitee:** platform type saved ([5534f96](https://github.com/git-touch/git-touch/commit/5534f96f8abbffd5cf0aba057ce00dea801f2345))
-* hide avatar of commit item if not exist ([d37a5c1](https://github.com/git-touch/git-touch/commit/d37a5c1981bb5a3b117b79128f2bfa1b61db2224))
+* **github:** contribution heatmap ([895f479](https://github.com/git-touch/git-touch/commit/895f4792d648d433b0a75b58a71cac59064307fb)), closes [#122](https://github.com/git-touch/git-touch/issues/122)
 * **github:** head ref name ([1d1804f](https://github.com/git-touch/git-touch/commit/1d1804fa86f2e8eb572c478bd4abbd33cdffc41c)), closes [#116](https://github.com/git-touch/git-touch/issues/116)
 * **gitlab:** user and group link ([02e8d66](https://github.com/git-touch/git-touch/commit/02e8d66ae2d9271b50ad54f682703f56bb582c26)), closes [#115](https://github.com/git-touch/git-touch/issues/115)
+* handle navigation in webview ([d940f3b](https://github.com/git-touch/git-touch/commit/d940f3b3e9a7d6e9f25b23064841698244925f8a))
+* hide avatar of commit item if not exist ([d37a5c1](https://github.com/git-touch/git-touch/commit/d37a5c1981bb5a3b117b79128f2bfa1b61db2224))
 
 
 ### Features
@@ -201,10 +247,10 @@
 ### Bug Fixes
 
 * drop svg support to avoid readme screen frozen ([968019b](https://github.com/git-touch/git-touch/commit/968019b932188b1714ba6eae84198462b9ddcfbc)), closes [#112](https://github.com/git-touch/git-touch/issues/112)
-* use container to fix expansion of tab ([0ab0564](https://github.com/git-touch/git-touch/commit/0ab05646f083aeac177a7ffca8c52d19d783549d))
-* user item text overflow ([168dcd1](https://github.com/git-touch/git-touch/commit/168dcd1d2ea7605dddd8a6308935ac75d9773bc1))
 * **github:** cross reference event ([0d722f0](https://github.com/git-touch/git-touch/commit/0d722f062e714de105d228a6ea2683b36d6e616b))
 * **github:** issue/pr timeline assign event ([85d5cad](https://github.com/git-touch/git-touch/commit/85d5cadbeb8cfcc82ffd9a08053e9814f4c049e3)), closes [#113](https://github.com/git-touch/git-touch/issues/113)
+* use container to fix expansion of tab ([0ab0564](https://github.com/git-touch/git-touch/commit/0ab05646f083aeac177a7ffca8c52d19d783549d))
+* user item text overflow ([168dcd1](https://github.com/git-touch/git-touch/commit/168dcd1d2ea7605dddd8a6308935ac75d9773bc1))
 
 
 ### Features
@@ -219,13 +265,13 @@
 
 ### Bug Fixes
 
-* **github:** readme loading in repo screen ([ff0104e](https://github.com/git-touch/git-touch/commit/ff0104e9bbb58c30bf4aff1d6f7851382589d0be))
-* **github:** update trending api ([36de5ec](https://github.com/git-touch/git-touch/commit/36de5ec8a207175ebbe112274d840efe2a2d9142)), closes [#110](https://github.com/git-touch/git-touch/issues/110)
-* markdown code background color ([9af1900](https://github.com/git-touch/git-touch/commit/9af190000b414f35b96dc8a77f71cb9ad409ff3e)), closes [#108](https://github.com/git-touch/git-touch/issues/108)
 * **gitea:** keep original query params as is ([aa62524](https://github.com/git-touch/git-touch/commit/aa62524c23d799b572bc54fd0778175b91baa4f9))
 * **gitea:** pagination has more and cursor ([d47ea5a](https://github.com/git-touch/git-touch/commit/d47ea5a092cbc41eaa0920affae2dc5267f436df))
 * **github:** empty repo (no ref) ([3002c07](https://github.com/git-touch/git-touch/commit/3002c0736772790d204b845e1540573764271346)), closes [#99](https://github.com/git-touch/git-touch/issues/99)
+* **github:** readme loading in repo screen ([ff0104e](https://github.com/git-touch/git-touch/commit/ff0104e9bbb58c30bf4aff1d6f7851382589d0be))
 * **github:** timeline item avatar link ([4ae8f52](https://github.com/git-touch/git-touch/commit/4ae8f52991989c05bf56e8b464c4ef9fc20d74ab)), closes [#107](https://github.com/git-touch/git-touch/issues/107)
+* **github:** update trending api ([36de5ec](https://github.com/git-touch/git-touch/commit/36de5ec8a207175ebbe112274d840efe2a2d9142)), closes [#110](https://github.com/git-touch/git-touch/issues/110)
+* markdown code background color ([9af1900](https://github.com/git-touch/git-touch/commit/9af190000b414f35b96dc8a77f71cb9ad409ff3e)), closes [#108](https://github.com/git-touch/git-touch/issues/108)
 
 
 ### Features
@@ -253,56 +299,56 @@
 
 ### Bug Fixes
 
-* entry item count ([7d3e916](https://github.com/git-touch/git-touch/commit/7d3e916af7abc78bcf9a30abc27c606c36a9ce74))
-* **gh:** contributions data ([c950559](https://github.com/git-touch/git-touch/commit/c95055904392a9e3b89d4b6ce0bd7b457c1aa6dd))
-* **gh:** orgs screen description null ([2d96101](https://github.com/git-touch/git-touch/commit/2d9610170b9875a54c047ae5350bab30b49b42eb))
-* **gh:** text with at notation ([2248415](https://github.com/git-touch/git-touch/commit/2248415574d1499de32be116c1eed5a933f490af))
 * align contribution graph center for ipad ([#41](https://github.com/git-touch/git-touch/issues/41)) ([b3f56ad](https://github.com/git-touch/git-touch/commit/b3f56adbe988093706be48f1a4207f72eebb559e))
 * api change user to accountID ([#85](https://github.com/git-touch/git-touch/issues/85)) ([8a1180d](https://github.com/git-touch/git-touch/commit/8a1180dae8b915f8fcd3c3f02e5b74a0e5eeff65)), closes [#79](https://github.com/git-touch/git-touch/issues/79)
 * back button android, return home on tap ([#59](https://github.com/git-touch/git-touch/issues/59)) ([98f102f](https://github.com/git-touch/git-touch/commit/98f102faec38f318d38a429471a016d99e540a1b))
 * broken links ([8c4a9ee](https://github.com/git-touch/git-touch/commit/8c4a9ee3a12f90f92d991547989c7b030cde00c6))
 * commit author color ([57f2ab7](https://github.com/git-touch/git-touch/commit/57f2ab7967efb0b6d491260737884ace264ad4cc))
-* downgrade provider for compatibility ([74a175f](https://github.com/git-touch/git-touch/commit/74a175f384ef50f3b25732c6ca7636a483cf722b))
-* lint problems ([1269b66](https://github.com/git-touch/git-touch/commit/1269b66eb41930db286f6c430c0518cd1cd45ba5))
-* **gh:** subscribe permissions ([8076481](https://github.com/git-touch/git-touch/commit/80764817caae85f0143397645e91e4a62c1c2856)), closes [#47](https://github.com/git-touch/git-touch/issues/47)
-* **gh:** trending user has no repo ([a3619ba](https://github.com/git-touch/git-touch/commit/a3619ba340cfcd356906eec58ad7929a4d56e4e4))
 * commit comment event render error ([#93](https://github.com/git-touch/git-touch/issues/93)) ([db62424](https://github.com/git-touch/git-touch/commit/db624247ec0cd7d243ad4f24e3a4179b33754ecd))
+* downgrade provider for compatibility ([74a175f](https://github.com/git-touch/git-touch/commit/74a175f384ef50f3b25732c6ca7636a483cf722b))
+* entry item count ([7d3e916](https://github.com/git-touch/git-touch/commit/7d3e916af7abc78bcf9a30abc27c606c36a9ce74))
 * error using same token  ([#83](https://github.com/git-touch/git-touch/issues/83)) ([e173713](https://github.com/git-touch/git-touch/commit/e17371386143824f2c108942d6fb09102f4616d9)), closes [#82](https://github.com/git-touch/git-touch/issues/82)
 * event payload ref in create,delete events ([#71](https://github.com/git-touch/git-touch/issues/71)) ([561970a](https://github.com/git-touch/git-touch/commit/561970ab59b2cdb537461bbde010177996db6e2e))
-* namespace conflicts ([2ef1c0b](https://github.com/git-touch/git-touch/commit/2ef1c0b9829865961f3bcb8d6268a800396ca890))
-* transparent status bar ([#73](https://github.com/git-touch/git-touch/issues/73)) ([0063e99](https://github.com/git-touch/git-touch/commit/0063e99bbcfef81fbe0e0388289ceb40afeab40d))
-* yellow underline ([#65](https://github.com/git-touch/git-touch/issues/65)) ([d6a321d](https://github.com/git-touch/git-touch/commit/d6a321d6ca1a1958e878b9b04c4f41bf91e209a9))
 * **gh:** change branch on close ([ce4f7a1](https://github.com/git-touch/git-touch/commit/ce4f7a180995641c5eee0a0814d7f172ae175dfb))
+* **gh:** contributions data ([c950559](https://github.com/git-touch/git-touch/commit/c95055904392a9e3b89d4b6ce0bd7b457c1aa6dd))
 * **gh:** org repos language color ([c2be166](https://github.com/git-touch/git-touch/commit/c2be166a055d2547ebf87bd71008ad6a1acdfe7e))
+* **gh:** orgs screen description null ([2d96101](https://github.com/git-touch/git-touch/commit/2d9610170b9875a54c047ae5350bab30b49b42eb))
+* **gh:** subscribe permissions ([8076481](https://github.com/git-touch/git-touch/commit/80764817caae85f0143397645e91e4a62c1c2856)), closes [#47](https://github.com/git-touch/git-touch/issues/47)
+* **gh:** text with at notation ([2248415](https://github.com/git-touch/git-touch/commit/2248415574d1499de32be116c1eed5a933f490af))
+* **gh:** trending user has no repo ([a3619ba](https://github.com/git-touch/git-touch/commit/a3619ba340cfcd356906eec58ad7929a4d56e4e4))
 * **gh:** user description overflow ([a5c1d0f](https://github.com/git-touch/git-touch/commit/a5c1d0f5baee6d1c74ffafdb89a5772b340b89a1))
 * **gl:** handle statistics null ([a198430](https://github.com/git-touch/git-touch/commit/a1984309a9e11b3a1d78bb39bb2de27049634aec))
 * **gl:** project commits ([60904d7](https://github.com/git-touch/git-touch/commit/60904d763de5e728e70192ffcb72e01409d38edb))
-* replace transition ([b134bd8](https://github.com/git-touch/git-touch/commit/b134bd87d27333073873584f4dfd4dfd9f8e991a))
 * **gt:** organizations pagination ([8ee57fd](https://github.com/git-touch/git-touch/commit/8ee57fdc35613ac9c31f5ba710e01cbf28e236d3))
+* lint problems ([1269b66](https://github.com/git-touch/git-touch/commit/1269b66eb41930db286f6c430c0518cd1cd45ba5))
+* namespace conflicts ([2ef1c0b](https://github.com/git-touch/git-touch/commit/2ef1c0b9829865961f3bcb8d6268a800396ca890))
+* replace transition ([b134bd8](https://github.com/git-touch/git-touch/commit/b134bd87d27333073873584f4dfd4dfd9f8e991a))
+* transparent status bar ([#73](https://github.com/git-touch/git-touch/issues/73)) ([0063e99](https://github.com/git-touch/git-touch/commit/0063e99bbcfef81fbe0e0388289ceb40afeab40d))
+* yellow underline ([#65](https://github.com/git-touch/git-touch/issues/65)) ([d6a321d](https://github.com/git-touch/git-touch/commit/d6a321d6ca1a1958e878b9b04c4f41bf91e209a9))
 
 
 ### Features
 
+* add diff view ([aa52263](https://github.com/git-touch/git-touch/commit/aa52263fc04cd2536f8852036a794072b380a49c))
+* add material app zoom transition ([#98](https://github.com/git-touch/git-touch/issues/98)) ([34e6af2](https://github.com/git-touch/git-touch/commit/34e6af2dab954534999050b99c4f4cf177d6584a)), closes [#94](https://github.com/git-touch/git-touch/issues/94)
+* bitbucket issues, prs screens ([#91](https://github.com/git-touch/git-touch/issues/91)) ([7a97bc2](https://github.com/git-touch/git-touch/commit/7a97bc22abdef9afaf6d27bfb6fabf5408d0afec))
+* contributor screen ([#64](https://github.com/git-touch/git-touch/issues/64)) ([be30bcb](https://github.com/git-touch/git-touch/commit/be30bcb7d8ea29ca96c30b5d24e2ce87d8caad2e)), closes [#53](https://github.com/git-touch/git-touch/issues/53)
+* files screen ([#75](https://github.com/git-touch/git-touch/issues/75)) ([0749a69](https://github.com/git-touch/git-touch/commit/0749a699862bd7030bddf48d6c717b2691bbaa5f)), closes [#74](https://github.com/git-touch/git-touch/issues/74)
 * **gh:** add events screen ([5101b25](https://github.com/git-touch/git-touch/commit/5101b2554f0f8a6d5e5a1bfd0a6ff099eef619d4))
+* gists screen ([#80](https://github.com/git-touch/git-touch/issues/80)) ([094ad4b](https://github.com/git-touch/git-touch/commit/094ad4b1bb25ad21c1bf9d1c2ddce2aade73aa0c)), closes [#66](https://github.com/git-touch/git-touch/issues/66)
+* github compare screen ([#86](https://github.com/git-touch/git-touch/issues/86)) ([8f5dafd](https://github.com/git-touch/git-touch/commit/8f5dafd2d04c8de7a5ce1b813b73c67fb09913f1))
+* gitlab search screen ([#81](https://github.com/git-touch/git-touch/issues/81)) ([bc3a204](https://github.com/git-touch/git-touch/commit/bc3a204c2bddbc1aaee35e3540c70595077d6f3c))
+* **gl:** add starrers screen ([f8f436a](https://github.com/git-touch/git-touch/commit/f8f436a38280815e6e3b47a41f45ce645f10f885)), closes [#48](https://github.com/git-touch/git-touch/issues/48)
+* **gl:** commit screen ([4ea30d0](https://github.com/git-touch/git-touch/commit/4ea30d0132a2d54082aeb70f8ecf78c1354495fe))
 * **gt:** add contribution heatmap ([d2bb3c4](https://github.com/git-touch/git-touch/commit/d2bb3c4a5ce3e0f1463e59d011a0bb5d295ad446)), closes [#104](https://github.com/git-touch/git-touch/issues/104)
 * **gt:** followers and following ([3f324b4](https://github.com/git-touch/git-touch/commit/3f324b43fd160de9afae95139e50c7fdd18277be))
 * **gt:** org members screen ([a87a504](https://github.com/git-touch/git-touch/commit/a87a504cea589d11e96863f7562cff2367e532b5))
 * **gt:** org repos ([1da8076](https://github.com/git-touch/git-touch/commit/1da807632bbb08c097210a9123958647d3f045df))
 * **gt:** stargazers, watchers and forks ([61ad3eb](https://github.com/git-touch/git-touch/commit/61ad3ebb164475ab89e5babc4adad14e3a052da7))
 * **gt:** user repos and stars ([25633b4](https://github.com/git-touch/git-touch/commit/25633b44d98a28233b69298ef043ed849bdeeb01))
-* add diff view ([aa52263](https://github.com/git-touch/git-touch/commit/aa52263fc04cd2536f8852036a794072b380a49c))
-* add material app zoom transition ([#98](https://github.com/git-touch/git-touch/issues/98)) ([34e6af2](https://github.com/git-touch/git-touch/commit/34e6af2dab954534999050b99c4f4cf177d6584a)), closes [#94](https://github.com/git-touch/git-touch/issues/94)
-* bitbucket issues, prs screens ([#91](https://github.com/git-touch/git-touch/issues/91)) ([7a97bc2](https://github.com/git-touch/git-touch/commit/7a97bc22abdef9afaf6d27bfb6fabf5408d0afec))
-* contributor screen ([#64](https://github.com/git-touch/git-touch/issues/64)) ([be30bcb](https://github.com/git-touch/git-touch/commit/be30bcb7d8ea29ca96c30b5d24e2ce87d8caad2e)), closes [#53](https://github.com/git-touch/git-touch/issues/53)
-* files screen ([#75](https://github.com/git-touch/git-touch/issues/75)) ([0749a69](https://github.com/git-touch/git-touch/commit/0749a699862bd7030bddf48d6c717b2691bbaa5f)), closes [#74](https://github.com/git-touch/git-touch/issues/74)
-* gists screen ([#80](https://github.com/git-touch/git-touch/issues/80)) ([094ad4b](https://github.com/git-touch/git-touch/commit/094ad4b1bb25ad21c1bf9d1c2ddce2aade73aa0c)), closes [#66](https://github.com/git-touch/git-touch/issues/66)
-* github compare screen ([#86](https://github.com/git-touch/git-touch/issues/86)) ([8f5dafd](https://github.com/git-touch/git-touch/commit/8f5dafd2d04c8de7a5ce1b813b73c67fb09913f1))
-* gitlab search screen ([#81](https://github.com/git-touch/git-touch/issues/81)) ([bc3a204](https://github.com/git-touch/git-touch/commit/bc3a204c2bddbc1aaee35e3540c70595077d6f3c))
 * handle svg images ([8a490ab](https://github.com/git-touch/git-touch/commit/8a490abb1050797329f455ec0bd1115d0ba88db8))
 * use cupertino loading again ([8258232](https://github.com/git-touch/git-touch/commit/8258232d48c7981fa03209e4c45f764454d6fb41))
 * user organizations, fix: create,delete event ([#72](https://github.com/git-touch/git-touch/issues/72)) ([bf5ed23](https://github.com/git-touch/git-touch/commit/bf5ed239716ae9fd29bcae24ecc3741771401f99)), closes [#58](https://github.com/git-touch/git-touch/issues/58)
-* **gl:** add starrers screen ([f8f436a](https://github.com/git-touch/git-touch/commit/f8f436a38280815e6e3b47a41f45ce645f10f885)), closes [#48](https://github.com/git-touch/git-touch/issues/48)
-* **gl:** commit screen ([4ea30d0](https://github.com/git-touch/git-touch/commit/4ea30d0132a2d54082aeb70f8ecf78c1354495fe))
 
 
 
@@ -311,16 +357,16 @@
 
 ### Bug Fixes
 
-* hide accounts info in production ([1716714](https://github.com/git-touch/git-touch/commit/171671498165524687b52c0eb93c4ad7fc1502b9))
-* **gh:** reaction active color ([97a524e](https://github.com/git-touch/git-touch/commit/97a524ecf9a956f173cf0fafd1e0018a24757eab))
-* code view tab size ([cbb3310](https://github.com/git-touch/git-touch/commit/cbb33108906791950fb74bebab85cbd9182726dc)), closes [#24](https://github.com/git-touch/git-touch/issues/24)
-* **bb:** commit url ([29902bb](https://github.com/git-touch/git-touch/commit/29902bb711680141423d2272f50ccf1fafd2a538))
 * avatar size ([12bb22b](https://github.com/git-touch/git-touch/commit/12bb22bda9f27e90415545a6d8d28046d395eca0))
+* avatar url null ([76a2f4b](https://github.com/git-touch/git-touch/commit/76a2f4b960eb9adfce597ac864b9d4c645a473b9))
+* **bb:** commit url ([29902bb](https://github.com/git-touch/git-touch/commit/29902bb711680141423d2272f50ccf1fafd2a538))
 * **bb:** download url ([f9fa142](https://github.com/git-touch/git-touch/commit/f9fa142702162c17baee083effa876eb5519ed6e))
 * **bb:** username get ([376b872](https://github.com/git-touch/git-touch/commit/376b8724a48be12a913a66f3f1561a863024704f))
 * **bb:** utf8 decode text ([8f9ed54](https://github.com/git-touch/git-touch/commit/8f9ed5469d60806828d7e9daa0d60230cc6216e3))
-* avatar url null ([76a2f4b](https://github.com/git-touch/git-touch/commit/76a2f4b960eb9adfce597ac864b9d4c645a473b9))
+* code view tab size ([cbb3310](https://github.com/git-touch/git-touch/commit/cbb33108906791950fb74bebab85cbd9182726dc)), closes [#24](https://github.com/git-touch/git-touch/issues/24)
+* **gh:** reaction active color ([97a524e](https://github.com/git-touch/git-touch/commit/97a524ecf9a956f173cf0fafd1e0018a24757eab))
 * **gitlab:** use default branch instead of master ([79fe174](https://github.com/git-touch/git-touch/commit/79fe174b1052dbeac5f4053bc6f4d44e9f5a2842)), closes [#28](https://github.com/git-touch/git-touch/issues/28)
+* hide accounts info in production ([1716714](https://github.com/git-touch/git-touch/commit/171671498165524687b52c0eb93c4ad7fc1502b9))
 
 
 ### Features
@@ -343,39 +389,38 @@
 
 ### Bug Fixes
 
+* avatar link ([9121316](https://github.com/git-touch/git-touch/commit/9121316acd3ba9b43acafe87b851b46842e0e512))
 * cupertino picker text color ([7c7dc32](https://github.com/git-touch/git-touch/commit/7c7dc32db6345a1d1260a24b3772479a13707d26)), closes [#22](https://github.com/git-touch/git-touch/issues/22)
-* material dark mode text ([a4284d0](https://github.com/git-touch/git-touch/commit/a4284d00fb3977b87a77f1cea8d3fefa4b8e87ce))
-* reload app on account switch ([084aec4](https://github.com/git-touch/git-touch/commit/084aec4453a9951f6478bfa7a9dca9d56d1140bf))
-* repo header avatar link ([3cde09b](https://github.com/git-touch/git-touch/commit/3cde09bf237fdb25fa0f9cd06ea411583b816bc9))
 * **github:** binary files ([89c311c](https://github.com/git-touch/git-touch/commit/89c311c410dab58cbd5442bb4b08e446f6871045)), closes [#21](https://github.com/git-touch/git-touch/issues/21)
 * **github:** encode url ([16925f8](https://github.com/git-touch/git-touch/commit/16925f8e1a548ad1017e9b75619716f9dcb3fdbc))
 * **github:** pull screen router ([c3cf25b](https://github.com/git-touch/git-touch/commit/c3cf25bcf35db750104c0de771dfd42f1d5a8994))
 * **github:** throw on error ([fe8bf0a](https://github.com/git-touch/git-touch/commit/fe8bf0a800c0f7b62bc88b53f1313f923b3f139a))
-* query params already decoded in fluro ([a425902](https://github.com/git-touch/git-touch/commit/a425902756a075468610df29f38a49524ae01374)), closes [#23](https://github.com/git-touch/git-touch/issues/23)
 * **gitlab:** api pagination ([9aec397](https://github.com/git-touch/git-touch/commit/9aec397a602b895724eddad244f88f1b64f8d6b5))
 * **gitlab:** binary blob view ([d17b6a0](https://github.com/git-touch/git-touch/commit/d17b6a02a16c92ca3a78da9b955bc2160be533ac))
 * **gitlab:** error catch ([f3e5988](https://github.com/git-touch/git-touch/commit/f3e5988413771bf7dad310f340a9b88b981dbc33))
 * **gitlab:** issue and user ([92a33e8](https://github.com/git-touch/git-touch/commit/92a33e8fb81455c9f3086402dd58768fe1351fab))
 * **gitlab:** issue router ([e2e0f6b](https://github.com/git-touch/git-touch/commit/e2e0f6ba2527cd0348844774b5cd223d12954122))
-* avatar link ([9121316](https://github.com/git-touch/git-touch/commit/9121316acd3ba9b43acafe87b851b46842e0e512))
-* limit commit message to one line ([5f502ae](https://github.com/git-touch/git-touch/commit/5f502ae29e606128c49a0d12997a31a07dfeb475))
-* refresh scaffold catch error ([f5ad1ac](https://github.com/git-touch/git-touch/commit/f5ad1acd25d8f9bc74f50dc1827abf4deae723f7))
-* repo item link ([bc436d2](https://github.com/git-touch/git-touch/commit/bc436d2f9e41978f194d55c322c54cf2f9a3e807))
 * **gitlab:** mr data ([1d90a39](https://github.com/git-touch/git-touch/commit/1d90a3959ce989877e597f97d8db4ada794287a7))
 * **gitlab:** project router ([c1df100](https://github.com/git-touch/git-touch/commit/c1df10025378c07d60d1e44c8cbcb0d9e36abd2c))
 * **gitlab:** syntax highlight in dark mode ([df09ee4](https://github.com/git-touch/git-touch/commit/df09ee4c177f36022330acb9845b02796c3db9b6))
 * **gitlab:** tree and blob router ([00d6778](https://github.com/git-touch/git-touch/commit/00d67784af5186deb9998b2f64e3a19fabd25787))
+* limit commit message to one line ([5f502ae](https://github.com/git-touch/git-touch/commit/5f502ae29e606128c49a0d12997a31a07dfeb475))
+* material dark mode text ([a4284d0](https://github.com/git-touch/git-touch/commit/a4284d00fb3977b87a77f1cea8d3fefa4b8e87ce))
+* query params already decoded in fluro ([a425902](https://github.com/git-touch/git-touch/commit/a425902756a075468610df29f38a49524ae01374)), closes [#23](https://github.com/git-touch/git-touch/issues/23)
+* refresh scaffold catch error ([f5ad1ac](https://github.com/git-touch/git-touch/commit/f5ad1acd25d8f9bc74f50dc1827abf4deae723f7))
+* reload app on account switch ([084aec4](https://github.com/git-touch/git-touch/commit/084aec4453a9951f6478bfa7a9dca9d56d1140bf))
+* repo header avatar link ([3cde09b](https://github.com/git-touch/git-touch/commit/3cde09bf237fdb25fa0f9cd06ea411583b816bc9))
+* repo item link ([bc436d2](https://github.com/git-touch/git-touch/commit/bc436d2f9e41978f194d55c322c54cf2f9a3e807))
 
 
 ### Features
 
-* **gitea:** org screen ([f0e447f](https://github.com/git-touch/git-touch/commit/f0e447fd842f34e1cc316a5a089c14a16681a290))
-* **gitea:** orgs screen ([336ff49](https://github.com/git-touch/git-touch/commit/336ff4960e7bf6a5b2796ecd7fa2592459db7755))
-* remove account ([5aa7483](https://github.com/git-touch/git-touch/commit/5aa7483c906e67777d233554f17cd5e6e4544d97))
 * **gitea:** blob screen ([9d6985c](https://github.com/git-touch/git-touch/commit/9d6985c3913237d826c6d5fb9ac41abbabbbc13c))
 * **gitea:** commits screen ([7d1065e](https://github.com/git-touch/git-touch/commit/7d1065eaaeead8fb12bf4a025514a784d0f03e5c))
 * **gitea:** issue and pr screen ([a7af4cd](https://github.com/git-touch/git-touch/commit/a7af4cdcd01aa1a3642e87cf84a6b7e5675c3e64))
 * **gitea:** main screen ([76c6948](https://github.com/git-touch/git-touch/commit/76c6948b05dd7d361b59cc031da8bc3692b140cd))
+* **gitea:** org screen ([f0e447f](https://github.com/git-touch/git-touch/commit/f0e447fd842f34e1cc316a5a089c14a16681a290))
+* **gitea:** orgs screen ([336ff49](https://github.com/git-touch/git-touch/commit/336ff4960e7bf6a5b2796ecd7fa2592459db7755))
 * **gitea:** repo screen ([1aa7f0d](https://github.com/git-touch/git-touch/commit/1aa7f0d130ae0edee5ab3ce694ed776cf2c9c426))
 * **gitea:** user screen ([7039a89](https://github.com/git-touch/git-touch/commit/7039a8905f1cde2eff5348b4c85c58863db5ae88))
 * **gitlab:** commits screen ([5d453cc](https://github.com/git-touch/git-touch/commit/5d453ccbd5607c83da84ea8b78b7074ae54bdcef))
@@ -384,12 +429,13 @@
 * **gitlab:** groups screen ([1c35b0b](https://github.com/git-touch/git-touch/commit/1c35b0b4cd29aa779599f0437915136d0064866c))
 * **gitlab:** issues screen ([2c9951b](https://github.com/git-touch/git-touch/commit/2c9951be7bbf7d8c4653fa8d555bdbcd0b646908))
 * **gitlab:** members screen ([d1d2e9e](https://github.com/git-touch/git-touch/commit/d1d2e9e0fbe60d6ba5894cc26fac141a3ec11562))
-* **gitlab:** project and group members ([b56111d](https://github.com/git-touch/git-touch/commit/b56111db6ffa3983562379d169b16c42920535b8))
-* object tree item size ([39c360f](https://github.com/git-touch/git-touch/commit/39c360f28118991a68ea629e41377fc6c19046de))
 * **gitlab:** mrs screen ([4bf049a](https://github.com/git-touch/git-touch/commit/4bf049a2e4a71695932cb304acd5d3d22e612821))
+* **gitlab:** project and group members ([b56111d](https://github.com/git-touch/git-touch/commit/b56111db6ffa3983562379d169b16c42920535b8))
 * **gitlab:** project badges ([a021f75](https://github.com/git-touch/git-touch/commit/a021f755f343f4bae823a254c98f19bfa8c0435a))
 * **gitlab:** repo size and commits ([248212c](https://github.com/git-touch/git-touch/commit/248212c95c702432b392a971173a020649a8a761))
 * **gitlab:** settings entry ([65e45f6](https://github.com/git-touch/git-touch/commit/65e45f6b7f4fb097999764e2d7f352a8eae95316))
+* object tree item size ([39c360f](https://github.com/git-touch/git-touch/commit/39c360f28118991a68ea629e41377fc6c19046de))
+* remove account ([5aa7483](https://github.com/git-touch/git-touch/commit/5aa7483c906e67777d233554f17cd5e6e4544d97))
 
 
 
@@ -416,6 +462,8 @@
 * follow system brightness ([fccb79b](https://github.com/git-touch/git-touch/commit/fccb79b2cc1ab58328fcd475a0772eddb5fce2be))
 * forks url ([4f65321](https://github.com/git-touch/git-touch/commit/4f65321ef550b66924584105d7b0ed8b3850dd3f))
 * generic type ([103f05b](https://github.com/git-touch/git-touch/commit/103f05b01ce3eb0ac81af8fa2f8eb0760a976233))
+* **gitlab:** encode path ([a8faf76](https://github.com/git-touch/git-touch/commit/a8faf7622768ce9d4e41d557a4a4a07e809fe75c))
+* **gitlab:** full path ([c694b99](https://github.com/git-touch/git-touch/commit/c694b99bc7628308643dddefb804deb42ae9afc3))
 * import path ([b91db22](https://github.com/git-touch/git-touch/commit/b91db22eb4c4692778f37e25d832487842283e92))
 * issue add router ([857e49f](https://github.com/git-touch/git-touch/commit/857e49f220ad400efaadfbd9f7507afe17743598))
 * link url null ([d2ae236](https://github.com/git-touch/git-touch/commit/d2ae2363568b2440d3077c6b76f4eaec07c0a585))
@@ -446,11 +494,9 @@
 * trending data compatibale ([a9787d3](https://github.com/git-touch/git-touch/commit/a9787d38a3645b28a9b92e983e302714d4dc1377))
 * trending user data ([396fe55](https://github.com/git-touch/git-touch/commit/396fe550c40375f9eb3d10f1ff58a11946670662))
 * user name color ([46ecf2f](https://github.com/git-touch/git-touch/commit/46ecf2ff4aa997db56432bdbb87d235b77f94e5b))
+* user screen login ([f2799ca](https://github.com/git-touch/git-touch/commit/f2799cacc4df9aef5b564cb5f92ee25b32cc77d1))
 * user screen tab null ([b32a0e7](https://github.com/git-touch/git-touch/commit/b32a0e77392dc95d1153fda5391d637398b6b11c))
 * x build ([91d94a5](https://github.com/git-touch/git-touch/commit/91d94a5180a575fcb4c96e284ba0fb66b72bbd53))
-* **gitlab:** encode path ([a8faf76](https://github.com/git-touch/git-touch/commit/a8faf7622768ce9d4e41d557a4a4a07e809fe75c))
-* **gitlab:** full path ([c694b99](https://github.com/git-touch/git-touch/commit/c694b99bc7628308643dddefb804deb42ae9afc3))
-* user screen login ([f2799ca](https://github.com/git-touch/git-touch/commit/f2799cacc4df9aef5b564cb5f92ee25b32cc77d1))
 
 
 ### Features
@@ -473,24 +519,24 @@
 * gitlab login by token ([2b6d45c](https://github.com/git-touch/git-touch/commit/2b6d45c457b24570dfa554fc16b9509b64e49f2b))
 * gitlab screen routers ([6bff2b4](https://github.com/git-touch/git-touch/commit/6bff2b44b6050a043dc684e909981d7f1ee8d3bf))
 * gitlab user screen ([c6c5465](https://github.com/git-touch/git-touch/commit/c6c5465ad35e77767ab5ca45d9d7099f18446866))
-* handle create event ([bb0d9d5](https://github.com/git-touch/git-touch/commit/bb0d9d5d01e0e586d7180297b555c9f4319c5ef9))
-* handle release event ([5f340e4](https://github.com/git-touch/git-touch/commit/5f340e45028c7a83ea48bc87771cfd47375d02b8))
-* languages chart ([23983fb](https://github.com/git-touch/git-touch/commit/23983fb556083c1a1aa6c8d05ebdb01c3238260c))
-* markdown view dark mode ([eac8418](https://github.com/git-touch/git-touch/commit/eac84184af62ccec910feb4dd7263ba68eae19e3))
-* open and close issue ([1b7bcdb](https://github.com/git-touch/git-touch/commit/1b7bcdb7bbc503af8fd0750a1eb8234bcf4101b0))
-* repo watch ([42c733f](https://github.com/git-touch/git-touch/commit/42c733fe4c7ae2fa6e98f89d8be6095a0e57e2ac))
-* review permissiosn ([f757c74](https://github.com/git-touch/git-touch/commit/f757c748ea691c8c1d2f65c2c3402a33a36c18c8))
-* save brightness settings ([dd093bc](https://github.com/git-touch/git-touch/commit/dd093bc7f7ee4e4f965d0d2f0628f3d7e2bd7ea0))
 * **gitlab:** blob screen ([d91ae0a](https://github.com/git-touch/git-touch/commit/d91ae0a21325330c5dd3de15aeb6ee72a1adaa85))
 * **gitlab:** project activity screen ([cb82b48](https://github.com/git-touch/git-touch/commit/cb82b48ed0d29e78a7adf59bccf0352b85e49da9))
 * **gitlab:** project icons ([956b57e](https://github.com/git-touch/git-touch/commit/956b57e869f1b80f88b753ad41d1f93a65edb0dc))
 * **gitlab:** project screen ([2636e90](https://github.com/git-touch/git-touch/commit/2636e902f29564a92ce5edc41141bfb3791fbad2))
 * **gitlab:** repository tree screen ([edd3a8d](https://github.com/git-touch/git-touch/commit/edd3a8d02efc70dcacb8a92d327ba959fa172f51))
+* handle create event ([bb0d9d5](https://github.com/git-touch/git-touch/commit/bb0d9d5d01e0e586d7180297b555c9f4319c5ef9))
+* handle release event ([5f340e4](https://github.com/git-touch/git-touch/commit/5f340e45028c7a83ea48bc87771cfd47375d02b8))
 * handle svg files ([1b00a0a](https://github.com/git-touch/git-touch/commit/1b00a0ae693d1303215d7b1af2a349dfc1d757bf))
+* languages chart ([23983fb](https://github.com/git-touch/git-touch/commit/23983fb556083c1a1aa6c8d05ebdb01c3238260c))
 * long press repo item ([e35d5df](https://github.com/git-touch/git-touch/commit/e35d5dfb3aad238fba020a7643f6b3ab7a785e24))
 * markdown view base path ([003263d](https://github.com/git-touch/git-touch/commit/003263d955b9cf5b8f1ba0110a7a0749467a2d0a))
+* markdown view dark mode ([eac8418](https://github.com/git-touch/git-touch/commit/eac84184af62ccec910feb4dd7263ba68eae19e3))
+* open and close issue ([1b7bcdb](https://github.com/git-touch/git-touch/commit/1b7bcdb7bbc503af8fd0750a1eb8234bcf4101b0))
 * open image view on avatar tap ([ed07ff0](https://github.com/git-touch/git-touch/commit/ed07ff086f9e24477587140c7beeeea7d9ca7167))
+* repo watch ([42c733f](https://github.com/git-touch/git-touch/commit/42c733fe4c7ae2fa6e98f89d8be6095a0e57e2ac))
 * review comment ([c84a503](https://github.com/git-touch/git-touch/commit/c84a503299964e6e2b936a16eae8458771f94d4d))
+* review permissiosn ([f757c74](https://github.com/git-touch/git-touch/commit/f757c748ea691c8c1d2f65c2c3402a33a36c18c8))
+* save brightness settings ([dd093bc](https://github.com/git-touch/git-touch/commit/dd093bc7f7ee4e4f965d0d2f0628f3d7e2bd7ea0))
 * use image view in object screen ([3e3e3d1](https://github.com/git-touch/git-touch/commit/3e3e3d1251cfce0c8680ef82c5b3c833805ca8f8))
 * use sliding control for cupertino ([5a35cbf](https://github.com/git-touch/git-touch/commit/5a35cbfe39112aae907992b196b2bb94498b1b0c))
 

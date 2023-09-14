@@ -1,0 +1,38 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Flutter
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Note: This workflow uses the latest stable version of the Dart SDK.
+      # You can specify other versions if desired, see documentation here:
+      # https://github.com/dart-lang/setup-dart/blob/main/README.md
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v1
+
+      - name: No analysistics
+        run: flutter config --no-analytics
+
+      - name: Build apk
+        run: flutter build apk --no-tree-shake-icons
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: git-touch.apk
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk

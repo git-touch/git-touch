@@ -5,7 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   maps_launcher
   sentry_flutter
-  share_plus_windows
+  share_plus
   url_launcher_windows
 )
 
