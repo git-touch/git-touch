@@ -401,10 +401,10 @@ packages:
     dependency: "direct main"
     description:
       name: github
-      sha256: e9a92eb1789fb583fcb2d77c6c47d673a57332d231d07fdce3da01d2c02046c5
+      sha256: e20582edb07b859cc226ab2fd64fd246f7cdcbfc7098f46e241c03deb81b5682
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "9.18.0"
+    version: "9.19.0"
   github_trending:
     dependency: "direct main"
     description:
