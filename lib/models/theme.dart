@@ -262,7 +262,7 @@ class ThemeModel with ChangeNotifier {
                   }
                 },
                 children: <Widget>[
-                  for (var v in groupItem.items)
+                  for (final v in groupItem.items)
                     Text(v.text!,
                         style:
                             TextStyle(color: AntTheme.of(context).colorText)),

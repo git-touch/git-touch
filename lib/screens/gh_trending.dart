@@ -32,7 +32,7 @@ class GhTrendingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: (activeTab == 0
                   ? [
-                      for (var v in payload.cast<GithubTrendingRepository>())
+                      for (final v in payload.cast<GithubTrendingRepository>())
                         RepoItem.gh(
                           owner: v.author,
                           avatarUrl: v.avatar,
@@ -48,7 +48,7 @@ class GhTrendingScreen extends StatelessWidget {
                         )
                     ]
                   : [
-                      for (var v in payload.cast<GithubTrendingDeveloper>())
+                      for (final v in payload.cast<GithubTrendingDeveloper>())
                         UserItem.github(
                           login: v.username,
                           name: v.name,

@@ -23,7 +23,7 @@ class GePullsScreen extends StatelessWidget {
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,
-          items: [for (var v in res.data) GiteePull.fromJson(v)],
+          items: [for (final v in res.data) GiteePull.fromJson(v)],
         );
       },
       itemBuilder: (p) => IssueItem(
@@ -37,7 +37,7 @@ class GePullsScreen extends StatelessWidget {
         labels: p.labels!.isEmpty
             ? null
             : Wrap(spacing: 4, runSpacing: 4, children: [
-                for (var label in p.labels!)
+                for (final label in p.labels!)
                   HexColorTag(name: label.name!, color: label.color!)
               ]),
       ),

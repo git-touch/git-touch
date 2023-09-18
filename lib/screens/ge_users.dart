@@ -34,7 +34,7 @@ class GeUsersScreen extends StatelessWidget {
         return ListPayload(
           cursor: res.cursor,
           hasMore: res.hasMore,
-          items: [for (var v in res.data) GiteeListUser.fromJson(v)],
+          items: [for (final v in res.data) GiteeListUser.fromJson(v)],
         );
       },
       itemBuilder: (p) {

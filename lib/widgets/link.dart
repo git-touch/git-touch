@@ -13,7 +13,7 @@ class LinkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget w = CupertinoButton(
+    final w = CupertinoButton(
       minSize: 0,
       padding: EdgeInsets.zero,
       onPressed: () async {

@@ -36,7 +36,7 @@ class GlCommitScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            for (var item in items)
+            for (final item in items)
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: HighlightView(

@@ -116,8 +116,8 @@ final router = GoRouter(
             GoRoute(
               path: ':login',
               builder: (context, state) {
-                final login = state.params['login']!;
-                final tab = state.queryParams['tab'];
+                final login = state.pathParameters['login']!;
+                final tab = state.uri.queryParameters['tab'];
                 switch (tab) {
                   case 'followers':
                     return GhFollowers(login);
@@ -143,17 +143,17 @@ final router = GoRouter(
                 GoRoute(
                   path: 'gists/:id',
                   builder: (context, state) => GhGistsFilesScreen(
-                    state.params['login']!,
-                    state.params['id']!,
+                    state.pathParameters['login']!,
+                    state.pathParameters['id']!,
                   ),
                   routes: [
                     GoRoute(
                       path: ':file',
                       builder: (context, state) => GistObjectScreen(
-                        state.params['login']!,
-                        state.params['id']!,
-                        state.params['file']!,
-                        content: state.queryParams['content'],
+                        state.pathParameters['login']!,
+                        state.pathParameters['id']!,
+                        state.pathParameters['file']!,
+                        content: state.uri.queryParameters['content'],
                       ),
                     ),
                   ],
@@ -164,92 +164,92 @@ final router = GoRouter(
               path: ':owner/:name',
               builder: (context, state) {
                 return GhRepoScreen(
-                  state.params['owner']!,
-                  state.params['name']!,
-                  branch: state.queryParams['ref'],
+                  state.pathParameters['owner']!,
+                  state.pathParameters['name']!,
+                  branch: state.uri.queryParameters['ref'],
                 );
               },
               routes: [
                 GoRoute(
                   path: 'stargazers',
                   builder: (context, state) => GhStargazers(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'watchers',
                   builder: (context, state) =>
-                      GhWatchers(state.params['owner']!, state.params['name']!),
+                      GhWatchers(state.pathParameters['owner']!, state.pathParameters['name']!),
                 ),
                 GoRoute(
                   path: 'contributors',
                   builder: (context, state) => GhContributorsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'releases',
                   builder: (context, state) => GhReleasesScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'commits/:branch',
                   builder: (context, state) => GhCommits(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    branch: state.params['branch'],
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    branch: state.pathParameters['branch'],
                   ),
                 ),
                 GoRoute(
                   path: 'commit/:sha',
                   builder: (context, state) => GhCommit(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    state.params['sha']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    state.pathParameters['sha']!,
                   ),
                 ),
                 GoRoute(
                   path: 'compare/:before/:head',
                   builder: (context, state) => GhComparisonScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    state.params['before']!,
-                    state.params['head']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    state.pathParameters['before']!,
+                    state.pathParameters['head']!,
                   ),
                 ),
                 GoRoute(
                     path: 'blob/:ref',
                     builder: (context, state) => GhObjectScreen(
-                          state.params['owner']!,
-                          state.params['name']!,
-                          state.params['ref']!,
-                          path: state.queryParams['path'],
-                          raw: state.queryParams['raw'],
+                          state.pathParameters['owner']!,
+                          state.pathParameters['name']!,
+                          state.pathParameters['ref']!,
+                          path: state.uri.queryParameters['path'],
+                          raw: state.uri.queryParameters['raw'],
                         )),
                 GoRoute(
                   path: 'issues',
                   builder: (context, state) => GhIssuesScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                   routes: [
                     GoRoute(
                       path: 'new',
                       builder: (context, state) => GhIssueFormScreen(
-                        state.params['owner']!,
-                        state.params['name']!,
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
                       ),
                     ),
                     GoRoute(
                       path: ':number',
                       builder: (context, state) => GhIssueScreen(
-                        state.params['owner']!,
-                        state.params['name']!,
-                        int.parse(state.params['number']!),
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
+                        int.parse(state.pathParameters['number']!),
                       ),
                     ),
                   ],
@@ -257,25 +257,25 @@ final router = GoRouter(
                 GoRoute(
                   path: 'pulls',
                   builder: (context, state) => GhPullsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'pull/:number',
                   builder: (context, state) => GhIssueScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    int.parse(state.params['number']!),
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    int.parse(state.pathParameters['number']!),
                   ),
                   routes: [
                     GoRoute(
                       path: 'files',
                       builder: (context, state) {
                         return GhFilesScreen(
-                          state.params['owner']!,
-                          state.params['name']!,
-                          int.parse(state.params['number']!),
+                          state.pathParameters['owner']!,
+                          state.pathParameters['name']!,
+                          int.parse(state.pathParameters['number']!),
                         );
                       },
                     ),
@@ -294,92 +294,92 @@ final router = GoRouter(
             GoRoute(
               path: 'user/:id',
               builder: (context, state) =>
-                  GlUserScreen(int.parse(state.params['id']!)),
+                  GlUserScreen(int.parse(state.pathParameters['id']!)),
             ),
             GoRoute(
               path: 'group/:id',
               builder: (context, state) =>
-                  GlGroupScreen(int.parse(state.params['id']!)),
+                  GlGroupScreen(int.parse(state.pathParameters['id']!)),
             ),
             GoRoute(
               path: 'groups/:id/members',
               builder: (context, state) =>
-                  GlMembersScreen(int.parse(state.params['id']!), 'groups'),
+                  GlMembersScreen(int.parse(state.pathParameters['id']!), 'groups'),
             ),
             GoRoute(
               path: 'projects/:id',
               builder: (context, state) => GlProjectScreen(
-                int.parse(state.params['id']!),
-                branch: state.queryParams['branch'],
+                int.parse(state.pathParameters['id']!),
+                branch: state.uri.queryParameters['branch'],
               ),
               routes: [
                 GoRoute(
                   path: 'starrers',
                   builder: (context, state) =>
-                      GlStarrersScreen(int.parse(state.params['id']!)),
+                      GlStarrersScreen(int.parse(state.pathParameters['id']!)),
                 ),
                 GoRoute(
                   path: 'commits',
                   builder: (context, state) => GlCommitsScreen(
-                    state.params['id']!,
-                    prefix: state.queryParams['prefix'],
-                    branch: state.queryParams['branch'],
+                    state.pathParameters['id']!,
+                    prefix: state.uri.queryParameters['prefix'],
+                    branch: state.uri.queryParameters['branch'],
                   ),
                 ),
                 GoRoute(
                   path: 'commit/:sha',
                   builder: (context, state) => GlCommitScreen(
-                    state.params['id']!,
-                    sha: state.params['sha']!,
+                    state.pathParameters['id']!,
+                    sha: state.pathParameters['sha']!,
                   ),
                 ),
                 GoRoute(
                   path: 'members',
                   builder: (context, state) => GlMembersScreen(
-                      int.parse(state.params['id']!), 'projects'),
+                      int.parse(state.pathParameters['id']!), 'projects'),
                 ),
                 GoRoute(
                   path: 'blob/:ref',
                   builder: (context, state) => GlBlobScreen(
-                    int.parse(state.params['id']!),
-                    state.params['ref']!,
-                    path: state.queryParams['path'],
+                    int.parse(state.pathParameters['id']!),
+                    state.pathParameters['ref']!,
+                    path: state.uri.queryParameters['path'],
                   ),
                 ),
                 GoRoute(
                   path: 'tree/:ref',
                   builder: (context, state) => GlTreeScreen(
-                    int.parse(state.params['id']!),
-                    state.params['ref']!,
-                    path: state.queryParams['path'],
+                    int.parse(state.pathParameters['id']!),
+                    state.pathParameters['ref']!,
+                    path: state.uri.queryParameters['path'],
                   ),
                 ),
                 GoRoute(
                     path: 'issues',
                     builder: (context, state) => GlIssuesScreen(
-                          state.params['id']!,
-                          prefix: state.queryParams['prefix'],
+                          state.pathParameters['id']!,
+                          prefix: state.uri.queryParameters['prefix'],
                         ),
                     routes: [
                       GoRoute(
                         path: 'new',
                         builder: (context, state) => GlIssueFormScreen(
-                          int.parse(state.params['id']!),
+                          int.parse(state.pathParameters['id']!),
                         ),
                       ),
                       GoRoute(
                         path: ':iid',
                         builder: (context, state) => GlIssueScreen(
-                          int.parse(state.params['id']!),
-                          int.parse(state.params['iid']!),
+                          int.parse(state.pathParameters['id']!),
+                          int.parse(state.pathParameters['iid']!),
                         ),
                       ),
                     ]),
                 GoRoute(
                   path: 'merge_requests',
                   builder: (context, state) => GlMergeRequestsScreen(
-                    state.params['id']!,
-                    prefix: state.queryParams['prefix'],
+                    state.pathParameters['id']!,
+                    prefix: state.uri.queryParameters['prefix'],
                   ),
                 ),
               ],
@@ -399,8 +399,8 @@ final router = GoRouter(
             GoRoute(
               path: ':login',
               builder: (context, state) {
-                final login = state.params['login']!;
-                final tab = state.queryParams['tab'];
+                final login = state.pathParameters['login']!;
+                final tab = state.uri.queryParameters['tab'];
                 switch (tab) {
                   case 'followers':
                     return GtUsersScreen.followers(login);
@@ -424,24 +424,24 @@ final router = GoRouter(
             GoRoute(
               path: ':owner/:name',
               builder: (context, state) => GtRepoScreen(
-                state.params['owner']!,
-                state.params['name']!,
+                state.pathParameters['owner']!,
+                state.pathParameters['name']!,
               ),
               routes: [
                 GoRoute(
                   path: 'blob',
                   builder: (context, state) => GtObjectScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    path: state.queryParams['path'],
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    path: state.uri.queryParameters['path'],
                   ),
                 ),
                 GoRoute(
                   path: 'stargazers',
                   builder: (context, state) {
                     return GtUsersScreen.stargazers(
-                      state.params['owner']!,
-                      state.params['name']!,
+                      state.pathParameters['owner']!,
+                      state.pathParameters['name']!,
                     );
                   },
                 ),
@@ -449,71 +449,71 @@ final router = GoRouter(
                   path: 'watchers',
                   builder: (context, state) {
                     return GtUsersScreen.watchers(
-                      state.params['owner']!,
-                      state.params['name']!,
+                      state.pathParameters['owner']!,
+                      state.pathParameters['name']!,
                     );
                   },
                 ),
                 GoRoute(
                   path: 'stargazers',
                   builder: (context, state) => GtUsersScreen.stargazers(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'watchers',
                   builder: (context, state) => GtUsersScreen.watchers(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'forks',
                   builder: (context, state) => GtReposScreen.forks(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'commits',
                   builder: (context, state) => GtCommitsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'pulls',
                   builder: (context, state) => GtIssuesScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                     isPr: true,
                   ),
                 ),
                 GoRoute(
                   path: 'issues',
                   builder: (context, state) => GtIssuesScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                   routes: [
                     GoRoute(
                         path: ':number',
                         builder: (context, state) => GtIssueScreen(
-                              state.params['owner']!,
-                              state.params['name']!,
-                              state.params['number']!,
+                              state.pathParameters['owner']!,
+                              state.pathParameters['name']!,
+                              state.pathParameters['number']!,
                             ),
                         routes: [
                           GoRoute(
                             path: 'comment',
                             builder: (context, state) {
                               return GtIssueCommentScreen(
-                                state.params['owner']!,
-                                state.params['name']!,
-                                state.params['number']!,
-                                body: state.queryParams['body']!,
-                                id: state.queryParams['id']!,
+                                state.pathParameters['owner']!,
+                                state.pathParameters['name']!,
+                                state.pathParameters['number']!,
+                                body: state.uri.queryParameters['body']!,
+                                id: state.uri.queryParameters['id']!,
                               );
                             },
                           ),
@@ -521,8 +521,8 @@ final router = GoRouter(
                     GoRoute(
                       path: 'new',
                       builder: (context, state) => GtIssueFormScreen(
-                        state.params['owner']!,
-                        state.params['name']!,
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
                       ),
                     ),
                   ],
@@ -540,56 +540,67 @@ final router = GoRouter(
             GoRoute(
               path: ':login',
               builder: (context, state) => BbUserScreen(
-                state.params['login']!,
-                isTeam: state.queryParams['team']! == '1',
+                state.pathParameters['login']!,
+                isTeam: state.uri.queryParameters['team']! == '1',
               ),
             ),
             GoRoute(
               path: ':owner/:name',
               builder: (context, state) => BbRepoScreen(
-                state.params['owner']!,
-                state.params['name']!,
-                branch: state.params['branch'],
+                state.pathParameters['owner']!,
+                state.pathParameters['name']!,
+                branch: state.pathParameters['branch'],
               ),
               routes: [
                 GoRoute(
                   path: 'src/:ref',
                   builder: (context, state) => BbObjectScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    state.params['ref']!,
-                    path: state.queryParams['path'],
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    state.pathParameters['ref']!,
+                    path: state.uri.queryParameters['path'],
                   ),
+                  routes: [
+                    GoRoute(
+                      path: ':path',
+                      builder: (context, state) => BbObjectScreen(
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
+                        state.pathParameters['ref']!,
+                        path: state.pathParameters['path'],
+                      ),
+                    )
+                  ],
                 ),
                 GoRoute(
                   path: 'commits/:ref',
                   builder: (context, state) => BbCommitsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    state.params['ref']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    state.pathParameters['ref']!,
                   ),
                 ),
                 GoRoute(
                   path: 'issues',
                   builder: (context, state) => BbIssuesScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                   routes: [
                     GoRoute(
                       path: 'new',
                       builder: (context, state) => BbIssueFormScreen(
-                        state.params['owner']!,
-                        state.params['name']!,
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
                       ),
                     ),
                     GoRoute(
                       path: ':number',
                       builder: (context, state) {
                         return BbIssueScreen(
-                          state.params['owner']!,
-                          state.params['name']!,
-                          state.params['number']!,
+                          state.pathParameters['owner']!,
+                          state.pathParameters['name']!,
+                          state.pathParameters['number']!,
                         );
                       },
                       routes: [
@@ -597,9 +608,9 @@ final router = GoRouter(
                           path: 'comment',
                           builder: (context, state) {
                             return BbIssueCommentScreen(
-                              state.params['owner']!,
-                              state.params['name']!,
-                              state.params['number']!,
+                              state.pathParameters['owner']!,
+                              state.pathParameters['name']!,
+                              state.pathParameters['number']!,
                             );
                           },
                         ),
@@ -610,8 +621,8 @@ final router = GoRouter(
                 GoRoute(
                   path: 'pulls',
                   builder: (context, state) => BbPullsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 )
               ],
@@ -627,8 +638,8 @@ final router = GoRouter(
             GoRoute(
               path: ':login',
               builder: (context, state) {
-                final login = state.params['login']!;
-                final tab = state.queryParams['tab'];
+                final login = state.pathParameters['login']!;
+                final tab = state.uri.queryParameters['tab'];
                 switch (tab) {
                   case 'followers':
                     return GeUsersScreen.followers(login);
@@ -651,70 +662,70 @@ final router = GoRouter(
             GoRoute(
               path: ':owner/:name',
               builder: (context, state) => GeRepoScreen(
-                state.params['owner']!,
-                state.params['name']!,
-                branch: state.queryParams['branch'],
+                state.pathParameters['owner']!,
+                state.pathParameters['name']!,
+                branch: state.uri.queryParameters['branch'],
               ),
               routes: [
                 GoRoute(
                   path: 'stargazers',
                   builder: (context, state) => GeUsersScreen.stargazers(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'watchers',
                   builder: (context, state) => GeUsersScreen.watchers(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'forks',
                   builder: (context, state) => GeReposScreen.forks(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'blob/:sha',
                   builder: (context, state) => GeBlobScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    state.params['sha']!,
-                    state.params['path']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    state.pathParameters['sha']!,
+                    state.pathParameters['path']!,
                   ),
                 ),
                 GoRoute(
                   path: 'tree/:sha',
                   builder: (context, state) => GeTreeScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    state.params['sha']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    state.pathParameters['sha']!,
                   ),
                 ),
                 GoRoute(
                   path: 'contributors',
                   builder: (context, state) => GeContributorsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 ),
                 GoRoute(
                   path: 'commits',
                   builder: (context, state) => GeCommitsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    branch: state.queryParams['branch'],
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    branch: state.uri.queryParameters['branch'],
                   ),
                   routes: [
                     GoRoute(
                       path: ':sha',
                       builder: (context, state) => GeCommitScreen(
-                        state.params['owner']!,
-                        state.params['name']!,
-                        state.params['sha']!,
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
+                        state.pathParameters['sha']!,
                       ),
                     )
                   ],
@@ -722,24 +733,24 @@ final router = GoRouter(
                 GoRoute(
                   path: 'issues',
                   builder: (context, state) => GeIssuesScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                   routes: [
                     GoRoute(
                       path: 'new',
                       builder: (context, state) => GeIssueFormScreen(
-                        state.params['owner']!,
-                        state.params['name']!,
+                        state.pathParameters['owner']!,
+                        state.pathParameters['name']!,
                       ),
                     ),
                     GoRoute(
                       path: ':number',
                       builder: (context, state) {
                         return GeIssueScreen(
-                          state.params['owner']!,
-                          state.params['name']!,
-                          state.params['number']!,
+                          state.pathParameters['owner']!,
+                          state.pathParameters['name']!,
+                          state.pathParameters['number']!,
                         );
                       },
                       routes: [
@@ -747,12 +758,12 @@ final router = GoRouter(
                           path: 'comment',
                           builder: (context, state) {
                             return GeIssueCommentScreen(
-                              state.params['owner']!,
-                              state.params['name']!,
-                              state.params['number']!,
+                              state.pathParameters['owner']!,
+                              state.pathParameters['name']!,
+                              state.pathParameters['number']!,
                               isPr: false,
-                              body: state.queryParams['body']!,
-                              id: state.queryParams['id']!,
+                              body: state.uri.queryParameters['body']!,
+                              id: state.uri.queryParameters['id']!,
                             );
                           },
                         ),
@@ -763,8 +774,8 @@ final router = GoRouter(
                 GoRoute(
                   path: 'pulls',
                   builder: (context, state) => GePullsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                     isPr: true,
                   ),
                   routes: [
@@ -772,9 +783,9 @@ final router = GoRouter(
                       path: ':number',
                       builder: (context, state) {
                         return GeIssueScreen(
-                          state.params['owner']!,
-                          state.params['name']!,
-                          state.params['number']!,
+                          state.pathParameters['owner']!,
+                          state.pathParameters['name']!,
+                          state.pathParameters['number']!,
                           isPr: true,
                         );
                       },
@@ -783,12 +794,12 @@ final router = GoRouter(
                           path: 'comment',
                           builder: (context, state) {
                             return GeIssueCommentScreen(
-                              state.params['owner']!,
-                              state.params['name']!,
-                              state.params['number']!,
+                              state.pathParameters['owner']!,
+                              state.pathParameters['name']!,
+                              state.pathParameters['number']!,
                               isPr: true,
-                              body: state.queryParams['body']!,
-                              id: state.queryParams['id']!,
+                              body: state.uri.queryParameters['body']!,
+                              id: state.uri.queryParameters['id']!,
                             );
                           },
                         ),
@@ -796,9 +807,9 @@ final router = GoRouter(
                           path: 'files',
                           builder: (context, state) {
                             return GeFilesScreen(
-                              state.params['owner']!,
-                              state.params['name']!,
-                              state.params['number']!,
+                              state.pathParameters['owner']!,
+                              state.pathParameters['name']!,
+                              state.pathParameters['number']!,
                             );
                           },
                         ),
@@ -819,9 +830,9 @@ final router = GoRouter(
             GoRoute(
               path: ':login',
               builder: (context, state) {
-                final login = state.params['login']!;
-                final tab = state.queryParams['tab'];
-                final isViewer = state.queryParams['isViewer'];
+                final login = state.pathParameters['login']!;
+                final tab = state.uri.queryParameters['tab'];
+                final isViewer = state.uri.queryParameters['isViewer'];
                 switch (tab) {
                   case 'followers':
                     return GoUsersScreen.followers(login);
@@ -843,33 +854,33 @@ final router = GoRouter(
             GoRoute(
               path: ':owner/:name',
               builder: (context, state) => GoRepoScreen(
-                state.params['owner']!,
-                state.params['name']!,
-                branch: state.queryParams['branch'],
+                state.pathParameters['owner']!,
+                state.pathParameters['name']!,
+                branch: state.uri.queryParameters['branch'],
               ),
               routes: [
                 GoRoute(
                   path: 'blob',
                   builder: (context, state) => GoObjectScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    path: state.params['path'],
-                    ref: state.params['ref'],
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    path: state.pathParameters['path'],
+                    ref: state.pathParameters['ref'],
                   ),
                 ),
                 GoRoute(
                   path: 'commits',
                   builder: (context, state) => GoCommitsScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
-                    branch: state.queryParams['ref'],
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
+                    branch: state.uri.queryParameters['ref'],
                   ),
                 ),
                 GoRoute(
                   path: 'issues',
                   builder: (context, state) => GoIssuesScreen(
-                    state.params['owner']!,
-                    state.params['name']!,
+                    state.pathParameters['owner']!,
+                    state.pathParameters['name']!,
                   ),
                 )
               ],

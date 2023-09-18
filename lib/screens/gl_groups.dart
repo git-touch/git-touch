@@ -19,7 +19,7 @@ class GlGroupsScreenn extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <GitlabGroup>[
-            for (var v in res.data) GitlabGroup.fromJson(v),
+            for (final v in res.data) GitlabGroup.fromJson(v),
           ],
         );
       },

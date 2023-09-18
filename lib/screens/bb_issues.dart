@@ -29,7 +29,7 @@ class BbIssuesScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <BbIssues>[
-            for (var v in res.items) BbIssues.fromJson(v),
+            for (final v in res.items) BbIssues.fromJson(v),
           ],
         );
       },

@@ -21,7 +21,7 @@ class GlExploreScreen extends StatelessWidget {
           cursor: res.cursor,
           hasMore: res.hasMore,
           items: <GitlabProject>[
-            for (var v in res.data) GitlabProject.fromJson(v),
+            for (final v in res.data) GitlabProject.fromJson(v),
           ],
         );
       },

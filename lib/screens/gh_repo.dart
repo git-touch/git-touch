@@ -121,7 +121,7 @@ class GhRepoScreen extends StatelessWidget {
                       text: _buildWatchState(repo.viewerSubscription),
                       onTap: () async {
                         theme.showActions(context, [
-                          for (var v in GSubscriptionState.values)
+                          for (final v in GSubscriptionState.values)
                             ActionItem(
                               text: _buildWatchState(v),
                               onTap: (_) async {
@@ -221,7 +221,7 @@ class GhRepoScreen extends StatelessWidget {
             if (repo.languages?.edges != null) ...[
               CommonStyle.border,
               LanguageBar([
-                for (var edge in repo.languages!.edges!)
+                for (final edge in repo.languages!.edges!)
                   LanguageBarItem(
                     name: edge.node.name,
                     ratio: edge.size / repo.languages!.totalSize,

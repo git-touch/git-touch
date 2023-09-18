@@ -21,6 +21,6 @@ extension MyString<T extends String> on String {
   }
 
   String get normalizedHtml {
-    return '<div class="markdown-body">${this}</div>';
+    return '<div class="markdown-body">$this</div>';
   }
 }

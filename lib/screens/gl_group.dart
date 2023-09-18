@@ -52,7 +52,7 @@ class GlGroupScreen extends StatelessWidget {
             CommonStyle.border,
             Column(
               children: <Widget>[
-                for (var v in p.projects!)
+                for (final v in p.projects!)
                   RepoItem.gl(
                     payload: v,
                     note: 'Updated ${timeago.format(v.lastActivityAt!)}',

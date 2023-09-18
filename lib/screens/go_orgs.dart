@@ -20,12 +20,12 @@ class GoOrgsScreen extends StatelessWidget {
       title: Text(AppLocalizations.of(context)!.organizations),
       fetch: () async {
         final res = await context.read<AuthModel>().fetchGogs(api);
-        return [for (var v in res) GogsOrg.fromJson(v)];
+        return [for (final v in res) GogsOrg.fromJson(v)];
       },
       bodyBuilder: (p, _) {
         return Column(
           children: [
-            for (var org in p) ...[
+            for (final org in p) ...[
               UserItem.gogs(
                 avatarUrl: org.avatarUrl,
                 login: org.username,

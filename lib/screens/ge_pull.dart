@@ -67,9 +67,9 @@ class GePullScreen extends StatelessWidget {
         ]);
         return Tuple4(
             GiteePull.fromJson(items[0]),
-            [for (var v in items[1]) GiteeComment.fromJson(v)],
-            [for (var v in items[2]) GiteePullFile.fromJson(v)],
-            [for (var v in items[3]) GiteeCommit.fromJson(v)]);
+            [for (final v in items[1]) GiteeComment.fromJson(v)],
+            [for (final v in items[2]) GiteePullFile.fromJson(v)],
+            [for (final v in items[3]) GiteeCommit.fromJson(v)]);
       },
       actionBuilder: (data, _) => ActionEntry(
         iconData: Octicons.plus,
@@ -203,7 +203,7 @@ class GePullScreen extends StatelessWidget {
                               //   ),
                               // ),
                               children: [
-                                for (var commit in commits) ...[
+                                for (final commit in commits) ...[
                                   LinkWidget(
                                     url:
                                         '/gitee/$owner/$name/commits/${commit.sha}',
@@ -239,7 +239,7 @@ class GePullScreen extends StatelessWidget {
                 )),
             Column(
               children: [
-                for (var comment in comments) ...[
+                for (final comment in comments) ...[
                   Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: CommentItem(

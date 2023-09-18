@@ -38,7 +38,7 @@ class GlMergeRequestsScreen extends StatelessWidget {
         labels: p.labels!.isEmpty
             ? null
             : Wrap(spacing: 4, runSpacing: 4, children: [
-                for (var label in p.labels!)
+                for (final label in p.labels!)
                   HexColorTag(name: label, color: '428BCA')
               ]),
         // url: '/gitlab/projects/${p.projectId}/merge_requests/${p.iid}',

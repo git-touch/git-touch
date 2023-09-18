@@ -32,7 +32,7 @@ class GlUserScreen extends StatelessWidget {
         ]);
         return Tuple2(
           GitlabUser.fromJson(res[0]),
-          [for (var v in res[1]) GitlabProject.fromJson(v)],
+          [for (final v in res[1]) GitlabProject.fromJson(v)],
         );
       },
       action: isViewer
@@ -58,7 +58,7 @@ class GlUserScreen extends StatelessWidget {
             CommonStyle.border,
             Column(
               children: <Widget>[
-                for (var v in projects)
+                for (final v in projects)
                   RepoItem.gl(
                     payload: v,
                     note: 'Updated ${timeago.format(v.lastActivityAt!)}',

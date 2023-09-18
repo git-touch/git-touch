@@ -69,7 +69,7 @@ class _RefreshStatefulScaffoldState<T>
 
   @override
   Widget build(BuildContext context) {
-    Widget child = ErrorLoadingWrapper(
+    var child = ErrorLoadingWrapper(
       bodyBuilder: () => widget.bodyBuilder(_data as T, (v) {
         setState(() {
           _data = v;

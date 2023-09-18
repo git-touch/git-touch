@@ -80,7 +80,7 @@ class _ReleaseItemState extends State<ReleaseItem> {
           const SizedBox(height: 10),
         ],
         AntCollapse(
-          activeKey: _isExpanded ? {''} : {},
+          activeKey: _isExpanded ? [''] : [],
           onChange: (_) {
             setState(() {
               _isExpanded = !_isExpanded;
@@ -94,7 +94,7 @@ class _ReleaseItemState extends State<ReleaseItem> {
               child: AntList(
                 children: [
                   if (widget.releaseAssets != null)
-                    for (var asset in widget.releaseAssets!.nodes!)
+                    for (final asset in widget.releaseAssets!.nodes!)
                       AntListItem(
                         arrow: const Icon(Ionicons.download_outline),
                         child: Text(

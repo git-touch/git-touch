@@ -53,7 +53,7 @@ class GoIssuesScreen extends StatelessWidget {
             : p.labels!.isEmpty
                 ? null
                 : Wrap(spacing: 4, runSpacing: 4, children: [
-                    for (var label in p.labels!)
+                    for (final label in p.labels!)
                       HexColorTag(name: label.name!, color: label.color!)
                   ]),
       ),

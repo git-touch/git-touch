@@ -49,15 +49,15 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
       final auth = context.read<AuthModel>();
       final searchRepositories =
           await auth.fetchGitee('/search/repositories?q=$keyword').then((v) {
-        return [for (var repo in v) GiteeRepo.fromJson(repo)];
+        return [for (final repo in v) GiteeRepo.fromJson(repo)];
       });
       final searchUsers =
           await auth.fetchGitee('/search/users?q=$keyword').then((v) {
-        return [for (var user in v) GiteeUser.fromJson(user)];
+        return [for (final user in v) GiteeUser.fromJson(user)];
       });
       final searchIssues =
           await auth.fetchGitee('/search/issues?q=$keyword').then((v) {
-        return [for (var issue in v) GiteeIssue.fromJson(issue)];
+        return [for (final issue in v) GiteeIssue.fromJson(issue)];
       });
 
       _payloads[0] = searchRepositories;
@@ -122,8 +122,8 @@ class _GeSearchScreenState extends State<GeSearchScreen> {
       title: Container(
         color: AntTheme.of(context).colorBackground,
         child: CupertinoTextField(
-          prefix: Row(
-            children: const <Widget>[
+          prefix: const Row(
+            children: <Widget>[
               SizedBox(width: 8),
               Icon(Octicons.search, size: 20, color: PrimerColors.gray400),
             ],

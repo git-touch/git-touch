@@ -37,7 +37,7 @@ class BbObjectScreen extends StatelessWidget {
         } else {
           final v =
               BbPagination.fromJson(json.decode(utf8.decode(res.bodyBytes)));
-          final items = [for (var t in v.values) BbTree.fromJson(t)];
+          final items = [for (final t in v.values) BbTree.fromJson(t)];
           items.sort((a, b) {
             return sortByKey('dir', a.type, b.type);
           });
@@ -53,12 +53,14 @@ class BbObjectScreen extends StatelessWidget {
         if (pl is String) {
           return BlobView(path, text: pl);
         } else if (pl is BbTree) {
-          return createObjectTreeItem(
+          return createObjectTreeItemC(
+            context: context,
             name: p.basename(pl.path),
             type: pl.type,
             // size: v.type == 'commit_file' ? v.size : null,
             size: pl.size,
-            url: '/bitbucket/$owner/$name/src/$ref?path=${pl.path.urlencode}',
+            //url: '/bitbucket/$owner/$name/src/$ref?path=${pl.path.urlencode}',
+            url: '/bitbucket/$owner/$name/src/$ref/${pl.path}',
             downloadUrl: pl.links!['self']['href'] as String?,
           );
         } else {

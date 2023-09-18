@@ -43,7 +43,7 @@ class GhNewsScreenState extends State<GhNewsScreen> {
 
         final events = await auth.ghClient.getJSON(
           '/users/$login/received_events?page=$page&per_page=$kPageSize',
-          convert: (dynamic vs) => [for (var v in vs) GithubEvent.fromJson(v)],
+          convert: (dynamic vs) => [for (final v in vs) GithubEvent.fromJson(v)],
         );
         return ListPayload(
           cursor: page + 1,
