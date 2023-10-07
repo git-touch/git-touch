@@ -839,5 +839,9 @@
   "starred": "Dibintangi",
   "@starred": {
     "description": "starred"
+  },
+  "headRefForcedPushedEventFirstMessage": "force-push",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
   }
 }
