@@ -520,5 +520,345 @@
   "news": "Știri",
   "@news": {
     "description": "The News tab"
+  },
+  "starred": "cu stea",
+  "@starred": {
+    "description": "starred"
+  },
+  "securityAdvisory": "Aviz de securitate cu privire la {summary} a fost {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "securityAlertInvolvingPackage": "Alerta de securitate care implică pachetul {affectedPackageName} între versiunile {affectedRange} a fost {action}ed",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pushedTo": "împins către",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "pullRequestReviewCommentEventMessage": "a revizuit cererea de tragere",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "pullRequestReviewEventMessage": "{action} revizuirea solicitării de tip pull request",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestEventMessage": "{action} cerere de tragere",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "public": "public",
+  "@public": {
+    "description": "public"
+  },
+  "made": "realizat",
+  "@made": {
+    "description": "made"
+  },
+  "projectEventMessage": "{action} proiectul {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectColumnEventMessage": "{action} coloana de proiect {projectColumnName} la ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "theProjectCard": "fișa de proiect",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "convertProjectCard": "a transformat fișa de proiect într-o problemă",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "was": "a fost",
+  "@was": {
+    "description": "was"
+  },
+  "changedMarketplacePlan": "și-au schimbat planul Marketplace",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "pendingChangeCancelled": "Planul Marketplace în așteptare a fost anulat",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "pendingMarketplacePlan": "Planul Marketplace este în curs de modificare",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "cancelledMarketplacePlan": "și-au anulat planul Marketplace",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "purchasedMarketplacePlan": "a cumpărat un plan Marketplace",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "from": "de la",
+  "@from": {
+    "description": "from"
+  },
+  "to": "la",
+  "@to": {
+    "description": "to"
+  },
+  "at": "la",
+  "@at": {
+    "description": "at"
+  },
+  "commentedOn": "a comentat pe",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "wereRemovedFrom": "{repos} au fost eliminate din instalația id {id}",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereAddedTo": "{repos} au fost adăugate la ID-ul instalației {id}",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "forGithubAppWithId": "pentru aplicația Github cu id {id}",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "noile autorizații au fost acceptate pentru acțiune ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "editedPages": "a editat paginile: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "a creat paginile: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "forked": "bifurcat",
+  "@forked": {
+    "description": "forked"
+  },
+  "deletedEventMessage": "a șters {refType} {ref} la",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "a creat un {refType} {ref} la",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "contentReferenceEventMessage": "{action} o referință de conținut la",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "commitCommentEventMessage": "a comentat un commit la",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "checkSuiteEventMessage": "{action} suita de verificare și concluzia este că",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRequiredConclusion": "necesită mai multe acțiuni",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "checkSuiteEventConclusionMessage": "aceasta este o {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "checkRunEventMessage": "{action} o execuție de control pentru {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nCommitsTo": "{count,plural, =1{{count} commit to} other{{count} commits to}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewDismissedEventMessage": "a respins revizuirea pull request-ului solicitat de",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "fromReviewRequest": "din cererea de reexaminare",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "reviewRequestEventMessage": "a solicitat o revizuire din partea",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
+  },
+  "headRefForcedPushedEventSecondMessage": "branșa de la",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "headRefForcedPushedEventFirstMessage": "împingere forțată",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "headRefRestoredEventMessage": "a restaurat branșa {headRefName}",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefDeletedEventMessage": "a șters branșa {headRefName}",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "deploymentEnvironmentChangedEventMessage": "a schimbat mediul de dezvoltare în {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "filesChanged": "{count,plural, =1{{count} file changed} alte {{count} files changed}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "commit": "Angajament",
+  "@commit": {
+    "description": "Commit"
+  },
+  "blankDiff": "Nu se afișează niciun text aici",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
   }
 }
