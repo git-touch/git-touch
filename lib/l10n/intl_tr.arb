@@ -626,5 +626,13 @@
   "news": "Haberler",
   "@news": {
     "description": "The News tab"
+  },
+  "purchasedMarketplacePlan": "bir Marketplace Plan'ı satın alındı",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "was": "idi",
+  "@was": {
+    "description": "was"
   }
 }
