@@ -7,7 +7,7 @@
   "@syntaxHighlighting": {
     "description": "Syntax Highlighting"
   },
-  "somethingBadHappens": "Algo Malo Sucede:",
+  "somethingBadHappens": "Ocurrió un problema:",
   "@somethingBadHappens": {
     "description": "error message"
   },
@@ -99,11 +99,11 @@
   "@githubAccount": {
     "description": "Gitea Account"
   },
-  "removeAccount": "Eliminar Cuenta",
+  "removeAccount": "Eliminar cuenta",
   "@removeAccount": {
     "description": "remove account"
   },
-  "selectAccount": "Seleccione una Cuenta",
+  "selectAccount": "Seleccione una cuenta",
   "@selectAccount": {
     "description": "select account message"
   },
@@ -167,7 +167,7 @@
   "@commits": {
     "description": "Commits"
   },
-  "pullRequests": "Solicitudes de Incorporación (Pull Requests)",
+  "pullRequests": "Solicitudes de incorporación",
   "@pullRequests": {
     "description": "Pull Requests"
   },
@@ -207,7 +207,7 @@
   "@rateThisApp": {
     "description": "rate the app"
   },
-  "submitAnIssue": "Informar de un Problema",
+  "submitAnIssue": "Informar de un problema",
   "@submitAnIssue": {
     "description": "submit issue for app"
   },
@@ -247,7 +247,7 @@
   "@brightness": {
     "description": "brightness"
   },
-  "switchAccounts": "Cambiar de Cuentas",
+  "switchAccounts": "Cambiar de cuenta",
   "@switchAccounts": {
     "description": "Switch accounts"
   },
@@ -275,11 +275,11 @@
   "@settings": {
     "description": "settings"
   },
-  "pinnedRepositories": "Repositorios Anclados",
+  "pinnedRepositories": "Repositorios anclados",
   "@pinnedRepositories": {
     "description": "pinned repositories"
   },
-  "popularRepositories": "Repositorios Populares",
+  "popularRepositories": "Repositorios populares",
   "@popularRepositories": {
     "description": "popular repositories"
   },
@@ -347,27 +347,27 @@
   "@news": {
     "description": "The News tab"
   },
-  "assignedEventMessage": "asignado a",
+  "assignedEventMessage": "asignó esto a",
   "@assignedEventMessage": {
     "description": "assigned event"
   },
-  "unsubscribedEventMessage": "Subscripcion cancelada a este asunto (issue)",
+  "unsubscribedEventMessage": "canceló su suscripción a este informe",
   "@unsubscribedEventMessage": {
     "description": "unsubscribed event"
   },
-  "subscribedEventMessage": "Suscrito a este asunto (issue)",
+  "subscribedEventMessage": "se suscribió a este informe",
   "@subscribedEventMessage": {
     "description": "subscribed event"
   },
-  "reopenedEventMessage": "Se reabrió esto",
+  "reopenedEventMessage": "reabrió esto",
   "@reopenedEventMessage": {
     "description": "reopened event"
   },
-  "closedEventMessage": "Se cerró esto",
+  "closedEventMessage": "cerró esto",
   "@closedEventMessage": {
     "description": "closed event"
   },
-  "pullRequestCommitMessage": "Se añadio el commit {commit}",
+  "pullRequestCommitMessage": "se añadió la consigna {commit}",
   "@pullRequestCommitMessage": {
     "description": "pull request commit message",
     "placeholders": {
@@ -392,11 +392,11 @@
   "@theme": {
     "description": "Theme header text"
   },
-  "reloadMessage": "La aplicación se volverá a cargar para que la configuración de idioma tome efecto",
+  "reloadMessage": "La aplicación se volverá a cargar para que la configuración de idioma surta efecto",
   "@reloadMessage": {
     "description": "Reload message"
   },
-  "appLanguage": "Idioma de la Aplicación",
+  "appLanguage": "Idioma de la aplicación",
   "@appLanguage": {
     "description": "The app's language"
   },
@@ -407,5 +407,96 @@
   "submit": "Enviar",
   "@submit": {
     "description": "submit button text"
+  },
+  "label": "etiqueta",
+  "@label": {
+    "description": "label"
+  },
+  "crossReferencedEventMessage": "hace referencia a esto en",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "referencedEventMessage": "hizo referencia a esta solicitud de incorporación desde la consigna {commit} de {repoName}",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "unassignedEventMessage": "desasignó esto de",
+  "@unassignedEventMessage": {
+    "description": "unassigned event"
+  },
+  "lockedConversationEventMessage": "bloqueó esta conversación",
+  "@lockedConversationEventMessage": {
+    "description": "locked this conversation"
+  },
+  "commentedOn": "dejó un comentario en",
+  "@commentedOn": {
+    "description": "commented on"
+  },
+  "at": "en",
+  "@at": {
+    "description": "at"
+  },
+  "unlockedConversationEventMessage": "desbloqueó esta conversación",
+  "@unlockedConversationEventMessage": {
+    "description": "unlocked this conversation"
+  },
+  "approvedChanges": "aprobó estos cambios",
+  "@approvedChanges": {
+    "description": "approved these changes"
+  },
+  "mentionedEventMessage": "recibió una mención",
+  "@mentionedEventMessage": {
+    "description": "was mentioned"
+  },
+  "milestonedEventMessage": "añadió esto al hito {milestone}",
+  "@milestonedEventMessage": {
+    "description": "milestone event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "quitó esto del hito {milestone}",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
+  },
+  "transferredEventMessage": "transfirió este informe de {repoName}",
+  "@transferredEventMessage": {
+    "description": "transferred event",
+    "placeholders": {
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "pinnedEventMessage": "ancló este informe",
+  "@pinnedEventMessage": {
+    "description": "pinned this issue"
+  },
+  "to": "a",
+  "@to": {
+    "description": "to"
+  },
+  "from": "de",
+  "@from": {
+    "description": "from"
+  },
+  "reviewRequestEventMessage": "solicitó una revisión por parte de",
+  "@reviewRequestEventMessage": {
+    "description": "requested a review from"
   }
 }
