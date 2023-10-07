@@ -343,7 +343,7 @@
   "@gists": {
     "description": "gists for a user"
   },
-  "news": "新闻",
+  "news": "新闻中心",
   "@news": {
     "description": "The News tab"
   },
@@ -434,5 +434,43 @@
   "submit": "提交",
   "@submit": {
     "description": "submit button text"
+  },
+  "crossReferencedEventMessage": "引用此内容",
+  "@crossReferencedEventMessage": {
+    "description": "cross referenced event"
+  },
+  "referencedEventMessage": "从 {repoName} 的提交 {commit} 引用了这个拉取请求",
+  "@referencedEventMessage": {
+    "description": "referenced event",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "repoName": {
+        "type": "String"
+      }
+    }
+  },
+  "body": "正文",
+  "@body": {
+    "description": "body"
+  },
+  "pullRequestCommitMessage": "已添加提交 {commit}",
+  "@pullRequestCommitMessage": {
+    "description": "pull request commit message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      }
+    }
+  },
+  "demilestonedEventMessage": "已将其从 {milestone} 里程碑中删除",
+  "@demilestonedEventMessage": {
+    "description": "demilestoned event",
+    "placeholders": {
+      "milestone": {
+        "type": "String"
+      }
+    }
   }
 }
