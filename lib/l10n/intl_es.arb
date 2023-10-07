@@ -400,7 +400,7 @@
   "@appLanguage": {
     "description": "The app's language"
   },
-  "released": "Lanzado",
+  "released": "Publicado",
   "@released": {
     "description": "released"
   },
@@ -498,5 +498,367 @@
   "reviewRequestEventMessage": "solicitó una revisión por parte de",
   "@reviewRequestEventMessage": {
     "description": "requested a review from"
+  },
+  "fromReviewRequest": "de la petición de revisión",
+  "@fromReviewRequest": {
+    "description": "from the review request"
+  },
+  "reviewDismissedEventMessage": "desestiada la revisión de la solicitud de extracción solicitada por",
+  "@reviewDismissedEventMessage": {
+    "description": "dismissed the pull request review requested by"
+  },
+  "checkSuiteEventConclusionMessage": "es una {conclusion}",
+  "@checkSuiteEventConclusionMessage": {
+    "description": "check suite event conclusion",
+    "placeholders": {
+      "conclusion": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRequiredConclusion": "requiere más acciones",
+  "@actionRequiredConclusion": {
+    "description": "it requires more action"
+  },
+  "checkSuiteEventMessage": "{action} el conjunto de comprobación y la conclusión es que",
+  "@checkSuiteEventMessage": {
+    "description": "check suite event message conclusion",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "commitCommentEventMessage": "ha respondido a un compromiso en",
+  "@commitCommentEventMessage": {
+    "description": "commit comment event message"
+  },
+  "contentReferenceEventMessage": "{action} una referencia del contenido en",
+  "@contentReferenceEventMessage": {
+    "description": "content reference event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "createdEventMessage": "creó un {refType} {ref} en",
+  "@createdEventMessage": {
+    "description": "created event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "purchasedMarketplacePlan": "contrató un plan del mercado",
+  "@purchasedMarketplacePlan": {
+    "description": "purchased a Marketplace Plan"
+  },
+  "cancelledMarketplacePlan": "canceló su Plan del Mercado",
+  "@cancelledMarketplacePlan": {
+    "description": "cancelled their Marketplace Plan"
+  },
+  "pendingMarketplacePlan": "El Plan Marketplace está pendiente de cambio",
+  "@pendingMarketplacePlan": {
+    "description": "Marketplace Plan is pending change"
+  },
+  "theProjectCard": "la tarjeta del proyecto",
+  "@theProjectCard": {
+    "description": "the project card"
+  },
+  "projectColumnEventMessage": "{action} la columna del proyecto {projectColumnName} en ",
+  "@projectColumnEventMessage": {
+    "description": "the project column",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectColumnName": {
+        "type": "String"
+      }
+    }
+  },
+  "projectEventMessage": "{action} el proyecto {projectName}",
+  "@projectEventMessage": {
+    "description": "the project",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "projectName": {
+        "type": "String"
+      }
+    }
+  },
+  "made": "realizado",
+  "@made": {
+    "description": "made"
+  },
+  "public": "público",
+  "@public": {
+    "description": "public"
+  },
+  "pullRequestEventMessage": "{action} solicitud de extracción",
+  "@pullRequestEventMessage": {
+    "description": "pull request event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "pullRequestReviewEventMessage": "{action} validación de la solicitud de extracción",
+  "@pullRequestReviewEventMessage": {
+    "description": "pull request review event message",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "removed": "eliminado",
+  "@removed": {
+    "description": "removed"
+  },
+  "reviewed": "revisado",
+  "@reviewed": {
+    "description": "reviewed"
+  },
+  "deployedPR": "proporcionó la solicitud de extracción {headRefName}",
+  "@deployedPR": {
+    "description": "deployed the pull request",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "deploymentEnvironmentChangedEventMessage": "cambió el entorno de desarrollo a {devEnv}",
+  "@deploymentEnvironmentChangedEventMessage": {
+    "description": "deployment environment changed event",
+    "placeholders": {
+      "devEnv": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventFirstMessage": "empujó a la fuerza la",
+  "@headRefForcedPushedEventFirstMessage": {
+    "description": "head ref forced pushed event message first half"
+  },
+  "headRefRestoredEventMessage": "restaurada la rama {headRefName}",
+  "@headRefRestoredEventMessage": {
+    "description": "head ref restored event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "headRefForcedPushedEventSecondMessage": "rama de",
+  "@headRefForcedPushedEventSecondMessage": {
+    "description": "head ref forced pushed event message second half"
+  },
+  "forked": "bifurcado",
+  "@forked": {
+    "description": "forked"
+  },
+  "editedPages": "páginas editadas: {pageNames}",
+  "@editedPages": {
+    "description": "edited pages",
+    "placeholders": {
+      "pageAction": {
+        "type": "String"
+      }
+    }
+  },
+  "createdPages": "páginas creadas: {pageNames}",
+  "@createdPages": {
+    "description": "created pages",
+    "placeholders": {
+      "pageNames": {
+        "type": "String"
+      }
+    }
+  },
+  "newPermissionsAccepted": "nuevos permisos aceptados para la acción ",
+  "@newPermissionsAccepted": {
+    "description": "new permissions were accepted for"
+  },
+  "wereAddedTo": "Se agregaron {repos} a la identificación de instalación {id}",
+  "@wereAddedTo": {
+    "description": "example: repo1,repo2 were added to the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "wereRemovedFrom": "Se eliminaron {repos} del identificador de instalación {id}",
+  "@wereRemovedFrom": {
+    "description": "example: repo1,repo2 were removed from the installation id ID",
+    "placeholders": {
+      "repos": {
+        "type": "String"
+      },
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "changedMarketplacePlan": "cambió su Plan del Mercado",
+  "@changedMarketplacePlan": {
+    "description": "changed their Marketplace Plan"
+  },
+  "was": "estaba",
+  "@was": {
+    "description": "was"
+  },
+  "pushedTo": "empujado a",
+  "@pushedTo": {
+    "description": "pushed to"
+  },
+  "securityAdvisory": "El aviso de seguridad relativo a {summary} era {action}",
+  "@securityAdvisory": {
+    "description": "Security advisory",
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "starred": "añadido a favoritos",
+  "@starred": {
+    "description": "starred"
+  },
+  "checkRunEventMessage": "{action} una comprobación de {name}",
+  "@checkRunEventMessage": {
+    "description": "check run event",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "added": "Agregado",
+  "@added": {
+    "description": "added"
+  },
+  "headRefDeletedEventMessage": "eliminada la rama {headRefName}",
+  "@headRefDeletedEventMessage": {
+    "description": "head ref deleted event",
+    "placeholders": {
+      "headRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "renamedTitleEventMessage": "cambió el título a {title} de",
+  "@renamedTitleEventMessage": {
+    "description": "changed title event",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "mergedEventMessage": "Confirmación fusionada {commit} en {mergeRefName}",
+  "@mergedEventMessage": {
+    "description": "merged event message",
+    "placeholders": {
+      "commit": {
+        "type": "String"
+      },
+      "mergeRefName": {
+        "type": "String"
+      }
+    }
+  },
+  "deletedEventMessage": "eliminado el {refType} {ref} en",
+  "@deletedEventMessage": {
+    "description": "deleted event message",
+    "placeholders": {
+      "refType": {
+        "type": "String"
+      },
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "forGithubAppWithId": "para la Aplicación de Github con identificador {id}",
+  "@forGithubAppWithId": {
+    "description": "for the Github App with id",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingChangeCancelled": "El plan del Mercado pendiente ha sido cancelado",
+  "@pendingChangeCancelled": {
+    "description": "Pending Marketplace Plan was cancelled"
+  },
+  "convertProjectCard": "convirtió la tarjeta de proyecto en un problema",
+  "@convertProjectCard": {
+    "description": "converted the project card into an issue"
+  },
+  "pullRequestReviewCommentEventMessage": "solicitud de extracción revisada",
+  "@pullRequestReviewCommentEventMessage": {
+    "description": "pull request review comment event"
+  },
+  "securityAlertInvolvingPackage": "La alerta de seguridad que involucra al paquete {affectedPackageName} entre las versiones {affectedRange} es {action}",
+  "@securityAlertInvolvingPackage": {
+    "description": "Security alert involving package",
+    "placeholders": {
+      "affectedPackageName": {
+        "type": "String"
+      },
+      "affectedRange": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "nCommitsTo": "{count,plural, =1{{count} compromiso con} other{{count} compromisos con}}",
+  "@nCommitsTo": {
+    "description": "no. of commits to a branch",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "blankDiff": "No hay texto para mostrar",
+  "@blankDiff": {
+    "description": "text to show for a blank diff"
+  },
+  "commit": "Consolidar",
+  "@commit": {
+    "description": "Commit"
+  },
+  "filesChanged": "{count,plural, =1{{count} archivo cambiado} other{{count} archivos cambiados}}",
+  "@filesChanged": {
+    "description": "no. of files changed",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   }
 }
